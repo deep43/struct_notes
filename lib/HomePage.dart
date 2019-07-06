@@ -51,13 +51,11 @@ class HomePage extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
 
-                      SizedBox(
-                        height: 10,
-                      ),
-
                       new GridView.count(
+                        padding: const EdgeInsets.only(top: 30, bottom: 10,left: 8,right: 8),
                         shrinkWrap: true,
                         crossAxisCount: 3,
+                        crossAxisSpacing: 4,
                         children: <Widget>[
                           new InkWell(
                             onTap: () {},
@@ -68,7 +66,7 @@ class HomePage extends StatelessWidget {
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(6),
                                   child: new Column(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -101,14 +99,13 @@ class HomePage extends StatelessWidget {
                           new InkWell(
                             onTap: () {},
                             child: new Card(
-
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0)),
                               elevation: 4.0,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(6),
                                   child: new Column(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -145,7 +142,7 @@ class HomePage extends StatelessWidget {
                             child: InkWell(
                               onTap: () {},
                               child: new Container(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(6),
                                 child: new Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -175,10 +172,6 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-
-                      SizedBox(
-                        height: 10,
                       ),
 
                       new ImageSliderWidget(),

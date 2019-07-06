@@ -57,10 +57,8 @@ class DashboardPageState extends State<DashboardPage> {
       cornerRadius: 0,
       showAppBar: false,
       appBar: AppBarProps(
-        toolbarOpacity: 0,
         elevation: 0,
         title: Container(
-          color: Colors.transparent,
           child: Row(
             children: <Widget>[
               IconButton(
@@ -110,31 +108,38 @@ class DashboardPageState extends State<DashboardPage> {
             _contentViews[0],
             SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    IconButton(
-                      padding: const EdgeInsets.only(right: 8, top: 4),
-                      icon: Image.asset('assets/images/menu.png'),
+                    RawMaterialButton(
+                      padding: const EdgeInsets.all(8),
+                      child: Image.asset('assets/images/menu.png'),
                       onPressed: () {
                         _controller.menuController.toggle();
                       },
+                      shape: new CircleBorder(),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-
                     Expanded(
                       child: Text(
                         'CIBS Structured Notes',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 20,),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-
-                    IconButton(
-                        icon: Icon(
+                    RawMaterialButton(
+                        padding: const EdgeInsets.all(8),
+                        child: Icon(
                           Icons.search,
                           color: Colors.white,
+                          size: 26,
                         ),
+                        shape: new CircleBorder(),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         onPressed: () {})
                   ],
                 ),
@@ -158,12 +163,13 @@ class DashboardPageState extends State<DashboardPage> {
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: accentColor,
+              width: 1
             ),
             gapPadding: 0,
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: accentColor),
+            borderSide: BorderSide(color: accentColor,width: 1),
             borderRadius: BorderRadius.circular(50),
           ),
           hintText: 'Search',
