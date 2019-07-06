@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drawerbehavior/drawerbehavior.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'HomePage.dart';
 
@@ -63,7 +64,9 @@ class DashboardPageState extends State<DashboardPage> {
             children: <Widget>[
               IconButton(
                   padding: const EdgeInsets.only(bottom: 4, right: 8, top: 4),
-                  icon: Image.asset('assets/images/menu.png'),
+                  icon: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: SvgPicture.asset('assets/images/side_menu.svg')),
                   onPressed: () {
                     _controller.menuController.toggle();
                   }),
@@ -114,7 +117,13 @@ class DashboardPageState extends State<DashboardPage> {
                   children: <Widget>[
                     RawMaterialButton(
                       padding: const EdgeInsets.all(8),
-                      child: Image.asset('assets/images/menu.png'),
+                      child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child:
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset('assets/images/side_menu.svg'),
+                              )),
                       onPressed: () {
                         _controller.menuController.toggle();
                       },
@@ -161,15 +170,12 @@ class DashboardPageState extends State<DashboardPage> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: accentColor,
-              width: 1
-            ),
+            borderSide: BorderSide(color: accentColor, width: 1),
             gapPadding: 0,
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: accentColor,width: 1),
+            borderSide: BorderSide(color: accentColor, width: 1),
             borderRadius: BorderRadius.circular(50),
           ),
           hintText: 'Search',
