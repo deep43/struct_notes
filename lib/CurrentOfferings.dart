@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 
+import 'ComaprePage.dart';
 import 'model/OfferingsData.dart';
 
 class CurrentOfferings extends StatefulWidget {
@@ -19,16 +20,25 @@ class _CurrentOfferingsState extends State<CurrentOfferings> {
       floatingActionButton: AnimatedOpacity(
         duration: Duration(milliseconds: 200),
         opacity: _compareItems.length < 2 ? 0 : 1,
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: FloatingActionButton.extended(
-            backgroundColor: accentColor,
-              onPressed: () {},
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              label: Text('Compare')),
+        child: Container(margin: const EdgeInsets.only(left: 34),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: FloatingActionButton.extended(
+                backgroundColor: accentColor,
+                onPressed: () {
+                  if (_compareItems.length > 1) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx) =>
+                            ComparePage(compareItems: _compareItems),
+                        fullscreenDialog: true));
+                  }
+                },
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                label: Text('Compare')),
+          ),
         ),
       ),
       body: Stack(
@@ -314,7 +324,8 @@ class _OfferingListState extends State<OfferingList> {
                       )),
                       InkWell(
                         onTap: () {
-                          if (_selectedOfferings.contains(_offeringsList[index])) {
+                          if (_selectedOfferings
+                              .contains(_offeringsList[index])) {
                             _selectedOfferings.remove(_offeringsList[index]);
                           } else {
                             _selectedOfferings.add(_offeringsList[index]);
@@ -326,23 +337,24 @@ class _OfferingListState extends State<OfferingList> {
                           constraints: BoxConstraints(),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color:
-                                  _selectedOfferings.contains(_offeringsList[index])
-                                      ? accentColor
-                                      : Colors.transparent,
+                              color: _selectedOfferings
+                                      .contains(_offeringsList[index])
+                                  ? accentColor
+                                  : Colors.transparent,
                               border: Border.all(color: accentColor)),
                           padding: const EdgeInsets.all(6),
-                          child: _selectedOfferings.contains(_offeringsList[index])
-                              ? SvgPicture.asset(
-                                  'assets/images/tick.svg',
-                                  color: white,
-                                  width: 16,
-                                  height: 16,
-                                )
-                              : SizedBox(
-                                  width: 16,
-                                  height: 16,
-                                ),
+                          child:
+                              _selectedOfferings.contains(_offeringsList[index])
+                                  ? SvgPicture.asset(
+                                      'assets/images/tick.svg',
+                                      color: white,
+                                      width: 16,
+                                      height: 16,
+                                    )
+                                  : SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                    ),
                         ),
                       )
                     ],
@@ -350,17 +362,24 @@ class _OfferingListState extends State<OfferingList> {
                 ),
                 expanded: Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: Align(alignment: Alignment.centerLeft,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
                     child: Wrap(
                       runSpacing: 10,
                       spacing: 10,
                       crossAxisAlignment: WrapCrossAlignment.center,
-                      children:
-                          _getOfferingItemList(_offeringsList[index].offeringItems),
+                      children: _getOfferingItemList(
+                          _offeringsList[index].offeringItems),
                     ),
                   ),
                 )),
-            Text("...",style: TextStyle(color: accentColor,fontWeight: FontWeight.bold,fontSize: 30),)
+            Text(
+              "...",
+              style: TextStyle(
+                  color: accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
+            )
           ],
         );
       },
@@ -417,6 +436,8 @@ class _OfferingListState extends State<OfferingList> {
             OfferingItem("Maturity Date", "Mar 7, 2019"),
             OfferingItem("Min Investment", "\$5000 USD"),
             OfferingItem("How to Buy", "FundSERV CBL2039"),
+
+
           ],
         ),
       ),
