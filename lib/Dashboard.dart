@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'CurrentOfferings.dart';
 import 'HomePage.dart';
-
+import 'package:flutter/services.dart';
 class DashboardPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DashboardPageState();
@@ -40,16 +42,20 @@ class DashboardPageState extends State<DashboardPage> {
   var selectedMenuItemId = '1';
 
   DrawerScaffoldController _controller;
+  TextEditingController _searchEditController;
 
   @override
   void initState() {
-    _controller = DrawerScaffoldController();
     super.initState();
+    _controller = DrawerScaffoldController();
+    _searchEditController = TextEditingController();
+    _initController();
   }
 
   @override
   void dispose() {
     _controller.menuController.dispose();
+    _searchEditController.dispose();
     super.dispose();
   }
 
@@ -70,6 +76,7 @@ class DashboardPageState extends State<DashboardPage> {
                     child: SvgPicture.asset('assets/images/side_menu.svg')),
                 onPressed: () {
                   _controller.menuController.toggle();
+
                 },
               ),
               Expanded(child: Text('CIBC Structured Notes'))
@@ -228,6 +235,7 @@ class DashboardPageState extends State<DashboardPage> {
           const EdgeInsets.only(left: 20, top: 100, right: 160, bottom: 40),
       width: MediaQuery.of(context).size.width * .5,
       child: TextFormField(
+        controller: _searchEditController,
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -266,5 +274,14 @@ class DashboardPageState extends State<DashboardPage> {
         ],
       ),
     );
+  }
+
+  void _initController()async {
+    Timer(Duration(milliseconds: 500), (){
+      _controller.menuController.addListener((){
+        print('menu toggled');
+        FocusScope.of(context).requestFocus(new FocusNode());
+      });
+    });
   }
 }

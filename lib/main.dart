@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:structured_notes/util/Theme.dart';
 
 import 'Dashboard.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: accentColor,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
