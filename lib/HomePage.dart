@@ -28,6 +28,11 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(0),
                     shrinkWrap: true,
                     children: <Widget>[
+                      Theme.of(context).platform == TargetPlatform.android
+                          ? SizedBox(
+                              height: 20,
+                            )
+                          : Container(),
                       Align(
                         alignment: Alignment.topCenter,
                         child: new Text(
@@ -52,7 +57,9 @@ class HomePage extends StatelessWidget {
                       ),
 
                       new GridView.count(
-                        padding: const EdgeInsets.only(top: 30, bottom: 10,left: 8,right: 8),
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.only(
+                            top: 30, bottom: 10, left: 8, right: 8),
                         shrinkWrap: true,
                         crossAxisCount: 3,
                         crossAxisSpacing: 4,
