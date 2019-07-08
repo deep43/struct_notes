@@ -11,34 +11,47 @@ class CurrentOfferings extends StatefulWidget {
   _CurrentOfferingsState createState() => _CurrentOfferingsState();
 }
 
-class _CurrentOfferingsState extends State<CurrentOfferings> {
+class _CurrentOfferingsState extends State<CurrentOfferings>
+    with SingleTickerProviderStateMixin {
   List<OfferingsData> _compareItems = new List();
+
+  AnimationController controller;
+  Animation<Offset> offset;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+
+    offset = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
+        .animate(controller);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AnimatedOpacity(
-        duration: Duration(milliseconds: 200),
-        opacity: _compareItems.length < 2 ? 0 : 1,
-        child: Container(margin: const EdgeInsets.only(left: 34),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: FloatingActionButton.extended(
-                backgroundColor: accentColor,
-                onPressed: () {
-                  if (_compareItems.length > 1) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) =>
-                            ComparePage(compareItems: _compareItems),
-                        fullscreenDialog: true));
-                  }
-                },
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                label: Text('Compare')),
-          ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SlideTransition(
+        position: offset,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: FloatingActionButton.extended(
+              backgroundColor: accentColor,
+              onPressed: () {
+                if (_compareItems.length > 1) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) =>
+                          ComparePage(compareItems: _compareItems),
+                      fullscreenDialog: true));
+                }
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              label: Text('Compare')),
         ),
       ),
       body: Stack(
@@ -80,9 +93,10 @@ class _CurrentOfferingsState extends State<CurrentOfferings> {
                     height: 10,
                   ),
                   Expanded(
-                      child: OfferingList(
-                    onCompareItemsSelected: _onComapareItemsSelected,
-                  )),
+                    child: OfferingList(
+                      onCompareItemsSelected: _onComapareItemsSelected,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -94,6 +108,12 @@ class _CurrentOfferingsState extends State<CurrentOfferings> {
   }
 
   _onComapareItemsSelected(List<OfferingsData> items) {
+    if (items.length > 1) {
+      controller.forward();
+    } else {
+      controller.reverse();
+    }
+
     setState(() {
       this._compareItems = items;
     });
@@ -145,7 +165,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   new Text(
                     'MLCICs',
                     style: new TextStyle(
-                        fontFamily: 'Whitney-Semibld-Pro',
                         fontSize: 22.0,
                         letterSpacing: 1.6,
                         fontWeight: FontWeight.w700,
@@ -192,7 +211,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   new Text(
                     'PPNs',
                     style: new TextStyle(
-                        fontFamily: 'Whitney-Semibld-Pro',
                         fontSize: 22.0,
                         letterSpacing: 1.6,
                         fontWeight: FontWeight.w700,
@@ -240,7 +258,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     'PARs',
                     style: new TextStyle(
                         letterSpacing: 1.6,
-                        fontFamily: 'Whitney-Semibld-Pro',
                         fontSize: 22.0,
                         fontWeight: FontWeight.w700,
                         color: _selectedCategory == SelectedCategory.PARs
@@ -436,8 +453,6 @@ class _OfferingListState extends State<OfferingList> {
             OfferingItem("Maturity Date", "Mar 7, 2019"),
             OfferingItem("Min Investment", "\$5000 USD"),
             OfferingItem("How to Buy", "FundSERV CBL2039"),
-
-
           ],
         ),
       ),
