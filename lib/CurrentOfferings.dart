@@ -69,28 +69,30 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                     backgroundColor: Colors.transparent,
                   ),
                   new CategoryWidget(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Product Name',
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.black12,
+                                style: BorderStyle.solid))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              'Product Name',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Text(
+                            'Compare',
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
-                        ),
-                        Text(
-                          'Compare',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                   Expanded(
                     child: OfferingList(
@@ -149,7 +151,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 4.0,
+          elevation: 10,
           child: InkWell(
             onTap: () {
               setState(() {
@@ -195,7 +197,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 4.0,
+          elevation: 10,
           child: InkWell(
             onTap: () {
               setState(() {
@@ -241,7 +243,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 4.0,
+          elevation: 10,
           child: InkWell(
             onTap: () {
               setState(() {
@@ -307,6 +309,11 @@ class _OfferingListState extends State<OfferingList> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -324,8 +331,22 @@ class _OfferingListState extends State<OfferingList> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 10,
+            ),
             ExpandablePanel(
                 hasIcon: false,
+                iconPlacement: ExpandablePanelIconPlacement.left,
+                tapHeaderToExpand: true,
+                collapsed: Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "...",
+                    style: TextStyle(
+                        color: accentColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
+                ),
                 header: Container(
                   width: double.infinity,
                   child: Row(
@@ -390,13 +411,7 @@ class _OfferingListState extends State<OfferingList> {
                     ),
                   ),
                 )),
-            Text(
-              "...",
-              style: TextStyle(
-                  color: accentColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
-            )
+
           ],
         );
       },

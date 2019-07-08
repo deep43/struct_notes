@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                             child: new Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0)),
-                              elevation: 4.0,
+                              elevation: 10,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -104,8 +104,8 @@ class HomePage extends StatelessWidget {
                             onTap: () {},
                             child: new Card(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              elevation: 4.0,
+                                  borderRadius: BorderRadius.circular(8.0),),
+                              elevation: 10,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                           new Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
-                            elevation: 4.0,
+                            elevation: 10,
                             child: InkWell(
                               onTap: () {},
                               child: new Container(
@@ -249,7 +249,6 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                   return Card(
                     shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10)),
                     clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.all(10),
                     elevation: 5,
                     child: CachedNetworkImage(
                       imageUrl: imgUrl,
