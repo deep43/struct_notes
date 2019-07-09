@@ -50,15 +50,19 @@ flutter:
     - assets/images/
   #  - images/a_dot_ham.jpeg
 
-fonts:
-  - family: whitney
-    fonts:
-      - asset: assets/fonts/whitney.ttf
-      - asset: assets/fonts/Whitney-Light_Web.ttf
-      - asset: assets/fonts/Whitney-Medium-Pro.ttf
-      - asset: assets/fonts/Whitney-MediumItal-Pro.ttf
-      - asset: assets/fonts/Whitney-Semibld-Pro.ttf
-      - asset: assets/fonts/Whitney-SemibldItal-Pro.ttf
+  fonts:
+    - family: WhitneyMediumPro
+      fonts:
+        - asset: assets/fonts/Whitney-Medium-Pro.ttf
+
+    - family: WhitneyLightPro
+      fonts:
+        - asset: assets/fonts/Whitney-Light-Pro.otf
+
+    - family: WhitneyBlackPro
+      fonts:
+        - asset: assets/fonts/Whitney-Black-Pro.otf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -38,7 +38,6 @@ class HomePage extends StatelessWidget {
                         child: new Text(
                           'Register Today',
                           style: new TextStyle(
-                              fontFamily: 'Whitney',
                               fontSize: 14.0,
                               color: Colors.white),
                         ),
@@ -50,7 +49,6 @@ class HomePage extends StatelessWidget {
                         "Increase your return\n potential. Not your risk.",
                         style: new TextStyle(
                             height: 1.2,
-                            fontFamily: 'Whitney',
                             fontSize: 23.0,
                             color: Colors.white),
                         textAlign: TextAlign.center,
@@ -69,7 +67,7 @@ class HomePage extends StatelessWidget {
                             child: new Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0)),
-                              elevation: 4.0,
+                              elevation: 10,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -81,7 +79,6 @@ class HomePage extends StatelessWidget {
                                       new Text(
                                         'MLCICs',
                                         style: new TextStyle(
-                                            fontFamily: 'Whitney-Semibld-Pro',
                                             fontSize: 22.0,
                                             letterSpacing: 1.6,
                                             fontWeight: FontWeight.w700,
@@ -107,8 +104,8 @@ class HomePage extends StatelessWidget {
                             onTap: () {},
                             child: new Card(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              elevation: 4.0,
+                                  borderRadius: BorderRadius.circular(8.0),),
+                              elevation: 10,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -120,7 +117,6 @@ class HomePage extends StatelessWidget {
                                       new Text(
                                         'PPNs',
                                         style: new TextStyle(
-                                            fontFamily: 'Whitney-Semibld-Pro',
                                             fontSize: 22.0,
                                             letterSpacing: 1.6,
                                             fontWeight: FontWeight.w700,
@@ -145,7 +141,7 @@ class HomePage extends StatelessWidget {
                           new Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
-                            elevation: 4.0,
+                            elevation: 10,
                             child: InkWell(
                               onTap: () {},
                               child: new Container(
@@ -158,7 +154,6 @@ class HomePage extends StatelessWidget {
                                       'PARs',
                                       style: new TextStyle(
                                           letterSpacing: 1.6,
-                                          fontFamily: 'Whitney-Semibld-Pro',
                                           fontSize: 22.0,
                                           fontWeight: FontWeight.w700,
                                           color: accentTextColor),
@@ -252,18 +247,12 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
               return Builder(
                 builder: (BuildContext context) {
                   return Card(
+                    shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10)),
                     clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.all(10),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: new BorderRadius.circular(10.0),
-                        color: Colors.grey,
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: imgUrl,
-                        fit: BoxFit.fill,
-                      ),
+                    elevation: 5,
+                    child: CachedNetworkImage(
+                      imageUrl: imgUrl,
+                      fit: BoxFit.fill,
                     ),
                   );
                 },

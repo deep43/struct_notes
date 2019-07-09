@@ -203,6 +203,7 @@ class DashboardPageState extends State<DashboardPage> {
                               ],
                             ),
                     ),
+                    SizedBox(width: 4,),
                     RawMaterialButton(
                         constraints: BoxConstraints(),
                         padding: const EdgeInsets.all(8),
@@ -236,7 +237,9 @@ class DashboardPageState extends State<DashboardPage> {
       width: MediaQuery.of(context).size.width * .5,
       child: TextFormField(
         controller: _searchEditController,
+        cursorColor: accentColor,
         decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search,color: accentColor,),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           border: OutlineInputBorder(
@@ -245,7 +248,7 @@ class DashboardPageState extends State<DashboardPage> {
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: accentColor, width: 1),
+            borderSide: BorderSide(color: accentColor, width: 2),
             borderRadius: BorderRadius.circular(50),
           ),
           hintText: 'Search',
