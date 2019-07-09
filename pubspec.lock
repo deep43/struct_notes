@@ -64,13 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  drawerbehavior:
-    dependency: "direct main"
-    description:
-      name: drawerbehavior
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.8"
   expandable:
     dependency: "direct main"
     description:

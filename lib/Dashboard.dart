@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'CurrentOfferings.dart';
+import 'FilterPage.dart';
 import 'HomePage.dart';
 import 'package:flutter/services.dart';
+
+import 'drawer_scaffold/drawer_scaffold.dart';
+import 'drawer_scaffold/menu_screen.dart';
+
 class DashboardPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DashboardPageState();
@@ -76,7 +80,6 @@ class DashboardPageState extends State<DashboardPage> {
                     child: SvgPicture.asset('assets/images/side_menu.svg')),
                 onPressed: () {
                   _controller.menuController.toggle();
-
                 },
               ),
               Expanded(child: Text('CIBC Structured Notes'))
@@ -179,7 +182,13 @@ class DashboardPageState extends State<DashboardPage> {
                                   shape: new CircleBorder(),
                                   materialTapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                FilterPage(),
+                                            fullscreenDialog: true));
+                                  },
                                 ),
                                 Align(
                                   alignment: Alignment.topRight,
@@ -203,7 +212,9 @@ class DashboardPageState extends State<DashboardPage> {
                               ],
                             ),
                     ),
-                    SizedBox(width: 4,),
+                    SizedBox(
+                      width: 4,
+                    ),
                     RawMaterialButton(
                         constraints: BoxConstraints(),
                         padding: const EdgeInsets.all(8),
@@ -239,7 +250,10 @@ class DashboardPageState extends State<DashboardPage> {
         controller: _searchEditController,
         cursorColor: accentColor,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.search,color: accentColor,),
+          suffixIcon: Icon(
+            Icons.search,
+            color: accentColor,
+          ),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           border: OutlineInputBorder(
@@ -279,9 +293,9 @@ class DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  void _initController()async {
-    Timer(Duration(milliseconds: 500), (){
-      _controller.menuController.addListener((){
+  void _initController() async {
+    Timer(Duration(milliseconds: 500), () {
+      _controller.menuController.addListener(() {
         print('menu toggled');
         FocusScope.of(context).requestFocus(new FocusNode());
       });
