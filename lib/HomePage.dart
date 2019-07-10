@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                             child: new Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0)),
-                              elevation: 10,
+                              elevation: 6,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
                             child: new Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),),
-                              elevation: 10,
+                              elevation: 6,
                               child: InkWell(
                                 onTap: () {},
                                 child: new Container(
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                           new Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
-                            elevation: 10,
+                            elevation: 6,
                             child: InkWell(
                               onTap: () {},
                               child: new Container(

@@ -41,26 +41,29 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
         position: offset,
         child: Align(
           alignment: Alignment.bottomCenter,
-          child: FloatingActionButton.extended(
-              backgroundColor: accentColor,
-              onPressed: () {
-                if (_compareItems.length > 1) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx) =>
-                          ComparePage(compareItems: _compareItems),
-                      fullscreenDialog: true));
-                }
-              },
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              label: Text('Compare')),
+          child: _compareItems.length > 0
+              ? FloatingActionButton.extended(
+                  backgroundColor: accentColor,
+                  onPressed: () {
+                    if (_compareItems.length > 1) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) =>
+                              ComparePage(compareItems: _compareItems),
+                          fullscreenDialog: true));
+                    }
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  label: Text('Compare'))
+              : Container(),
         ),
       ),
       body: CurrentOfferingsInheritedWidget(
         selectedCategory: _selectedCategory,
         offeringDataList: offeringItems,
+        comapringDataList: _compareItems,
         child: Stack(
           children: <Widget>[
             Scaffold(
@@ -109,7 +112,6 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,
-                        offeringsList: offeringItems,
                       ),
                     ),
                   ],
@@ -126,10 +128,9 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
   _onComapareItemsSelected(List<OfferingsData> items) {
     if (items.length > 1) {
       controller.forward();
-    } else {
+    } else if(items.length!=0){
       controller.reverse();
     }
-
     setState(() {
       this._compareItems = items;
     });
@@ -137,6 +138,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
 
   _onCategorySelected(SelectedCategory selectedCategory) {
     setState(() {
+      _compareItems.clear();
       _selectedCategory = selectedCategory;
       offeringItems = getDummyOfferingsData();
     });
@@ -232,7 +234,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 10,
+          elevation: 6,
           child: InkWell(
             onTap: () {
               widget.onCategorySelected(SelectedCategory.MLCIs);
@@ -281,7 +283,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 10,
+          elevation: 6,
           child: InkWell(
             onTap: () {
               widget.onCategorySelected(SelectedCategory.PPNs);
@@ -330,7 +332,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 10,
+          elevation: 6,
           child: InkWell(
             onTap: () {
               widget.onCategorySelected(SelectedCategory.PARs);
@@ -379,9 +381,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
 class OfferingList extends StatefulWidget {
   final Function(List<OfferingsData>) onCompareItemsSelected;
-  final List<OfferingsData> offeringsList;
 
-  OfferingList({this.onCompareItemsSelected, this.offeringsList});
+  // final List<OfferingsData> offeringsList;
+
+  OfferingList({this.onCompareItemsSelected});
 
   @override
   _OfferingListState createState() => _OfferingListState();
@@ -389,7 +392,8 @@ class OfferingList extends StatefulWidget {
 
 class _OfferingListState extends State<OfferingList>
     with SingleTickerProviderStateMixin {
-  List<OfferingsData> _selectedOfferings = new List();
+  List<OfferingsData> _offeringsItemList = new List();
+  List<OfferingsData> _comaringItemList = new List();
   AnimationController subCategoryItemEntranceAnimationController;
   List<Animation> subCategoryItemAnimations;
 
@@ -408,12 +412,13 @@ class _OfferingListState extends State<OfferingList>
 
   @override
   Widget build(BuildContext context) {
-    _buildAnimationList();
     CurrentOfferingsInheritedWidget inheritedWidget =
         CurrentOfferingsInheritedWidget.of(context);
-    if (inheritedWidget.offeringDataList != _selectedOfferings) {
+    _buildAnimationList(inheritedWidget.offeringDataList);
+    if (inheritedWidget.offeringDataList != _offeringsItemList) {
       subCategoryItemEntranceAnimationController.reset();
-      _selectedOfferings = inheritedWidget.offeringDataList;
+      _offeringsItemList = inheritedWidget.offeringDataList;
+      _comaringItemList = inheritedWidget.comapringDataList;
 
       subCategoryItemEntranceAnimationController.forward();
     }
@@ -470,35 +475,34 @@ class _OfferingListState extends State<OfferingList>
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(widget.offeringsList[index].title),
-                            Text(widget.offeringsList[index].time),
+                            Text(inheritedWidget.offeringDataList[index].title),
+                            Text(inheritedWidget.offeringDataList[index].time),
                           ],
                         )),
                         InkWell(
                           onTap: () {
-                            if (_selectedOfferings
-                                .contains(widget.offeringsList[index])) {
-                              _selectedOfferings
-                                  .remove(widget.offeringsList[index]);
+                            if (_comaringItemList
+                                .contains(_offeringsItemList[index])) {
+                              _comaringItemList
+                                  .remove(_offeringsItemList[index]);
                             } else {
-                              _selectedOfferings
-                                  .add(widget.offeringsList[index]);
+                              _comaringItemList.add(_offeringsItemList[index]);
                             }
-                            widget.onCompareItemsSelected(_selectedOfferings);
-                            setState(() {});
+                            widget.onCompareItemsSelected(_comaringItemList);
+                            // setState(() {});
                           },
                           child: Container(
                             constraints: BoxConstraints(),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: _selectedOfferings
-                                        .contains(widget.offeringsList[index])
+                                color: _comaringItemList.contains(
+                                        inheritedWidget.offeringDataList[index])
                                     ? accentColor
                                     : Colors.transparent,
                                 border: Border.all(color: accentColor)),
                             padding: const EdgeInsets.all(6),
-                            child: _selectedOfferings
-                                    .contains(widget.offeringsList[index])
+                            child: _comaringItemList.contains(
+                                    inheritedWidget.offeringDataList[index])
                                 ? SvgPicture.asset(
                                     'assets/images/tick.svg',
                                     color: white,
@@ -522,8 +526,8 @@ class _OfferingListState extends State<OfferingList>
                         runSpacing: 10,
                         spacing: 10,
                         crossAxisAlignment: WrapCrossAlignment.center,
-                        children: _getOfferingItemList(
-                            widget.offeringsList[index].offeringItems),
+                        children: _getOfferingItemList(inheritedWidget
+                            .offeringDataList[index].offeringItems),
                       ),
                     ),
                   )),
@@ -531,13 +535,13 @@ class _OfferingListState extends State<OfferingList>
           ),
         );
       },
-      itemCount: widget.offeringsList.length,
+      itemCount: inheritedWidget.offeringDataList.length,
     );
   }
 
-  void _buildAnimationList() {
-    subCategoryItemAnimations = widget.offeringsList.map((subCat) {
-      int index = widget.offeringsList.indexOf(subCat);
+  void _buildAnimationList(List<OfferingsData> offeringDataList) {
+    subCategoryItemAnimations = offeringDataList.map((subCat) {
+      int index = offeringDataList.indexOf(subCat);
       double start = index * 0.1;
       double duration = 0.6;
       double end = duration + start >= 1 ? 1.0 : duration + start;
@@ -546,8 +550,6 @@ class _OfferingListState extends State<OfferingList>
               parent: subCategoryItemEntranceAnimationController,
               curve: new Interval(start, end, curve: Curves.decelerate)));
     }).toList();
-
-
   }
 
   List<Widget> _getOfferingItemList(List<OfferingItem> offeringItems) {
@@ -572,11 +574,13 @@ class _OfferingListState extends State<OfferingList>
 class CurrentOfferingsInheritedWidget extends InheritedWidget {
   final SelectedCategory selectedCategory;
   final List<OfferingsData> offeringDataList;
+  final List<OfferingsData> comapringDataList;
 
   const CurrentOfferingsInheritedWidget(
       {Key key,
       @required this.selectedCategory,
       @required this.offeringDataList,
+      @required this.comapringDataList,
       @required Widget child})
       : super(key: key, child: child);
 
