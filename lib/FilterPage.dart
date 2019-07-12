@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:structured_notes/util/Theme.dart';
 
+import 'HomePage.dart';
 import 'model/FilterMenuData.dart';
+import 'model/AppliedFilterData.dart';
 
 class FilterPage extends StatefulWidget {
+  final Function(AppliedFilterData appliedFilterData) onFilterApplied;
+
+  const FilterPage({this.onFilterApplied});
+
   @override
   _FilterPageState createState() => _FilterPageState();
 }
@@ -19,7 +25,13 @@ class _FilterPageState extends State<FilterPage> {
         iconTheme: IconThemeData(color: accentColor),
         actions: <Widget>[
           FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              HomePage.appliedFilterData = new AppliedFilterData();
+              setState(() {
+                widget.onFilterApplied(new AppliedFilterData());
+              });
+              Navigator.of(context).pop();
+            },
             child: Text(
               'RESET',
               style:
@@ -67,7 +79,10 @@ class _FilterPageState extends State<FilterPage> {
             height: 50,
             child: RawMaterialButton(
               fillColor: accentColor,
-              onPressed: () {},
+              onPressed: () {
+                widget.onFilterApplied(HomePage.appliedFilterData);
+                Navigator.of(context).pop();
+              },
               child: Text(
                 'DONE',
                 style: TextStyle(
@@ -89,7 +104,7 @@ class FilterMenu extends StatefulWidget {
 class _FilterMenuState extends State<FilterMenu> {
   List<FilterMenuData> _menuList = List();
 
-  List<MenuItem> _selectedMenuItems = List();
+  //List<MenuItem> _selectedMenuItems = List();
 
   @override
   void initState() {
@@ -103,12 +118,13 @@ class _FilterMenuState extends State<FilterMenu> {
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) => ExpansionTile(
-          title: Text(
-            _menuList[index].menuName,
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
-          ),
-          children: _getSubMenu(_menuList[index].subMenuItems)),
+        title: Text(
+          _menuList[index].menuName,
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        children: _getSubMenu(_menuList[index].subMenuItems),
+      ),
       itemCount: _menuList.length,
     );
   }
@@ -119,11 +135,11 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Class',
         List.of([
-          MenuItem('Class Item1'),
-          MenuItem('Class Item2'),
-          MenuItem('Class Item3'),
-          MenuItem('Class Item4'),
-          MenuItem('Class Item5'),
+          MenuItem(1, "Class Item1"),
+          MenuItem(2, "Class Item2"),
+          MenuItem(3, 'Class Item3'),
+          MenuItem(4, 'Class Item4'),
+          MenuItem(5, 'Class Item5'),
         ]),
       ),
     );
@@ -132,9 +148,9 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Currency',
         List.of([
-          MenuItem('Currency Item1'),
-          MenuItem('Currency Item2'),
-          MenuItem('Currency Item3'),
+          MenuItem(6, 'Currency Item1'),
+          MenuItem(7, 'Currency Item2'),
+          MenuItem(8, 'Currency Item3'),
         ]),
       ),
     );
@@ -143,10 +159,10 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Product Type',
         List.of([
-          MenuItem('Product Type Item1'),
-          MenuItem('Product Type Item2'),
-          MenuItem('Product Type Item3'),
-          MenuItem('Product Type Item4'),
+          MenuItem(9, 'Product Type Item1'),
+          MenuItem(10, 'Product Type Item2'),
+          MenuItem(11, 'Product Type Item3'),
+          MenuItem(12, 'Product Type Item4'),
         ]),
       ),
     );
@@ -155,11 +171,24 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Assets Class',
         List.of([
-          MenuItem('Assets Class Item1'),
-          MenuItem('Assets Class Item2'),
-          MenuItem('Assets Class Item3'),
-          MenuItem('Assets Class Item4'),
-          MenuItem('Assets Class Item5'),
+          MenuItem(13, 'Assets Class Item1'),
+          MenuItem(14, 'Assets Class Item2'),
+          MenuItem(15, 'Assets Class Item3'),
+          MenuItem(16, 'Assets Class Item4'),
+          MenuItem(18, 'Assets Class Item5'),
+        ]),
+      ),
+    );
+
+    list.add(
+      FilterMenuData(
+        'Assets Class',
+        List.of([
+          MenuItem(19, 'Assets Class Item1'),
+          MenuItem(20, 'Assets Class Item2'),
+          MenuItem(21, 'Assets Class Item3'),
+          MenuItem(22, 'Assets Class Item4'),
+          MenuItem(23, 'Assets Class Item5'),
         ]),
       ),
     );
@@ -168,9 +197,13 @@ class _FilterMenuState extends State<FilterMenu> {
 
   List<Widget> _getSubMenu(List<MenuItem> subMenuItems) {
     List<Widget> list = new List();
-    subMenuItems.forEach((submenu) {
-      list.add(
-        Align(
+    bool isContained = false;
+    subMenuItems.forEach(
+      (submenu) {
+        _isValueContained(submenu);
+        print('val contained id ${ submenu.id} method response ${_isValueContained(submenu)}');
+        list.add(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
@@ -183,24 +216,54 @@ class _FilterMenuState extends State<FilterMenu> {
                     ),
                   ),
                   Checkbox(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: _selectedMenuItems.contains(submenu),
-                      onChanged: (isChecked) {
-                        setState(() {
-                          _selectedMenuItems.contains(submenu)
-                              ? _selectedMenuItems.remove(submenu)
-                              : _selectedMenuItems.add(submenu);
-                        });
-                      })
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    value:  _isValueContained(submenu),
+                    onChanged: (isChecked) {
+                      setState(
+                        () {
+                         _performCheck(submenu);
+                          setState(() {
+
+                          });
+                        },
+                      );
+                    },
+                  )
                 ],
               ),
-            )),
-      );
-    });
+            ),
+          ),
+        );
+      },
+    );
     list.add(SizedBox(
       height: 15,
     ));
     return list;
+  }
+
+  bool _isValueContained(MenuItem submenu) {
+    for(final i in HomePage.appliedFilterData.appliedSubMenu){
+      print('submenu id ${i.id}');
+      if(i.id == submenu.id){
+        return true;
+      }
+
+    }
+    return false;
+  }
+
+  bool _performCheck(MenuItem submenu) {
+    for(final i in HomePage.appliedFilterData.appliedSubMenu){
+      print('submenu id ${i.id}');
+      if(i.id == submenu.id){
+        HomePage.appliedFilterData.appliedSubMenu.remove(i);
+        return true;
+      }
+
+    }
+    HomePage.appliedFilterData.appliedSubMenu.add(submenu);
+    return false;
   }
 }
 
@@ -214,22 +277,6 @@ class IssueDateWidget extends StatefulWidget {
 }
 
 class _IssueDateWidgetState extends State<IssueDateWidget> {
-  String fromIssueDate,toIssueDate;
-  TextEditingController _fromIssueDateController,_toIssueDateController;
-
-  @override
-  void initState() {
-    super.initState();
-    _fromIssueDateController = TextEditingController();
-    _toIssueDateController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _fromIssueDateController.dispose();
-    _toIssueDateController.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -250,11 +297,12 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
-                  onTap: (){
-                    getSelectDate(context).then((selectedData){
+                  onTap: () {
+                    getSelectDate(context).then((selectedData) {
                       setState(() {
-                        fromIssueDate = selectedData;
-                        _fromIssueDateController.text = fromIssueDate;
+                        // fromIssueDate = selectedData;
+                        HomePage.appliedFilterData.issueDateData.issuedFrom =
+                            selectedData;
                       });
                     });
                   },
@@ -274,8 +322,13 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
-                        hintText:_fromIssueDateController.text.isEmpty?"From":fromIssueDate,
-                        hintStyle: TextStyle(fontFamily: 'WhitneyMediumItalic')),
+                        hintText: HomePage.appliedFilterData.issueDateData
+                                .issuedFrom.isEmpty
+                            ? "From"
+                            : HomePage
+                                .appliedFilterData.issueDateData.issuedFrom,
+                        hintStyle:
+                            TextStyle(fontFamily: 'WhitneyMediumItalic')),
                   ),
                 ),
               ),
@@ -291,11 +344,11 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
-                  onTap: (){
-                    getSelectDate(context).then((selectedData){
+                  onTap: () {
+                    getSelectDate(context).then((selectedData) {
                       setState(() {
-                        toIssueDate = selectedData;
-                        _toIssueDateController.text = toIssueDate;
+                        HomePage.appliedFilterData.issueDateData.issuedTo = selectedData;
+                        //_toIssueDateController.text = selectedData;
                       });
                     });
                   },
@@ -315,8 +368,12 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
-                        hintText:_toIssueDateController.text.isEmpty?"To":toIssueDate,
-                        hintStyle: TextStyle(fontFamily: 'WhitneyMediumItalic')),
+                        hintText: HomePage.appliedFilterData.issueDateData
+                                .issuedTo.isEmpty
+                            ? "To"
+                            : HomePage.appliedFilterData.issueDateData.issuedTo,
+                        hintStyle:
+                            TextStyle(fontFamily: 'WhitneyMediumItalic')),
                   ),
                 ),
               ),
@@ -338,23 +395,6 @@ class MaturityWidget extends StatefulWidget {
 }
 
 class _MaturityWidgetState extends State<MaturityWidget> {
-  String fromMaturityDate,toMaturityDate;
-  TextEditingController _fromMaturityDateController,_toMaturiryDateController;
-
-  @override
-  void initState() {
-    super.initState();
-    _fromMaturityDateController = TextEditingController();
-    _toMaturiryDateController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _fromMaturityDateController.dispose();
-    _toMaturiryDateController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -375,11 +415,12 @@ class _MaturityWidgetState extends State<MaturityWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
-                  onTap: (){
-                    getSelectDate(context).then((selectedData){
+                  onTap: () {
+                    getSelectDate(context).then((selectedData) {
                       setState(() {
-                        fromMaturityDate = selectedData;
-                        _fromMaturityDateController.text = fromMaturityDate;
+                        HomePage.appliedFilterData.maturityDate.maturityFrom =
+                            selectedData;
+                        // _fromMaturityDateController.text = fromMaturityDate;
                       });
                     });
                   },
@@ -399,8 +440,13 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
-                        hintText:_fromMaturityDateController.text.isEmpty?"From":fromMaturityDate,
-                        hintStyle: TextStyle(fontFamily: 'WhitneyMediumItalic')),
+                        hintText: HomePage.appliedFilterData.maturityDate
+                                .maturityFrom.isEmpty
+                            ? "From"
+                            : HomePage
+                                .appliedFilterData.maturityDate.maturityFrom,
+                        hintStyle:
+                            TextStyle(fontFamily: 'WhitneyMediumItalic')),
                   ),
                 ),
               ),
@@ -416,13 +462,17 @@ class _MaturityWidgetState extends State<MaturityWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
-                  onTap: (){
-                    getSelectDate(context).then((selectedData){
-                      setState(() {
-                        toMaturityDate = selectedData;
-                        _toMaturiryDateController.text = toMaturityDate;
-                      });
-                    });
+                  onTap: () {
+                    getSelectDate(context).then(
+                      (selectedData) {
+                        setState(
+                          () {
+                            HomePage.appliedFilterData.maturityDate.maturityTo = selectedData;
+                            //       _toMaturiryDateController.text = toMaturityDate;
+                          },
+                        );
+                      },
+                    );
                   },
                   child: TextFormField(
                     style: TextStyle(fontFamily: 'WhitneyMediumItalic'),
@@ -440,8 +490,13 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
-                        hintText:_fromMaturityDateController.text.isEmpty?"To":fromMaturityDate,
-                        hintStyle: TextStyle(fontFamily: 'WhitneyMediumItalic')),
+                        hintText: HomePage.appliedFilterData.maturityDate
+                                .maturityTo.isEmpty
+                            ? "To"
+                            : HomePage
+                                .appliedFilterData.maturityDate.maturityTo,
+                        hintStyle:
+                            TextStyle(fontFamily: 'WhitneyMediumItalic')),
                   ),
                 ),
               ),
@@ -466,11 +521,9 @@ Future<String> getSelectDate(BuildContext context) async {
   if (picked != null && picked != selectedDate) {
     selectedDate = picked;
     formattedDate = formatter.format(selectedDate);
-  }else{
-    formattedDate="";
+  } else {
+    formattedDate = "";
   }
-
-
 
   return formattedDate;
 }
