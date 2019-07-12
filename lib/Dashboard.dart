@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/EducationCenter.dart';
+import 'package:structured_notes/model/AppliedFilterData.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'CurrentOfferings.dart';
 import 'FilterPage.dart';
@@ -46,11 +47,13 @@ class DashboardPageState extends State<DashboardPage> {
   );
 
 
-  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  EducationCenter(), Publication() ];
+  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  Publication(), Publication() ];
   final _contentNames=["CIBC Structured Notes", "Current Offerings", "Previously Issued", "Education Center", "Publications"];
   var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;
   TextEditingController _searchEditController;
+  AppliedFilterData appliedFilterData; //= AppliedFilterData();
+  int _appliedFilterCount = 0;
 
   @override
   void initState() {
@@ -69,6 +72,7 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('applied count in build $_appliedFilterCount');
     return new DrawerScaffold(
       cornerRadius: 0,
       showAppBar: false,
@@ -194,29 +198,66 @@ class DashboardPageState extends State<DashboardPage> {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                FilterPage(),
+                                                FilterPage(
+                                                  onFilterApplied:
+                                                      _onFilterApplied,
+
+                                                ),
                                             fullscreenDialog: true));
                                   },
                                 ),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Container(
-                                    height: 20,
-                                    width: 20,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: accentColor,
-                                        shape: BoxShape.circle),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        '3',
-                                        style: TextStyle(
-                                            color: white, fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+//                                _appliedFilterCount == 0
+//                                    ? Container(child: Text(_appliedFilterCount.toString(),style: TextStyle(color:Colors.red),),)
+//                                    : Align(
+//                                        alignment: Alignment.topRight,
+//                                        child: Container(
+//                                          height: 20,
+//                                          width: 20,
+//                                          alignment: Alignment.center,
+//                                          decoration: BoxDecoration(
+//                                              color: accentColor,
+//                                              shape: BoxShape.circle),
+//                                          child: Padding(
+//                                            padding: const EdgeInsets.all(4.0),
+//                                            child: Text(
+//                                              _appliedFilterCount.toString(),
+//                                              style: TextStyle(
+//                                                  color: white, fontSize: 12),
+//                                            ),
+//                                          ),
+//                                        ),
+//                                      ),
+                                FutureBuilder(
+                                  builder: (BuildContext context, snapshot) {
+                                      return _appliedFilterCount <=0
+                                    ? Container()
+                                    : Align(
+                                        alignment: Alignment.topRight,
+                                        child: Container(
+                                          height: 22,
+                                          width: 22,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: accentColor,
+                                              shape: BoxShape.circle),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                _appliedFilterCount.toString(),
+                                                style: TextStyle(
+                                                    color: white, fontSize: 12),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+
+                                  },
+                                  initialData: 0,
+                                  future: _getAppliedFilter(),
+                                )
                               ],
                             ),
                     ),
@@ -308,5 +349,55 @@ class DashboardPageState extends State<DashboardPage> {
         FocusScope.of(context).requestFocus(new FocusNode());
       });
     });
+  }
+
+  _onFilterApplied(AppliedFilterData appliedFilterData) {
+    this.appliedFilterData = appliedFilterData;
+    int count = 0;
+    if (appliedFilterData == null) {
+      return 0;
+    }
+    if (appliedFilterData.appliedSubMenu != null) {
+      count += appliedFilterData.appliedSubMenu.length;
+    }
+    if (appliedFilterData.maturityDate.maturityFrom.isNotEmpty &&
+        appliedFilterData.maturityDate.maturityTo.isNotEmpty) {
+      count += 1;
+    }
+    if (appliedFilterData.issueDateData.issuedFrom.isNotEmpty &&
+        appliedFilterData.issueDateData.issuedTo.isNotEmpty) {
+      count += 1;
+    }
+
+    print('count is $count and $_appliedFilterCount');
+
+    setState(() {
+      _appliedFilterCount = count;
+    });
+
+    print(
+        'applied filter ${appliedFilterData.appliedSubMenu.length} and ${this.appliedFilterData.appliedSubMenu.length}');
+  }
+
+  Future<int>_getAppliedFilter()async {
+    this.appliedFilterData = appliedFilterData;
+    int count = 0;
+    if (appliedFilterData == null) {
+      return 0;
+    }
+    if (appliedFilterData.appliedSubMenu != null) {
+      count += appliedFilterData.appliedSubMenu.length;
+    }
+    if (appliedFilterData.maturityDate.maturityFrom.isNotEmpty &&
+        appliedFilterData.maturityDate.maturityTo.isNotEmpty) {
+      count += 1;
+    }
+    if (appliedFilterData.issueDateData.issuedFrom.isNotEmpty &&
+        appliedFilterData.issueDateData.issuedTo.isNotEmpty) {
+      count += 1;
+    }
+
+    print('count is $count and $_appliedFilterCount');
+    return count;
   }
 }
