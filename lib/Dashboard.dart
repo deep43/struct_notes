@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:structured_notes/EducationCenter.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'CurrentOfferings.dart';
 import 'FilterPage.dart';
 import 'HomePage.dart';
 import 'package:flutter/services.dart';
 
+import 'PriviouslyIssued.dart';
+import 'Publication.dart';
 import 'drawer_scaffold/drawer_scaffold.dart';
 import 'drawer_scaffold/menu_screen.dart';
 
@@ -42,9 +45,10 @@ class DashboardPageState extends State<DashboardPage> {
     ],
   );
 
-  final _contentViews = [HomePage(), CurrentOfferings()];
-  var selectedMenuItemId = '1';
 
+  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  EducationCenter(), Publication() ];
+  final _contentNames=["CIBC Structured Notes", "Current Offerings", "Previously Issued", "Education Center", "Publications"];
+  var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;
   TextEditingController _searchEditController;
 
@@ -117,7 +121,11 @@ class DashboardPageState extends State<DashboardPage> {
       contentView: Screen(
         contentBuilder: (context) => Stack(
           children: <Widget>[
-            selectedMenuItemId == "1" ? _contentViews[0] : _contentViews[1],
+
+            //selectedMenuItemId == "1" ? _contentViews[0] : _contentViews[1],
+            selectedMenuItemId == "1" ? _contentViews[0]: _contentViews[int.parse(selectedMenuItemId)-1]  ,
+
+            //selectedMenuItemId = _selectMenu(),
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(0),
@@ -149,8 +157,8 @@ class DashboardPageState extends State<DashboardPage> {
                     Expanded(
                       child: Text(
                         selectedMenuItemId == "1"
-                            ? 'CIBC Structured Notes'
-                            : 'Current Offerings',
+                            ? _contentNames[0]
+                            : _contentNames[int.parse(selectedMenuItemId)-1],
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: selectedMenuItemId == "1"
