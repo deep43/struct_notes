@@ -9,5 +9,6 @@ class FilterMenuData{
 
 class MenuItem{
   String itemTitle;
-  MenuItem(this.itemTitle);
+  int id;
+  MenuItem(this.id,this.itemTitle);
 }
