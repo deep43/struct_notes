@@ -14,6 +14,7 @@ import 'PriviouslyIssued.dart';
 import 'Publication.dart';
 import 'drawer_scaffold/drawer_scaffold.dart';
 import 'drawer_scaffold/menu_screen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -159,11 +160,12 @@ class DashboardPageState extends State<DashboardPage> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         selectedMenuItemId == "1"
                             ? _contentNames[0]
                             : _contentNames[int.parse(selectedMenuItemId)-1],
                         textAlign: TextAlign.center,
+                        maxLines: 1,
                         style: TextStyle(
                             color: selectedMenuItemId == "1"
                                 ? Colors.white

@@ -14,7 +14,7 @@ class WaveAnimationWidget extends StatelessWidget {
 
         onBottom(
           AnimatedWave(
-            height: 170,
+            height: 80,
             speed: .6,
             offset: pi,
             color: accentColor.withAlpha(70),
@@ -22,11 +22,21 @@ class WaveAnimationWidget extends StatelessWidget {
         ),
         onBottom(
           AnimatedWave(
-            height: 220,
+            height: 130,
             speed: 1,
             offset: pi / 2,
             color: Colors.black.withAlpha(60),
           ),
+
+        ),
+        onBottom(
+          AnimatedWave(
+            height: 90,
+            speed: .6,
+            offset: pi / 3,
+            color: Colors.black.withAlpha(30),
+          ),
+
         ),
       ],
     );

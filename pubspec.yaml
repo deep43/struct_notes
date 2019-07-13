@@ -31,7 +31,9 @@ dependencies:
   intl: ^0.15.8
   simple_animations: ^1.2.0
   vibration: 1.1.0
-
+  auto_size_text: ^2.0.2
+  youtube_player: ^3.4.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

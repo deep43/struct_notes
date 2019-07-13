@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'package:structured_notes/util/WaveAnimationWidget.dart';
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme:
@@ -52,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Positioned.fill(child: WaveAnimationWidget()),
+          //Positioned.fill(child: WaveAnimationWidget()),
           /*Positioned.fill(
             child: Center(
               child: Text('CIBC \nStructured\nNotes',

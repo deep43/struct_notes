@@ -1,33 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:structured_notes/util/WaveAnimationWidget.dart';
 
+import 'VIdeoPage.dart';
 import 'model/AppliedFilterData.dart';
 import 'model/ImageSliderData.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static AppliedFilterData appliedFilterData = AppliedFilterData();
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Scaffold(
           body: Stack(
-
             children: <Widget>[
-              Container(decoration: new BoxDecoration(
-                color: Colors.white,
-                image: new DecorationImage(
-                  image: new AssetImage("assets/images/back.png"),
-                  fit: BoxFit.cover,
+              Container(
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/back.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),),
+              ),
               Positioned.fill(child: Container(child: WaveAnimationWidget())),
-              Column(mainAxisSize: MainAxisSize.max,
+              Column(
+                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   AppBar(
                     elevation: 0,
@@ -83,40 +94,45 @@ class HomePage extends StatelessWidget {
                           crossAxisCount: 3,
                           crossAxisSpacing: 4,
                           children: <Widget>[
-                            new InkWell(
-                              onTap: () {},
-                              child: new Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                elevation: 6,
-                                child: InkWell(
-                                  onTap: () {},
-                                  child: new Container(
-                                    padding: const EdgeInsets.all(6),
-                                    child: new Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        new Text(
-                                          'MLCICs',
-                                          style: new TextStyle(
-                                              fontSize: 22.0,
-                                              letterSpacing: 1.6,
-                                              fontWeight: FontWeight.w700,
-                                              color: accentTextColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        new Text(
-                                          'Market Linked GICs',
-                                          style: new TextStyle(
-                                              color: secondaryTextColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
+                            new Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              elevation: 6,
+                              child: InkWell(
+                                onTap: () async {
+                                  await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) => VideoPage()));
+                                  SystemChrome.setPreferredOrientations([
+                                    DeviceOrientation.portraitUp,
+                                    DeviceOrientation.portraitDown,
+                                  ]);
+                                },
+                                child: new Container(
+                                  padding: const EdgeInsets.all(6),
+                                  child: new Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        'MLCICs',
+                                        style: new TextStyle(
+                                            fontSize: 22.0,
+                                            letterSpacing: 1.6,
+                                            fontWeight: FontWeight.w700,
+                                            color: accentTextColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      new Text(
+                                        'Market Linked GICs',
+                                        style: new TextStyle(
+                                            color: secondaryTextColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -134,7 +150,8 @@ class HomePage extends StatelessWidget {
                                     padding: const EdgeInsets.all(6),
                                     child: new Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         new Text(
                                           'PPNs',
@@ -205,7 +222,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
         ),
@@ -283,14 +299,16 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                 },
                 items: sliderList.map((data) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom:10,top: 0),
+                    padding: const EdgeInsets.only(bottom: 10, top: 0),
                     child: Builder(
                       builder: (BuildContext context) {
                         return Stack(
                           children: <Widget>[
-                            Card(margin: const EdgeInsets.all(0),
+                            Card(
+                              margin: const EdgeInsets.all(0),
                               elevation: 0,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               clipBehavior: Clip.hardEdge,
                               child: CachedNetworkImage(
                                 imageUrl: data.imageUrl,
@@ -303,10 +321,10 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0x44000000),
-                                      offset: const Offset(0.5, 5.0),
-                                      blurRadius: 10.0,
-                                      spreadRadius: 1.0,
+                                      color: Colors.black.withAlpha(90),
+                                      offset: const Offset(0, 6),
+                                      blurRadius: 4.0,
+                                      spreadRadius: 0,
                                     ),
                                   ],
                                   gradient: LinearGradient(
@@ -315,12 +333,13 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                                       colors: [Colors.black12, Colors.black26]),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 40),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 40),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
                                         children: <Widget>[
