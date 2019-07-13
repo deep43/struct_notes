@@ -5,6 +5,8 @@ import 'package:structured_notes/util/Theme.dart';
 
 import 'ComaprePage.dart';
 import 'model/OfferingsData.dart';
+import 'package:vibration/vibration.dart';
+import 'package:vibration/vibration.dart';
 
 class CurrentOfferings extends StatefulWidget {
   @override
@@ -236,7 +238,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           elevation: 6,
           child: InkWell(
-            onTap: () {
+            onTap: () async{
+              Vibration.hasVibrator().then((hasVibrator){
+                Vibration.vibrate(duration: 30);
+              });
               widget.onCategorySelected(SelectedCategory.MLCIs);
             },
             child: new Container(
@@ -286,6 +291,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           elevation: 6,
           child: InkWell(
             onTap: () {
+              Vibration.hasVibrator().then((hasVibrator){
+                Vibration.vibrate(duration: 30);
+              });
               widget.onCategorySelected(SelectedCategory.PPNs);
             },
             child: new Container(
@@ -335,6 +343,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           elevation: 6,
           child: InkWell(
             onTap: () {
+              Vibration.hasVibrator().then((hasVibrator){
+                Vibration.vibrate(duration: 30);
+              });
               widget.onCategorySelected(SelectedCategory.PARs);
             },
             child: new Container(

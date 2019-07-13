@@ -244,7 +244,6 @@ class _FilterMenuState extends State<FilterMenu> {
 
   bool _isValueContained(MenuItem submenu) {
     for(final i in HomePage.appliedFilterData.appliedSubMenu){
-      print('submenu id ${i.id}');
       if(i.id == submenu.id){
         return true;
       }
@@ -255,7 +254,6 @@ class _FilterMenuState extends State<FilterMenu> {
 
   bool _performCheck(MenuItem submenu) {
     for(final i in HomePage.appliedFilterData.appliedSubMenu){
-      print('submenu id ${i.id}');
       if(i.id == submenu.id){
         HomePage.appliedFilterData.appliedSubMenu.remove(i);
         return true;

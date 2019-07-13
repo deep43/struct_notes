@@ -229,9 +229,10 @@ class DashboardPageState extends State<DashboardPage> {
 //                                      ),
                                 FutureBuilder(
                                   builder: (BuildContext context, snapshot) {
-                                      return _appliedFilterCount <=0
-                                    ? Container()
-                                    : Align(
+                                      if (_appliedFilterCount <=0) {
+                                        return Container();
+                                      } else {
+                                        return Align(
                                         alignment: Alignment.topRight,
                                         child: Container(
                                           height: 22,
@@ -253,6 +254,7 @@ class DashboardPageState extends State<DashboardPage> {
                                           ),
                                         ),
                                       );
+                                      }
 
                                   },
                                   initialData: 0,

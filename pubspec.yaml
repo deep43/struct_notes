@@ -29,6 +29,8 @@ dependencies:
   flutter_svg: ^0.13.0+2
   expandable: ^3.0.0+1
   intl: ^0.15.8
+  simple_animations: ^1.2.0
+  vibration: 1.1.0
 
 dev_dependencies:
   flutter_test:

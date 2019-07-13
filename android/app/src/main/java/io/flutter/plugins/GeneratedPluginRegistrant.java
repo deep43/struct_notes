@@ -3,6 +3,7 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.pathprovider.PathProviderPlugin;
 import com.tekartik.sqflite.SqflitePlugin;
+import com.benjaminabel.vibration.VibrationPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -14,6 +15,7 @@ public final class GeneratedPluginRegistrant {
     }
     PathProviderPlugin.registerWith(registry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));
     SqflitePlugin.registerWith(registry.registrarFor("com.tekartik.sqflite.SqflitePlugin"));
+    VibrationPlugin.registerWith(registry.registrarFor("com.benjaminabel.vibration.VibrationPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
