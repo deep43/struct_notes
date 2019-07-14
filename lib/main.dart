@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:simple_animations/simple_animations/controlled_animation.dart';
 import 'package:structured_notes/util/Theme.dart';
+import 'package:structured_notes/util/WaveAnimationWidget.dart';
 
 import 'Dashboard.dart';
 
@@ -11,12 +15,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: accentColor,
-        fontFamily: "WhitneyLightPro"
-      ),
+      theme:
+          ThemeData(primarySwatch: accentColor, fontFamily: "WhitneyLightPro"),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -41,13 +47,26 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: new DecorationImage(
-            image: new AssetImage("assets/images/splash_bg.png"),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/splash_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
+          //Positioned.fill(child: WaveAnimationWidget()),
+          /*Positioned.fill(
+            child: Center(
+              child: Text('CIBC \nStructured\nNotes',
+                  style: TextStyle(
+                      fontSize: 40, fontWeight: FontWeight.bold, color: white),
+                  textAlign: TextAlign.center),
+            ),
+          ),*/
+        ],
       ),
     );
   }
