@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Positioned.fill(child: Container(child: WaveAnimationWidget())),
+              Positioned.fill(child: Container(child: WaveAnimationWidget(isHightWave: false,))),
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[

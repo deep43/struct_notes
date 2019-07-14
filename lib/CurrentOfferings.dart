@@ -84,7 +84,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                       onCategorySelected: _onCategorySelected,
                     ),
                     Material(
-                      elevation: 4,
+                      elevation: 8,
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border(
@@ -111,6 +111,9 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,
@@ -130,7 +133,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
   _onComapareItemsSelected(List<OfferingsData> items) {
     if (items.length > 1) {
       controller.forward();
-    } else if(items.length!=0){
+    } else if (items.length != 0) {
       controller.reverse();
     }
     setState(() {
@@ -238,8 +241,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           elevation: 6,
           child: InkWell(
-            onTap: () async{
-              Vibration.hasVibrator().then((hasVibrator){
+            onTap: () async {
+              Vibration.hasVibrator().then((hasVibrator) {
                 Vibration.vibrate(duration: 30);
               });
               widget.onCategorySelected(SelectedCategory.MLCIs);
@@ -291,7 +294,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           elevation: 6,
           child: InkWell(
             onTap: () {
-              Vibration.hasVibrator().then((hasVibrator){
+              Vibration.hasVibrator().then((hasVibrator) {
                 Vibration.vibrate(duration: 30);
               });
               widget.onCategorySelected(SelectedCategory.PPNs);
@@ -343,7 +346,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           elevation: 6,
           child: InkWell(
             onTap: () {
-              Vibration.hasVibrator().then((hasVibrator){
+              Vibration.hasVibrator().then((hasVibrator) {
                 Vibration.vibrate(duration: 30);
               });
               widget.onCategorySelected(SelectedCategory.PARs);
@@ -467,16 +470,6 @@ class _OfferingListState extends State<OfferingList>
                   hasIcon: false,
                   iconPlacement: ExpandablePanelIconPlacement.left,
                   tapHeaderToExpand: true,
-                  collapsed: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "...",
-                      style: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
-                  ),
                   header: Container(
                     width: double.infinity,
                     child: Row(
@@ -488,6 +481,13 @@ class _OfferingListState extends State<OfferingList>
                           children: <Widget>[
                             Text(inheritedWidget.offeringDataList[index].title),
                             Text(inheritedWidget.offeringDataList[index].time),
+                            Text(
+                              '...',
+                              style: TextStyle(
+                                  color: accentColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
+                            )
                           ],
                         )),
                         InkWell(

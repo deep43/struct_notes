@@ -18,79 +18,83 @@ class FilterPage extends StatefulWidget {
 class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: white,
-        iconTheme: IconThemeData(color: accentColor),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              HomePage.appliedFilterData = new AppliedFilterData();
-              setState(() {
-                widget.onFilterApplied(new AppliedFilterData());
-              });
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'RESET',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                FilterMenu(),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    style: TextStyle(fontFamily: 'WhitneyMediumItalic'),
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[50])),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[50])),
-                        //focusColor: Colors.grey[200],
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[200]),
-                        ),
-                        hintText: 'Search by Note Name, FundSERV, CUSIP or ADP',
-                        hintStyle:
-                            TextStyle(fontFamily: 'WhitneyMediumItalic')),
-                  ),
-                ),
-                IssueDateWidget(),
-                MaturityWidget()
-              ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: 50,
-            child: RawMaterialButton(
-              fillColor: accentColor,
+    return Theme(
+      data: ThemeData(primarySwatch:filterAccentColor,fontFamily: "WhitneyLightPro", ),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: white,
+          iconTheme: IconThemeData(color: accentColor),
+          actions: <Widget>[
+            FlatButton(
               onPressed: () {
-                widget.onFilterApplied(HomePage.appliedFilterData);
+                HomePage.appliedFilterData = new AppliedFilterData();
+                setState(() {
+                  widget.onFilterApplied(new AppliedFilterData());
+                });
                 Navigator.of(context).pop();
               },
               child: Text(
-                'DONE',
-                style: TextStyle(
-                    color: white, fontWeight: FontWeight.bold, fontSize: 16),
+                'RESET',
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  FilterMenu(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                      style: TextStyle(fontFamily: 'WhitneyMediumItalic'),
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[50])),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[50])),
+                          focusColor: Colors.grey[200],
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[200]),
+                          ),
+                          hintText:
+                              'Search by Note Name, FundSERV, CUSIP or ADP',
+                          hintStyle:
+                              TextStyle(fontFamily: 'WhitneyMediumItalic')),
+                    ),
+                  ),
+                  IssueDateWidget(),
+                  MaturityWidget()
+                ],
               ),
             ),
-          )
-        ],
+            Container(
+              width: double.infinity,
+              height: 50,
+              child: RawMaterialButton(
+                fillColor: accentTextColor,
+                onPressed: () {
+                  widget.onFilterApplied(HomePage.appliedFilterData);
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'DONE',
+                  style: TextStyle(
+                      color: white, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -201,7 +205,8 @@ class _FilterMenuState extends State<FilterMenu> {
     subMenuItems.forEach(
       (submenu) {
         _isValueContained(submenu);
-        print('val contained id ${ submenu.id} method response ${_isValueContained(submenu)}');
+        print(
+            'val contained id ${submenu.id} method response ${_isValueContained(submenu)}');
         list.add(
           Align(
             alignment: Alignment.centerLeft,
@@ -217,14 +222,12 @@ class _FilterMenuState extends State<FilterMenu> {
                   ),
                   Checkbox(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value:  _isValueContained(submenu),
+                    value: _isValueContained(submenu),
                     onChanged: (isChecked) {
                       setState(
                         () {
-                         _performCheck(submenu);
-                          setState(() {
-
-                          });
+                          _performCheck(submenu);
+                          setState(() {});
                         },
                       );
                     },
@@ -243,22 +246,20 @@ class _FilterMenuState extends State<FilterMenu> {
   }
 
   bool _isValueContained(MenuItem submenu) {
-    for(final i in HomePage.appliedFilterData.appliedSubMenu){
-      if(i.id == submenu.id){
+    for (final i in HomePage.appliedFilterData.appliedSubMenu) {
+      if (i.id == submenu.id) {
         return true;
       }
-
     }
     return false;
   }
 
   bool _performCheck(MenuItem submenu) {
-    for(final i in HomePage.appliedFilterData.appliedSubMenu){
-      if(i.id == submenu.id){
+    for (final i in HomePage.appliedFilterData.appliedSubMenu) {
+      if (i.id == submenu.id) {
         HomePage.appliedFilterData.appliedSubMenu.remove(i);
         return true;
       }
-
     }
     HomePage.appliedFilterData.appliedSubMenu.add(submenu);
     return false;
@@ -316,7 +317,7 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        //focusColor: Colors.grey[200],
+                        focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -345,7 +346,8 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                   onTap: () {
                     getSelectDate(context).then((selectedData) {
                       setState(() {
-                        HomePage.appliedFilterData.issueDateData.issuedTo = selectedData;
+                        HomePage.appliedFilterData.issueDateData.issuedTo =
+                            selectedData;
                         //_toIssueDateController.text = selectedData;
                       });
                     });
@@ -362,7 +364,7 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        //focusColor: Colors.grey[200],
+                        focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -434,7 +436,7 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        //focusColor: Colors.grey[200],
+                        focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -465,7 +467,8 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                       (selectedData) {
                         setState(
                           () {
-                            HomePage.appliedFilterData.maturityDate.maturityTo = selectedData;
+                            HomePage.appliedFilterData.maturityDate.maturityTo =
+                                selectedData;
                             //       _toMaturiryDateController.text = toMaturityDate;
                           },
                         );
@@ -484,7 +487,7 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        //focusColor: Colors.grey[200],
+                        focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),

@@ -45,7 +45,6 @@ class ComparePage extends StatelessWidget {
         }
       });
 
-      print('max Row $maxRows');
       for (int i = 0; i < maxRows; i++) {
         List<OfferingItem> _offeringItemList = List();
         compareItems.forEach((compareItems) {
@@ -92,7 +91,8 @@ class ComparePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Align(
               alignment: Alignment.centerLeft,
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     item.title,

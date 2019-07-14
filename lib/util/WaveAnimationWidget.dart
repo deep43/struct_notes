@@ -7,6 +7,9 @@ import 'Theme.dart';
 
 class WaveAnimationWidget extends StatelessWidget {
 
+  final bool isHightWave;
+  WaveAnimationWidget({this.isHightWave});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -14,16 +17,16 @@ class WaveAnimationWidget extends StatelessWidget {
 
         onBottom(
           AnimatedWave(
-            height: 80,
-            speed: .6,
+            height: isHightWave?480:80,
+            speed: .4,
             offset: pi,
             color: accentColor.withAlpha(70),
           ),
         ),
         onBottom(
           AnimatedWave(
-            height: 130,
-            speed: 1,
+            height: isHightWave?530:130,
+            speed: .6,
             offset: pi / 2,
             color: Colors.black.withAlpha(60),
           ),
@@ -31,8 +34,8 @@ class WaveAnimationWidget extends StatelessWidget {
         ),
         onBottom(
           AnimatedWave(
-            height: 90,
-            speed: .6,
+            height: isHightWave?490:90,
+            speed: .2,
             offset: pi / 3,
             color: Colors.black.withAlpha(30),
           ),

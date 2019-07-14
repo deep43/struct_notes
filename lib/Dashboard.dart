@@ -115,7 +115,7 @@ class DashboardPageState extends State<DashboardPage> {
         textStyle: TextStyle(
           fontSize: 20,
         ),
-        selectorColor: accentColor,
+        selectorColor: accentTextColor,
         onMenuItemSelected: (String itemId) {
           setState(() {
             selectedMenuItemId = itemId;
@@ -302,6 +302,7 @@ class DashboardPageState extends State<DashboardPage> {
       child: TextFormField(
         controller: _searchEditController,
         cursorColor: accentColor,
+        style: TextStyle(color: Colors.black,fontSize: 20),
         decoration: InputDecoration(
           suffixIcon: Icon(
             Icons.search,
@@ -319,6 +320,7 @@ class DashboardPageState extends State<DashboardPage> {
             borderRadius: BorderRadius.circular(50),
           ),
           hintText: 'Search',
+          hintStyle: TextStyle(fontSize: 20,fontFamily: 'WhitneyMediumItalic')
         ),
       ),
     );

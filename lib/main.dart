@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_animations/simple_animations/controlled_animation.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'package:structured_notes/util/WaveAnimationWidget.dart';
 
@@ -22,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme:
-          ThemeData(primarySwatch: accentColor, fontFamily: "WhitneyLightPro"),
+          ThemeData(primarySwatch: accentColor, fontFamily: "WhitneyLightPro",),
+
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -52,20 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             decoration: BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/splash_bg.png"),
+                image: new AssetImage("assets/images/splash_back.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          //Positioned.fill(child: WaveAnimationWidget()),
-          /*Positioned.fill(
+          Positioned.fill(child: WaveAnimationWidget(isHightWave: true,)),
+          Positioned.fill(
             child: Center(
               child: Text('CIBC \nStructured\nNotes',
                   style: TextStyle(
                       fontSize: 40, fontWeight: FontWeight.bold, color: white),
                   textAlign: TextAlign.center),
             ),
-          ),*/
+          ),
         ],
       ),
     );
