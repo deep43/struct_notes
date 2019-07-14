@@ -100,13 +100,13 @@ class _HomePageState extends State<HomePage> {
                               elevation: 6,
                               child: InkWell(
                                 onTap: () async {
-                                  await Navigator.of(context).push(
+                                  /*await Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (ctx) => VideoPage()));
                                   SystemChrome.setPreferredOrientations([
                                     DeviceOrientation.portraitUp,
                                     DeviceOrientation.portraitDown,
-                                  ]);
+                                  ]);*/
                                 },
                                 child: new Container(
                                   padding: const EdgeInsets.all(6),

@@ -48,7 +48,7 @@ class DashboardPageState extends State<DashboardPage> {
   );
 
 
-  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  Publication(), Publication() ];
+  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  EducationCenter(), Publication() ];
   final _contentNames=["CIBC Structured Notes", "Current Offerings", "Previously Issued", "Education Center", "Publications"];
   var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;

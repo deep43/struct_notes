@@ -1,4 +1,3 @@
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,7 +10,8 @@ class EducationCenter extends StatefulWidget {
   _EducationCenterState createState() => _EducationCenterState();
 }
 
-class _EducationCenterState extends State<EducationCenter> with SingleTickerProviderStateMixin {
+class _EducationCenterState extends State<EducationCenter>
+    with SingleTickerProviderStateMixin {
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
 
@@ -35,8 +35,8 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: SlideTransition(
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      /*floatingActionButton: SlideTransition(
         position: offset,
         child: Align(
           alignment: Alignment.bottomCenter,
@@ -58,11 +58,10 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
               label: Text('Compare'))
               : Container(),
         ),
-      ),
+      ),*/
       body: CurrentOfferingsInheritedWidget(
         selectedCategory: _selectedCategory,
         offeringDataList: offeringItems,
-        comapringDataList: _compareItems,
         child: Stack(
           children: <Widget>[
             Scaffold(
@@ -77,6 +76,50 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
                       elevation: 0,
                       backgroundColor: Colors.transparent,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Card(
+                        color: accentColor,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                        elevation: 6,
+                        child: InkWell(
+                          onTap: () {
+                            //widget.onCategorySelected(SelectedCategory.MLCIs);
+                          },
+                          child: new Container(
+                            padding: const EdgeInsets.only(top: 45, bottom: 45, left: 40, right: 40),
+                            child: new Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Text(
+                                  'Customized investment solutions tailored to meet your unique goals',
+                                  style: new TextStyle(
+                                    fontSize: 22.0,
+                                    letterSpacing: 1.5,
+                                    fontWeight: FontWeight.w700,
+                                    color: white,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                                /* SizedBox(
+                                  height: 5,
+                                ),
+                                new Text(
+                                  'Market Linked GICs',
+                                  style: new TextStyle(
+                                      color: currentOfferingsInheritedWidget
+                                                  .selectedCategory ==
+                                              SelectedCategory.MLCIs
+                                          ? secondaryWhiteTextColor
+                                          : secondaryTextColor),
+                                  textAlign: TextAlign.center,
+                                ),*/
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     /*new CategoryWidget(
                       onCategorySelected: _onCategorySelected,
                     ),*/
@@ -88,14 +131,17 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
                                 bottom: BorderSide(
                                     color: Colors.white,
                                     style: BorderStyle.solid))),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Card(color: accentTextColor, shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10)),
-                            elevation: 5,)
-                              ),
-                            ],
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                                child: Card(
+                              color: accentTextColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              elevation: 5,
+                            )),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
@@ -117,7 +163,7 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
   _onComapareItemsSelected(List<OfferingsData> items) {
     if (items.length > 1) {
       controller.forward();
-    } else if(items.length!=0){
+    } else if (items.length != 0) {
       controller.reverse();
     }
     setState(() {
@@ -137,8 +183,8 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
     List<OfferingsData> _offeringsList = new List();
     _offeringsList.add(
       OfferingsData(
-        "CIBC Floating Market Rate GICs",
-        "Due January 11, 2021",
+        "Market Linked GICs\n",
+        "Guaranteed fixed term investments that combine the\n security of traditional GICs with the potential to earn a \nhigher market linked return in one simple solution.",
         new List.of(
           [
             OfferingItem("FundSERV", "CBL2039"),
@@ -154,8 +200,8 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
     );
     _offeringsList.add(
       OfferingsData(
-        "Principal Protected Notes",
-        "Due January 11, 2021",
+        "Principal Protected Notes\n",
+        "Innovative investment vehicles that combine the traites\n of equities (upside potential) with conventional bonds\n (security of principal and potential income).",
         new List.of(
           [
             OfferingItem("FundSERV", "CBL2039"),
@@ -171,8 +217,8 @@ class _EducationCenterState extends State<EducationCenter> with SingleTickerProv
     );
     _offeringsList.add(
       OfferingsData(
-        "Principle at Risk Notes ",
-        "Due January 11, 2021",
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
             OfferingItem("FundSERV", "CBL2039"),
@@ -207,7 +253,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     CurrentOfferingsInheritedWidget currentOfferingsInheritedWidget =
-    CurrentOfferingsInheritedWidget.of(context);
+        CurrentOfferingsInheritedWidget.of(context);
 
     return new GridView.count(
       physics: NeverScrollableScrollPhysics(),
@@ -218,11 +264,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       children: <Widget>[
         new Card(
           color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.MLCIs
+                  SelectedCategory.MLCIs
               ? accentColor
               : Colors.white,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           elevation: 6,
           child: InkWell(
             onTap: () {
@@ -241,10 +287,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         letterSpacing: 1.6,
                         fontWeight: FontWeight.w700,
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.MLCIs
-                            ? white
-                            : accentTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.MLCIs
+                                ? white
+                                : accentTextColor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -254,10 +300,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     'Market Linked GICs',
                     style: new TextStyle(
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.MLCIs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.MLCIs
+                                ? secondaryWhiteTextColor
+                                : secondaryTextColor),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -267,11 +313,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         ),
         new Card(
           color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PPNs
+                  SelectedCategory.PPNs
               ? accentColor
               : Colors.white,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           elevation: 6,
           child: InkWell(
             onTap: () {
@@ -290,10 +336,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         letterSpacing: 1.6,
                         fontWeight: FontWeight.w700,
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? white
-                            : accentTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.PPNs
+                                ? white
+                                : accentTextColor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -303,10 +349,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     'Principle Protected Notes',
                     style: new TextStyle(
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.PPNs
+                                ? secondaryWhiteTextColor
+                                : secondaryTextColor),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -316,11 +362,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         ),
         new Card(
           color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PARs
+                  SelectedCategory.PARs
               ? accentColor
               : Colors.white,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           elevation: 6,
           child: InkWell(
             onTap: () {
@@ -339,10 +385,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         fontSize: 22.0,
                         fontWeight: FontWeight.w700,
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PARs
-                            ? white
-                            : accentTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.PARs
+                                ? white
+                                : accentTextColor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -352,10 +398,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     'Principle At Risk Notes',
                     style: new TextStyle(
                         color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PARs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
+                            currentOfferingsInheritedWidget.selectedCategory ==
+                                    SelectedCategory.PARs
+                                ? secondaryWhiteTextColor
+                                : secondaryTextColor),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -402,13 +448,11 @@ class _OfferingListState extends State<OfferingList>
   @override
   Widget build(BuildContext context) {
     CurrentOfferingsInheritedWidget inheritedWidget =
-    CurrentOfferingsInheritedWidget.of(context);
+        CurrentOfferingsInheritedWidget.of(context);
     _buildAnimationList(inheritedWidget.offeringDataList);
     if (inheritedWidget.offeringDataList != _offeringsItemList) {
       subCategoryItemEntranceAnimationController.reset();
       _offeringsItemList = inheritedWidget.offeringDataList;
-      _comaringItemList = inheritedWidget.comapringDataList;
-
       subCategoryItemEntranceAnimationController.forward();
     }
 
@@ -429,12 +473,12 @@ class _OfferingListState extends State<OfferingList>
         return AnimatedBuilder(
           animation: subCategoryItemEntranceAnimationController,
           builder: (context, child) => new Transform.translate(
-            offset: Offset(
-              subCategoryItemAnimations[index].value,
-              0.0,
-            ),
-            child: child,
-          ),
+                offset: Offset(
+                  subCategoryItemAnimations[index].value,
+                  0.0,
+                ),
+                child: child,
+              ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -462,13 +506,16 @@ class _OfferingListState extends State<OfferingList>
                       children: <Widget>[
                         Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(inheritedWidget.offeringDataList[index].title),
-                                Text(inheritedWidget.offeringDataList[index].time),
-                              ],
-                            )),
-                        InkWell(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              inheritedWidget.offeringDataList[index].title,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(inheritedWidget.offeringDataList[index].time),
+                          ],
+                        )),
+                        /*InkWell(
                           onTap: () {
                             if (_comaringItemList
                                 .contains(_offeringsItemList[index])) {
@@ -503,7 +550,7 @@ class _OfferingListState extends State<OfferingList>
                               height: 16,
                             ),
                           ),
-                        )
+                        )*/
                       ],
                     ),
                   ),
@@ -563,14 +610,12 @@ class _OfferingListState extends State<OfferingList>
 class CurrentOfferingsInheritedWidget extends InheritedWidget {
   final SelectedCategory selectedCategory;
   final List<OfferingsData> offeringDataList;
-  final List<OfferingsData> comapringDataList;
 
   const CurrentOfferingsInheritedWidget(
       {Key key,
-        @required this.selectedCategory,
-        @required this.offeringDataList,
-        @required this.comapringDataList,
-        @required Widget child})
+      @required this.selectedCategory,
+      @required this.offeringDataList,
+      @required Widget child})
       : super(key: key, child: child);
 
   @override
@@ -580,6 +625,6 @@ class CurrentOfferingsInheritedWidget extends InheritedWidget {
 
   static CurrentOfferingsInheritedWidget of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(CurrentOfferingsInheritedWidget)
-    as CurrentOfferingsInheritedWidget;
+        as CurrentOfferingsInheritedWidget;
   }
 }

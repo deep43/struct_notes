@@ -60,7 +60,7 @@ class _FilterPageState extends State<FilterPage> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        focusColor: Colors.grey[200],
+                        //focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -316,7 +316,7 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        focusColor: Colors.grey[200],
+                        //focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -362,7 +362,7 @@ class _IssueDateWidgetState extends State<IssueDateWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        focusColor: Colors.grey[200],
+                        //focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -434,7 +434,7 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        focusColor: Colors.grey[200],
+                        //focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
@@ -484,7 +484,7 @@ class _MaturityWidgetState extends State<MaturityWidget> {
                             borderSide: BorderSide(color: Colors.grey[50])),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[50])),
-                        focusColor: Colors.grey[200],
+                        //focusColor: Colors.grey[200],
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[200]),
                         ),
