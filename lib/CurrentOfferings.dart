@@ -8,24 +8,40 @@ import 'model/OfferingsData.dart';
 import 'package:vibration/vibration.dart';
 import 'package:vibration/vibration.dart';
 
+
+enum SelectedCategory { MLCIs, PPNs, PARs }
+
 class CurrentOfferings extends StatefulWidget {
+  final int selectedCategoryPosition;
+
+  CurrentOfferings({this.selectedCategoryPosition});
   @override
-  _CurrentOfferingsState createState() => _CurrentOfferingsState();
+  _CurrentOfferingsState createState() => _CurrentOfferingsState(selectedCategoryPosition: selectedCategoryPosition);
 }
 
 class _CurrentOfferingsState extends State<CurrentOfferings>
     with SingleTickerProviderStateMixin {
+
+  final int selectedCategoryPosition;
+  _CurrentOfferingsState({this.selectedCategoryPosition});
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
-
+  SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
 
-  SelectedCategory _selectedCategory = SelectedCategory.MLCIs;
+
 
   @override
   void initState() {
     super.initState();
+    if(selectedCategoryPosition==1){
+      _selectedCategory = SelectedCategory.MLCIs;
+    }else if(selectedCategoryPosition==2){
+      _selectedCategory = SelectedCategory.PPNs;
+    }else if(selectedCategoryPosition==3){
+      _selectedCategory = SelectedCategory.PARs;
+    }
     offeringItems = getDummyOfferingsData();
 
     controller = AnimationController(
@@ -208,7 +224,6 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
   }
 }
 
-enum SelectedCategory { MLCIs, PPNs, PARs }
 
 class CategoryWidget extends StatefulWidget {
   final Function onCategorySelected;

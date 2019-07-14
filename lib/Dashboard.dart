@@ -15,6 +15,7 @@ import 'Publication.dart';
 import 'drawer_scaffold/drawer_scaffold.dart';
 import 'drawer_scaffold/menu_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:structured_notes/CurrentOfferings.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -47,15 +48,24 @@ class DashboardPageState extends State<DashboardPage> {
     ],
   );
 
+  // final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  EducationCenter(), Publication() ];
 
-  final _contentViews = [HomePage(), CurrentOfferings(),PriviouslyIssued(),  EducationCenter(), Publication() ];
-  final _contentNames=["CIBC Structured Notes", "Current Offerings", "Previously Issued", "Education Center", "Publications"];
+
+
+  var _contentView;
+  final _contentNames = [
+    "CIBC Structured Notes",
+    "Current Offerings",
+    "Previously Issued",
+    "Education Center",
+    "Publications"
+  ];
   var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;
   TextEditingController _searchEditController;
   AppliedFilterData appliedFilterData; //= AppliedFilterData();
   int _appliedFilterCount = 0;
-
+  int _selectedCategoryPosition = 1;
   @override
   void initState() {
     super.initState();
@@ -118,6 +128,13 @@ class DashboardPageState extends State<DashboardPage> {
         selectorColor: accentTextColor,
         onMenuItemSelected: (String itemId) {
           setState(() {
+            _contentView = itemId == "1"
+                ? HomePage(onCategorySelectedFromHomePage: _onCategorySelectedFromHome,)
+                : itemId == "2"
+                    ? CurrentOfferings(selectedCategoryPosition: _selectedCategoryPosition)
+                    : itemId == "3"
+                        ? PriviouslyIssued()
+                        : itemId == "4" ? EducationCenter() : Publication();
             selectedMenuItemId = itemId;
           });
         },
@@ -126,11 +143,7 @@ class DashboardPageState extends State<DashboardPage> {
       contentView: Screen(
         contentBuilder: (context) => Stack(
           children: <Widget>[
-
-            //selectedMenuItemId == "1" ? _contentViews[0] : _contentViews[1],
-            selectedMenuItemId == "1" ? _contentViews[0]: _contentViews[int.parse(selectedMenuItemId)-1]  ,
-
-            //selectedMenuItemId = _selectMenu(),
+            _contentView==null?HomePage(onCategorySelectedFromHomePage: _onCategorySelectedFromHome,):_contentView,
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(0),
@@ -152,7 +165,7 @@ class DashboardPageState extends State<DashboardPage> {
                                   ? Colors.black
                                   : Colors.white,
                             ),
-                          )),
+                          ),),
                       onPressed: () {
                         _controller.menuController.toggle();
                       },
@@ -163,7 +176,7 @@ class DashboardPageState extends State<DashboardPage> {
                       child: AutoSizeText(
                         selectedMenuItemId == "1"
                             ? _contentNames[0]
-                            : _contentNames[int.parse(selectedMenuItemId)-1],
+                            : _contentNames[int.parse(selectedMenuItemId) - 1],
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         style: TextStyle(
@@ -203,38 +216,16 @@ class DashboardPageState extends State<DashboardPage> {
                                                 FilterPage(
                                                   onFilterApplied:
                                                       _onFilterApplied,
-
                                                 ),
                                             fullscreenDialog: true));
                                   },
                                 ),
-//                                _appliedFilterCount == 0
-//                                    ? Container(child: Text(_appliedFilterCount.toString(),style: TextStyle(color:Colors.red),),)
-//                                    : Align(
-//                                        alignment: Alignment.topRight,
-//                                        child: Container(
-//                                          height: 20,
-//                                          width: 20,
-//                                          alignment: Alignment.center,
-//                                          decoration: BoxDecoration(
-//                                              color: accentColor,
-//                                              shape: BoxShape.circle),
-//                                          child: Padding(
-//                                            padding: const EdgeInsets.all(4.0),
-//                                            child: Text(
-//                                              _appliedFilterCount.toString(),
-//                                              style: TextStyle(
-//                                                  color: white, fontSize: 12),
-//                                            ),
-//                                          ),
-//                                        ),
-//                                      ),
                                 FutureBuilder(
                                   builder: (BuildContext context, snapshot) {
-                                      if (_appliedFilterCount <=0) {
-                                        return Container();
-                                      } else {
-                                        return Align(
+                                    if (_appliedFilterCount <= 0) {
+                                      return Container();
+                                    } else {
+                                      return Align(
                                         alignment: Alignment.topRight,
                                         child: Container(
                                           height: 22,
@@ -246,7 +237,8 @@ class DashboardPageState extends State<DashboardPage> {
                                           child: Align(
                                             alignment: Alignment.center,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
                                               child: Text(
                                                 _appliedFilterCount.toString(),
                                                 style: TextStyle(
@@ -256,8 +248,7 @@ class DashboardPageState extends State<DashboardPage> {
                                           ),
                                         ),
                                       );
-                                      }
-
+                                    }
                                   },
                                   initialData: 0,
                                   future: _getAppliedFilter(),
@@ -302,26 +293,26 @@ class DashboardPageState extends State<DashboardPage> {
       child: TextFormField(
         controller: _searchEditController,
         cursorColor: accentColor,
-        style: TextStyle(color: Colors.black,fontSize: 20),
+        style: TextStyle(color: Colors.black, fontSize: 20),
         decoration: InputDecoration(
-          suffixIcon: Icon(
-            Icons.search,
-            color: accentColor,
-          ),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: accentColor, width: 1),
-            gapPadding: 0,
-            borderRadius: BorderRadius.circular(50),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: accentColor, width: 2),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          hintText: 'Search',
-          hintStyle: TextStyle(fontSize: 20,fontFamily: 'WhitneyMediumItalic')
-        ),
+            suffixIcon: Icon(
+              Icons.search,
+              color: accentColor,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: accentColor, width: 1),
+              gapPadding: 0,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: accentColor, width: 2),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            hintText: 'Search',
+            hintStyle:
+                TextStyle(fontSize: 20, fontFamily: 'WhitneyMediumItalic')),
       ),
     );
   }
@@ -385,7 +376,7 @@ class DashboardPageState extends State<DashboardPage> {
         'applied filter ${appliedFilterData.appliedSubMenu.length} and ${this.appliedFilterData.appliedSubMenu.length}');
   }
 
-  Future<int>_getAppliedFilter()async {
+  Future<int> _getAppliedFilter() async {
     this.appliedFilterData = appliedFilterData;
     int count = 0;
     if (appliedFilterData == null) {
@@ -405,5 +396,13 @@ class DashboardPageState extends State<DashboardPage> {
 
     print('count is $count and $_appliedFilterCount');
     return count;
+  }
+
+  void _onCategorySelectedFromHome(int selectedCategory) {
+    setState(() {
+      selectedMenuItemId="2";
+      _selectedCategoryPosition = selectedCategory;
+      _contentView = CurrentOfferings(selectedCategoryPosition: selectedCategory,);
+    });
   }
 }

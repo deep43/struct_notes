@@ -15,6 +15,8 @@ import 'model/ImageSliderData.dart';
 class HomePage extends StatefulWidget {
   static AppliedFilterData appliedFilterData = AppliedFilterData();
 
+  Function(int selectedCategory)onCategorySelectedFromHomePage;
+  HomePage({this.onCategorySelectedFromHomePage});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -100,13 +102,16 @@ class _HomePageState extends State<HomePage> {
                               elevation: 6,
                               child: InkWell(
                                 onTap: () async {
-                                  await Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (ctx) => VideoPage()));
-                                  SystemChrome.setPreferredOrientations([
-                                    DeviceOrientation.portraitUp,
-                                    DeviceOrientation.portraitDown,
-                                  ]);
+
+                                  widget.onCategorySelectedFromHomePage(1);
+
+//                                  await Navigator.of(context).push(
+//                                      MaterialPageRoute(
+//                                          builder: (ctx) => VideoPage()));
+//                                  SystemChrome.setPreferredOrientations([
+//                                    DeviceOrientation.portraitUp,
+//                                    DeviceOrientation.portraitDown,
+//                                  ]);
                                 },
                                 child: new Container(
                                   padding: const EdgeInsets.all(6),
@@ -137,42 +142,41 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            new InkWell(
-                              onTap: () {},
-                              child: new Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                elevation: 6,
-                                child: InkWell(
-                                  onTap: () {},
-                                  child: new Container(
-                                    padding: const EdgeInsets.all(6),
-                                    child: new Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        new Text(
-                                          'PPNs',
-                                          style: new TextStyle(
-                                              fontSize: 22.0,
-                                              letterSpacing: 1.6,
-                                              fontWeight: FontWeight.w700,
-                                              color: accentTextColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        new Text(
-                                          'Principle Protected Notes',
-                                          style: new TextStyle(
-                                              color: secondaryTextColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
+                            new Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              elevation: 6,
+                              child: InkWell(
+                                onTap: () {
+                                  widget.onCategorySelectedFromHomePage(2);
+                                },
+                                child: new Container(
+                                  padding: const EdgeInsets.all(6),
+                                  child: new Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        'PPNs',
+                                        style: new TextStyle(
+                                            fontSize: 22.0,
+                                            letterSpacing: 1.6,
+                                            fontWeight: FontWeight.w700,
+                                            color: accentTextColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      new Text(
+                                        'Principle Protected Notes',
+                                        style: new TextStyle(
+                                            color: secondaryTextColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -182,7 +186,9 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(8.0)),
                               elevation: 6,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  widget.onCategorySelectedFromHomePage(3);
+                                },
                                 child: new Container(
                                   padding: const EdgeInsets.all(6),
                                   child: new Column(
