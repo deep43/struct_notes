@@ -8,38 +8,38 @@ import 'model/OfferingsData.dart';
 import 'package:vibration/vibration.dart';
 import 'package:vibration/vibration.dart';
 
-
 enum SelectedCategory { MLCIs, PPNs, PARs }
 
 class CurrentOfferings extends StatefulWidget {
   final int selectedCategoryPosition;
 
   CurrentOfferings({this.selectedCategoryPosition});
+
   @override
-  _CurrentOfferingsState createState() => _CurrentOfferingsState(selectedCategoryPosition: selectedCategoryPosition);
+  _CurrentOfferingsState createState() => _CurrentOfferingsState(
+      selectedCategoryPosition: selectedCategoryPosition);
 }
 
 class _CurrentOfferingsState extends State<CurrentOfferings>
     with SingleTickerProviderStateMixin {
-
   final int selectedCategoryPosition;
+
   _CurrentOfferingsState({this.selectedCategoryPosition});
+
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
   SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
 
-
-
   @override
   void initState() {
     super.initState();
-    if(selectedCategoryPosition==1){
+    if (selectedCategoryPosition == 1) {
       _selectedCategory = SelectedCategory.MLCIs;
-    }else if(selectedCategoryPosition==2){
+    } else if (selectedCategoryPosition == 2) {
       _selectedCategory = SelectedCategory.PPNs;
-    }else if(selectedCategoryPosition==3){
+    } else if (selectedCategoryPosition == 3) {
       _selectedCategory = SelectedCategory.PARs;
     }
     offeringItems = getDummyOfferingsData();
@@ -100,7 +100,8 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                       onCategorySelected: _onCategorySelected,
                     ),
                     Material(
-                      elevation: 8,
+                      color: white,
+                      elevation: 10,
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border(
@@ -109,7 +110,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                                     style: BorderStyle.solid))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                              horizontal: 20,vertical: 10 ),
                           child: Row(
                             children: <Widget>[
                               Expanded(
@@ -128,7 +129,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                       ),
                     ),
                     SizedBox(
-                      height: 12,
+                      height: 16,
                     ),
                     Expanded(
                       child: OfferingList(
@@ -167,63 +168,65 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
 
   List<OfferingsData> getDummyOfferingsData() {
     List<OfferingsData> _offeringsList = new List();
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (3 years) (USD)",
-        "Due January 11, 2011",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+
+    for (int i = 0; i < 3; i++) {
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    );
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2 years) (USD)",
-        "Due January 11, 2011",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+      );
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (2 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    );
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (3 years) (USD)",
-        "Due January 11, 2011",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+      );
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
 
     _offeringsList.shuffle();
     return _offeringsList;
   }
 }
-
 
 class CategoryWidget extends StatefulWidget {
   final Function onCategorySelected;
@@ -479,7 +482,7 @@ class _OfferingListState extends State<OfferingList>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               ExpandablePanel(
                   hasIcon: false,
@@ -488,20 +491,54 @@ class _OfferingListState extends State<OfferingList>
                   header: Container(
                     width: double.infinity,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(inheritedWidget.offeringDataList[index].title),
                             Text(inheritedWidget.offeringDataList[index].time),
-                            Text(
-                              '...',
-                              style: TextStyle(
-                                  color: accentColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30),
+                            SizedBox(height: 15,),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                           accentColor,
+
+                                      border: Border.all(
+                                          color: accentColor,),),
+                                ),
+                                SizedBox(width: 3,),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                    accentColor,
+
+                                    border: Border.all(
+                                      color: accentColor,),),
+                                ),
+                                SizedBox(width: 3,),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                    accentColor,
+
+                                    border: Border.all(
+                                      color: accentColor,),),
+                                )
+                              ],
                             )
                           ],
                         )),
@@ -517,28 +554,32 @@ class _OfferingListState extends State<OfferingList>
                             widget.onCompareItemsSelected(_comaringItemList);
                             // setState(() {});
                           },
-                          child: Container(
-                            constraints: BoxConstraints(),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _comaringItemList.contains(
-                                        inheritedWidget.offeringDataList[index])
-                                    ? accentColor
-                                    : Colors.transparent,
-                                border: Border.all(color: accentColor)),
-                            padding: const EdgeInsets.all(6),
-                            child: _comaringItemList.contains(
-                                    inheritedWidget.offeringDataList[index])
-                                ? SvgPicture.asset(
-                                    'assets/images/tick.svg',
-                                    color: white,
-                                    width: 16,
-                                    height: 16,
-                                  )
-                                : SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              constraints: BoxConstraints(),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _comaringItemList.contains(
+                                          inheritedWidget
+                                              .offeringDataList[index])
+                                      ? accentColor
+                                      : Colors.transparent,
+                                  border: Border.all(color: accentColor)),
+                              padding: const EdgeInsets.all(6),
+                              child: _comaringItemList.contains(
+                                      inheritedWidget.offeringDataList[index])
+                                  ? SvgPicture.asset(
+                                      'assets/images/tick.svg',
+                                      color: white,
+                                      width: 16,
+                                      height: 16,
+                                    )
+                                  : SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                            ),
                           ),
                         )
                       ],
@@ -557,6 +598,9 @@ class _OfferingListState extends State<OfferingList>
                       ),
                     ),
                   )),
+              SizedBox(
+                height: 5,
+              )
             ],
           ),
         );

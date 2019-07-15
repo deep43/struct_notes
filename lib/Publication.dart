@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 import 'package:structured_notes/util/Theme.dart';
 
+import 'model/PublicationData.dart';
+
 class Publication extends StatefulWidget {
   @override
   _PublicationState createState() => _PublicationState();
 }
 
-class _PublicationState extends State<Publication> with SingleTickerProviderStateMixin {
+class _PublicationState extends State<Publication>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<Offset> offset;
 
@@ -25,7 +28,6 @@ class _PublicationState extends State<Publication> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -66,56 +68,16 @@ class _PublicationState extends State<Publication> with SingleTickerProviderStat
                                     letterSpacing: 1.5,
                                     fontWeight: FontWeight.w700,
                                     color: white,
-                                  ), textAlign: TextAlign.center,
-                                ),
-                                /* SizedBox(
-                                  height: 5,
-                                ),
-                                new Text(
-                                  'Market Linked GICs',
-                                  style: new TextStyle(
-                                      color: currentOfferingsInheritedWidget
-                                                  .selectedCategory ==
-                                              SelectedCategory.MLCIs
-                                          ? secondaryWhiteTextColor
-                                          : secondaryTextColor),
+                                  ),
                                   textAlign: TextAlign.center,
-                                ),*/
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                    /*new CategoryWidget(
-                      onCategorySelected: _onCategorySelected,
-                    ),*/
-                    Material(
-                      elevation: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.white,))),
-                                    //style: BorderStyle.solid))),
-                        child:  CategoryWidget() /*Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Card(
-                                  color: accentTextColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  elevation: 5,
-                                )),
-                          ],
-                        ),*/
-                      ),
-                    ),
-                    /*Expanded(
-                      *//*child: OfferingList(
-                       // onCompareItemsSelected: _onComapareItemsSelected,
-                      ),*//*
-                    ),*/
+                    Expanded(child: CategoryWidget()),
                   ],
                 ),
               ),
@@ -124,23 +86,8 @@ class _PublicationState extends State<Publication> with SingleTickerProviderStat
         ),
       ),
     );
-    ;
   }
-
-/* _onComapareItemsSelected(List<OfferingsData> items) {
-    if (items.length > 1) {
-      controller.forward();
-    } else if (items.length != 0) {
-      controller.reverse();
-    }
-    setState(() {
-      this._compareItems = items;
-    });
-  }
-*/
-
 }
-
 
 class CategoryWidget extends StatefulWidget {
   final Function onCategorySelected;
@@ -152,114 +99,64 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget> {
+  List<PublicationData> _list = new List();
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < 5; i++) {
+      _list.add(PublicationData(
+          imageAsset: 'assets/images/pub_img.png',
+          title: 'The Wisdom Tree Siegel Strategic Value Index',
+          description:
+              'Access a distinct blend of preforming equities regardless of market conditions.'));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    return new GridView.count(
-      physics: NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 8, right: 8),
+    return new ListView.builder(padding: const EdgeInsets.all(0),
       shrinkWrap: true,
-      crossAxisCount: 2,
-      crossAxisSpacing: 4,
-      children: <Widget>[
-        new Card(
-          //shape:
-          //RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 3,
-          child: InkWell(
-            onTap: () {
-              //widget.onCategorySelected(SelectedCategory.MLCIs);
-            },
-            child: new Container(
-              //padding: const EdgeInsets.all(0),
-              child: new Column(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Image(image: AssetImage('assets/images/pub_img.png')),
-                  /*SizedBox(
-                    height: 8,
-                  )*/
-                ],
+      itemBuilder: (ctx, index) {
+        return Card(
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey[400],width: .5),borderRadius: BorderRadius.circular(5),),
+          elevation: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(
+                height: 120,
+                width: 150,
+                child: Image.asset(
+                  _list[index].imageAsset,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-          ),
-        ),
-        new Card(
-          //shape:
-          //RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 3,
-          child: InkWell(
-            onTap: () {
-              //widget.onCategorySelected(SelectedCategory.MLCIs);
-            },
-            child: new Container(
-              //padding: const EdgeInsets.all(0),
-              child: new Column(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Image(image: AssetImage('assets/images/pub_img.png')),
-                  /*SizedBox(
-                    height: 8,
-                  )*/
-                ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        _list[index].title,
+                        style: TextStyle(color: accentColor, fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 5,),
+                      Text(_list[index].description,style: TextStyle(fontSize: 12),textAlign: TextAlign.center,)
+                    ],
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 10,),
+
+            ],
           ),
-        ),
-        /*new Card(
-          *//*color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PPNs
-              ? accentColor
-              : Colors.white,*//*
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 6,
-          child: InkWell(
-            onTap: () {
-             // widget.onCategorySelected(SelectedCategory.PPNs);
-            },
-            child: new Container(
-              padding: const EdgeInsets.all(6),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    'PPNs',
-                    style: new TextStyle(
-                        fontSize: 22.0,
-                        letterSpacing: 1.6,
-                        fontWeight: FontWeight.w700,
-                        //color:
-                        *//*currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? white
-                            : accentTextColor*//*),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  new Text(
-                    'Principle Protected Notes',
-                    style: new TextStyle(
-                       *//* color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor*//*),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),*/
-      ],
+        );
+      },
+      itemCount: _list.length,
     );
   }
 }
-
-
