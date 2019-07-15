@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                         new GridView.count(
                           physics: NeverScrollableScrollPhysics(),
                           padding: const EdgeInsets.only(
-                              top: 30, bottom: 10, left: 8, right: 8),
+                              top: 30,left: 8, right: 8,bottom: 10),
                           shrinkWrap: true,
                           crossAxisCount: 3,
                           crossAxisSpacing: 4,
@@ -232,6 +232,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
 
+                        Container(padding:const EdgeInsets.symmetric(horizontal: 30),
+                        child: Text('Find out more about how you can increase your return potential',textAlign: TextAlign.center,),),
+
+                        SizedBox(height: 20,),
                         new ImageSliderWidget(),
                         // below headng
                       ],

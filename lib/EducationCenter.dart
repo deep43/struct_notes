@@ -123,7 +123,8 @@ class _EducationCenterState extends State<EducationCenter>
                     /*new CategoryWidget(
                       onCategorySelected: _onCategorySelected,
                     ),*/
-                    Material(
+
+                   /* Material(
                       elevation: 0,
                       child: Container(
                         decoration: BoxDecoration(
@@ -143,7 +144,8 @@ class _EducationCenterState extends State<EducationCenter>
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
+
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,

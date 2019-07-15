@@ -80,7 +80,8 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                       onCategorySelected: _onCategorySelected,
                     ),*/
                     Material(
-                      elevation: 4,
+                      color: white,
+                      elevation: 10,
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border(
@@ -89,23 +90,26 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                                     style: BorderStyle.solid))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
+                              horizontal: 20,vertical: 10 ),
                           child: Row(
                             children: <Widget>[
                               Expanded(
                                 child: Text(
                                   'Product Name',
-                                  style: TextStyle(fontWeight: FontWeight.w900, ),
+                                  style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
                               ),
                               Text(
                                 'Compare',
-                                style: TextStyle(fontWeight: FontWeight.w900),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 16,
                     ),
                     Expanded(
                       child: OfferingList(

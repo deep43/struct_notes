@@ -17,16 +17,16 @@ class WaveAnimationWidget extends StatelessWidget {
 
         onBottom(
           AnimatedWave(
-            height: isHightWave?480:80,
-            speed: .4,
+            height: isHightWave?380:80,
+            speed: .3,
             offset: pi,
-            color: accentColor.withAlpha(70),
+            color: accentColor.withAlpha(90),
           ),
         ),
         onBottom(
           AnimatedWave(
-            height: isHightWave?530:130,
-            speed: .6,
+            height: isHightWave?430:130,
+            speed: .4,
             offset: pi / 2,
             color: Colors.black.withAlpha(60),
           ),
@@ -34,7 +34,7 @@ class WaveAnimationWidget extends StatelessWidget {
         ),
         onBottom(
           AnimatedWave(
-            height: isHightWave?490:90,
+            height: isHightWave?390:90,
             speed: .2,
             offset: pi / 3,
             color: Colors.black.withAlpha(30),

@@ -66,6 +66,8 @@ class DashboardPageState extends State<DashboardPage> {
   AppliedFilterData appliedFilterData; //= AppliedFilterData();
   int _appliedFilterCount = 0;
   int _selectedCategoryPosition = 1;
+  FocusNode f1 = FocusNode();
+  bool _isAutofocusEnabled = false;
   @override
   void initState() {
     super.initState();
@@ -271,7 +273,22 @@ class DashboardPageState extends State<DashboardPage> {
                         ),
                         shape: new CircleBorder(),
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        onPressed: () {}),
+                        onPressed: () {
+                          setState(() {
+                            _isAutofocusEnabled= true;
+                          });
+
+                          _controller.menuController.toggle();
+                          Timer(Duration(milliseconds: 500), (){
+                            FocusScope.of(context).requestFocus(f1);
+                            setState(() {
+                              _isAutofocusEnabled = false;
+                            });
+
+                          });
+
+
+                        }),
                     SizedBox(
                       width: 10,
                     )
@@ -286,13 +303,16 @@ class DashboardPageState extends State<DashboardPage> {
   }
 
   Widget headerView(BuildContext context) {
+
     return Container(
       padding:
           const EdgeInsets.only(left: 20, top: 100, right: 160, bottom: 40),
       width: MediaQuery.of(context).size.width * .5,
-      child: TextFormField(
+      child: TextField(
         controller: _searchEditController,
         cursorColor: accentColor,
+        autofocus: _isAutofocusEnabled,
+        focusNode: f1,
         style: TextStyle(color: Colors.black, fontSize: 20),
         decoration: InputDecoration(
             suffixIcon: Icon(
