@@ -11,6 +11,7 @@ import 'package:structured_notes/util/WaveAnimationWidget.dart';
 import 'VIdeoPage.dart';
 import 'model/AppliedFilterData.dart';
 import 'model/ImageSliderData.dart';
+import 'package:vibration/vibration.dart';
 
 class HomePage extends StatefulWidget {
   static AppliedFilterData appliedFilterData = AppliedFilterData();
@@ -64,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget>[
                               SvgPicture.asset(
                                 'assets/images/lace.svg',
+                                color: Colors.white,
                                 width: 15,
                                 height: 15,
                               ),
@@ -102,6 +104,9 @@ class _HomePageState extends State<HomePage> {
                               elevation: 6,
                               child: InkWell(
                                 onTap: () async {
+                                  Vibration.hasVibrator().then((hasVibrator) {
+                                    Vibration.vibrate(duration: 30);
+                                  });
 
                                   widget.onCategorySelectedFromHomePage(1);
 
@@ -149,6 +154,9 @@ class _HomePageState extends State<HomePage> {
                               elevation: 6,
                               child: InkWell(
                                 onTap: () {
+                                  Vibration.hasVibrator().then((hasVibrator) {
+                                    Vibration.vibrate(duration: 30);
+                                  });
                                   widget.onCategorySelectedFromHomePage(2);
                                 },
                                 child: new Container(
@@ -187,6 +195,9 @@ class _HomePageState extends State<HomePage> {
                               elevation: 6,
                               child: InkWell(
                                 onTap: () {
+                                  Vibration.hasVibrator().then((hasVibrator) {
+                                    Vibration.vibrate(duration: 30);
+                                  });
                                   widget.onCategorySelectedFromHomePage(3);
                                 },
                                 child: new Container(
@@ -328,7 +339,7 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withAlpha(90),
-                                      offset: const Offset(0, 6),
+                                      offset: const Offset(0, 2.5),
                                       blurRadius: 4.0,
                                       spreadRadius: 0,
                                     ),

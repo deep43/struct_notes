@@ -89,7 +89,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                                     style: BorderStyle.solid))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                              horizontal: 20, vertical: 20),
                           child: Row(
                             children: <Widget>[
                               Expanded(
@@ -145,6 +145,102 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
   List<OfferingsData> getDummyOfferingsData() {
     List<OfferingsData> _offeringsList = new List();
     _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "CIBC Floating Market Rate GICs (2\n years) (USD)",
+        "Due January 11, 2021",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
       OfferingsData(
         "CIBC Floating Market Rate GICs (2\n years) (USD)",
         "Due January 11, 2021",

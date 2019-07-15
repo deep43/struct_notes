@@ -231,6 +231,102 @@ class _EducationCenterState extends State<EducationCenter>
           ],
         ),
       ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
+    ); _offeringsList.add(
+      OfferingsData(
+        "Principle at Risk Notes\n ",
+        "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
+        new List.of(
+          [
+            OfferingItem("FundSERV", "CBL2039"),
+            OfferingItem("Avail Until", "Mar 3, 2019"),
+            OfferingItem("Term", "3"),
+            OfferingItem("Issue Date", "Apr 7, 2019"),
+            OfferingItem("Maturity Date", "Mar 7, 2019"),
+            OfferingItem("Min Investment", "\$5000 USD"),
+            OfferingItem("How to Buy", "FundSERV CBL2039"),
+          ],
+        ),
+      ),
     );
 
     _offeringsList.shuffle();
