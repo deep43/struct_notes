@@ -92,38 +92,55 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                 child: Column(
                   children: <Widget>[
 
-                    Material(
-                      elevation:5,
-                      color: white,
-                      shadowColor: Colors.black45,
-                      child: Column(
-                        children: <Widget>[
-                          AppBar(
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                          ),
-                          new CategoryWidget(
-                            onCategorySelected: _onCategorySelected,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20,vertical: 10 ),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    'Product Name',
-                                    style: TextStyle(fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                Text(
-                                  'Compare',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
+                    Container(
+                      //elevation:5,
+                      //color: white,
+                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                      decoration: new BoxDecoration(
+                        //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                        shape: BoxShape.rectangle,
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            offset: Offset(1.0, 3.0),
+                            blurRadius: 10.0,
                           ),
                         ],
+                      ),
+
+                      //shadowColor: Colors.black45,
+                      child: Container(
+                        color: white,
+                        child: Column(
+                          children: <Widget>[
+                            AppBar(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                            ),
+                            new CategoryWidget(
+                              onCategorySelected: _onCategorySelected,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,vertical: 10 ),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      'Product Name',
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Compare',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
 

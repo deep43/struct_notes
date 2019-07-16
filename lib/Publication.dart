@@ -55,7 +55,6 @@ class _PublicationState extends State<Publication>
         "Acces a distinct blend of performing \n equities reguardless of market conditions.");
     _details.add(
         "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-
   }
 
   @override
@@ -72,39 +71,64 @@ class _PublicationState extends State<Publication>
                 ),
                 child: Column(
                   children: <Widget>[
-                    AppBar(
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: new Card(
-                        color: accentColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        elevation: 6,
-                        child: InkWell(
-                          onTap: () {
-                            //widget.onCategorySelected(SelectedCategory.MLCIs);
-                          },
-                          child: new Container(
-                            padding: const EdgeInsets.only(
-                                top: 45, bottom: 65, left: 30, right: 30),
-                            child: new Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text(
-                                  'A wealth of information at your fingertips',
-                                  style: new TextStyle(
-                                    fontSize: 24.0,
-                                    letterSpacing: 1.5,
-                                    fontWeight: FontWeight.w700,
-                                    color: white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                /* SizedBox(
+
+
+                    Container(
+                      //elevation:5,
+                      //color: white,
+                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                      decoration: new BoxDecoration(
+                        //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                        shape: BoxShape.rectangle,
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            offset: Offset(1.0, 3.0),
+                            blurRadius: 10.0,
+                          ),
+                        ],
+                      ),
+
+                      //shadowColor: Colors.black45,
+                      child: Container(
+                        color: white,
+                        child: Column(
+                          children: <Widget>[
+                            AppBar(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new Card(
+                                color: accentColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0)),
+                                elevation: 6,
+                                child: InkWell(
+                                  onTap: () {
+                                    //widget.onCategorySelected(SelectedCategory.MLCIs);
+                                  },
+                                  child: new Container(
+                                    padding: const EdgeInsets.only(
+                                        top: 45, bottom: 65, left: 30, right: 30),
+                                    child: new Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        new Text(
+                                          'A wealth of information at your fingertips',
+                                          style: new TextStyle(
+                                            fontSize: 24.0,
+                                            letterSpacing: 1.5,
+                                            fontWeight: FontWeight.w700,
+                                            color: white,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        /* SizedBox(
                                   height: 5,
                                 ),
                                 new Text(
@@ -117,12 +141,17 @@ class _PublicationState extends State<Publication>
                                           : secondaryTextColor),
                                   textAlign: TextAlign.center,
                                 ),*/
-                              ],
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
+
                     /*new CategoryWidget(
                       onCategorySelected: _onCategorySelected,
                     ),*/
@@ -189,7 +218,48 @@ class Products extends StatelessWidget {
   Products(this.products, this.details);
 
   Widget _buildProductItem(BuildContext context, int index) {
-    return Card(
+    return new Container(margin: EdgeInsets.only(bottom: 7),
+        decoration: BoxDecoration( shape: BoxShape.rectangle, boxShadow: [BoxShadow( color: Colors.grey.withOpacity(0.07), blurRadius: 5.0, ),] ),
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          elevation: 0.8,
+          child: Row(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ClipRRect(
+                  borderRadius: new BorderRadius.circular(8.0),
+                  child: Image.asset('assets/images/pub_img.png',
+                      width: 160, height: 125, fit: BoxFit.cover)),
+              SizedBox(
+                width: 20.0,
+              ),
+              Column(
+                //mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(products[index],
+                        style: TextStyle(
+                            color: accentTextColor,
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                  Text(details[index],
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.6), fontSize: 7.0),
+                      textAlign: TextAlign.center)
+                ],
+              ),
+            ],
+          ),
+        ),
+        /*onTap: () {}*/
+    );
+
+    /*return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       elevation: 0.8,
       child: Row( //mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +292,7 @@ class Products extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );*/
   }
 
   @override
