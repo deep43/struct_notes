@@ -92,45 +92,42 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                 ),
                 child: Column(
                   children: <Widget>[
-                    AppBar(
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    new CategoryWidget(
-                      onCategorySelected: _onCategorySelected,
-                    ),
+
                     Material(
+                      elevation:5,
                       color: white,
-                      elevation: 10,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.black12,
-                                    style: BorderStyle.solid))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20,vertical: 10 ),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  'Product Name',
+                      shadowColor: Colors.black45,
+                      child: Column(
+                        children: <Widget>[
+                          AppBar(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          new CategoryWidget(
+                            onCategorySelected: _onCategorySelected,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20,vertical: 10 ),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text(
+                                    'Product Name',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Text(
+                                  'Compare',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
-                              ),
-                              Text(
-                                'Compare',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
+
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,
@@ -456,7 +453,7 @@ class _OfferingListState extends State<OfferingList>
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       shrinkWrap: true,
       separatorBuilder: (ctx, index) {
         return Padding(
@@ -555,7 +552,7 @@ class _OfferingListState extends State<OfferingList>
                             // setState(() {});
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(12),
                             child: Container(
                               constraints: BoxConstraints(),
                               decoration: BoxDecoration(
