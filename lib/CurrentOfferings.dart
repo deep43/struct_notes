@@ -6,7 +6,6 @@ import 'package:structured_notes/util/Theme.dart';
 import 'ComaprePage.dart';
 import 'model/OfferingsData.dart';
 import 'package:vibration/vibration.dart';
-import 'package:vibration/vibration.dart';
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
 
