@@ -72,36 +72,60 @@ class _EducationCenterState extends State<EducationCenter>
                 ),
                 child: Column(
                   children: <Widget>[
-                    AppBar(
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: new Card(
-                        color: accentColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                        elevation: 6,
-                        child: InkWell(
-                          onTap: () {
-                            //widget.onCategorySelected(SelectedCategory.MLCIs);
-                          },
-                          child: new Container(
-                            padding: const EdgeInsets.only(top: 45, bottom: 45, left: 40, right: 40),
-                            child: new Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text(
-                                  'Customized investment solutions tailored to meet your unique goals',
-                                  style: new TextStyle(
-                                    fontSize: 22.0,
-                                    letterSpacing: 1.5,
-                                    fontWeight: FontWeight.w700,
-                                    color: white,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                                /* SizedBox(
+
+                    Container(
+                      //elevation:5,
+                      //color: white,
+                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                      decoration: new BoxDecoration(
+                        //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                        shape: BoxShape.rectangle,
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            offset: Offset(1.0, 3.0),
+                            blurRadius: 10.0,
+                          ),
+                        ],
+                      ),
+
+                      //shadowColor: Colors.black45,
+                      child: Container(
+                        color: white,
+                        child: Column(
+                          children: <Widget>[
+                            AppBar(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new Card(
+                                color: accentColor,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                                elevation: 6,
+                                child: InkWell(
+                                  onTap: () {
+                                    //widget.onCategorySelected(SelectedCategory.MLCIs);
+                                  },
+                                  child: new Container(
+                                    padding: const EdgeInsets.only(top: 45, bottom: 45, left: 40, right: 40),
+                                    child: new Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Customized investment solutions tailored to meet your unique goals',
+                                          style: new TextStyle(
+                                            fontSize: 22.0,
+                                            letterSpacing: 1.5,
+                                            fontWeight: FontWeight.w700,
+                                            color: white,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                        /* SizedBox(
                                   height: 5,
                                 ),
                                 new Text(
@@ -114,12 +138,20 @@ class _EducationCenterState extends State<EducationCenter>
                                           : secondaryTextColor),
                                   textAlign: TextAlign.center,
                                 ),*/
-                              ],
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
+
+
+
+
                     /*new CategoryWidget(
                       onCategorySelected: _onCategorySelected,
                     ),*/
@@ -587,32 +619,60 @@ class _OfferingListState extends State<OfferingList>
                   hasIcon: false,
                   iconPlacement: ExpandablePanelIconPlacement.left,
                   tapHeaderToExpand: true,
-                  collapsed: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "...",
-                      style: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
-                  ),
                   header: Container(
                     width: double.infinity,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                             child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              inheritedWidget.offeringDataList[index].title,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(inheritedWidget.offeringDataList[index].time),
-                          ],
-                        )),
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(inheritedWidget.offeringDataList[index].title, style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(inheritedWidget.offeringDataList[index].time),
+                                SizedBox(height: 15,),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    ),
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    ),
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )),
                         /*InkWell(
                           onTap: () {
                             if (_comaringItemList
@@ -625,27 +685,31 @@ class _OfferingListState extends State<OfferingList>
                             widget.onCompareItemsSelected(_comaringItemList);
                             // setState(() {});
                           },
-                          child: Container(
-                            constraints: BoxConstraints(),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _comaringItemList.contains(
-                                    inheritedWidget.offeringDataList[index])
-                                    ? accentColor
-                                    : Colors.transparent,
-                                border: Border.all(color: accentColor)),
-                            padding: const EdgeInsets.all(6),
-                            child: _comaringItemList.contains(
-                                inheritedWidget.offeringDataList[index])
-                                ? SvgPicture.asset(
-                              'assets/images/tick.svg',
-                              color: white,
-                              width: 16,
-                              height: 16,
-                            )
-                                : SizedBox(
-                              width: 16,
-                              height: 16,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              constraints: BoxConstraints(),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _comaringItemList.contains(
+                                      inheritedWidget
+                                          .offeringDataList[index])
+                                      ? accentColor
+                                      : Colors.transparent,
+                                  border: Border.all(color: accentColor)),
+                              padding: const EdgeInsets.all(6),
+                              child: _comaringItemList.contains(
+                                  inheritedWidget.offeringDataList[index])
+                                  ? SvgPicture.asset(
+                                'assets/images/tick.svg',
+                                color: white,
+                                width: 16,
+                                height: 16,
+                              )
+                                  : SizedBox(
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
                         )*/

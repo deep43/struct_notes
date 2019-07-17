@@ -11,13 +11,12 @@ class PriviouslyIssued extends StatefulWidget {
 }
 
 class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerProviderStateMixin {
+
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
-
+  SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
-
-  SelectedCategory _selectedCategory = SelectedCategory.MLCIs;
 
   @override
   void initState() {
@@ -72,45 +71,57 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                 ),
                 child: Column(
                   children: <Widget>[
-                    AppBar(
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    /*new CategoryWidget(
-                      onCategorySelected: _onCategorySelected,
-                    ),*/
-                    Material(
-                      color: white,
-                      elevation: 10,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.black12,
-                                    style: BorderStyle.solid))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20,vertical: 10 ),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  'Product Name',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              Text(
-                                'Compare',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ],
+
+                    Container(
+                      //elevation:5,
+                      //color: white,
+                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                      decoration: new BoxDecoration(
+                        //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                        shape: BoxShape.rectangle,
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            offset: Offset(1.0, 3.0),
+                            blurRadius: 10.0,
                           ),
+                        ],
+                      ),
+
+                      //shadowColor: Colors.black45,
+                      child: Container(
+                        color: white,
+                        child: Column(
+                          children: <Widget>[
+                            AppBar(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,vertical: 10 ),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      'Product Name',
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Compare',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
+
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,
@@ -130,7 +141,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
   _onComapareItemsSelected(List<OfferingsData> items) {
     if (items.length > 1) {
       controller.forward();
-    } else if(items.length!=0){
+    } else if (items.length != 0) {
       controller.reverse();
     }
     setState(() {
@@ -148,170 +159,60 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
 
   List<OfferingsData> getDummyOfferingsData() {
     List<OfferingsData> _offeringsList = new List();
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+
+    for (int i = 0; i < 3; i++) {
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+      );
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (2 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
+      );
+      _offeringsList.add(
+        OfferingsData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              OfferingItem("FundSERV", "CBL2039"),
+              OfferingItem("Avail Until", "Mar 3, 2019"),
+              OfferingItem("Term", "3"),
+              OfferingItem("Issue Date", "Apr 7, 2019"),
+              OfferingItem("Maturity Date", "Mar 7, 2019"),
+              OfferingItem("Min Investment", "\$5000 USD"),
+              OfferingItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
         ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    ); _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    );
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2 \nyears) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    );
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (3\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    );
-    _offeringsList.add(
-      OfferingsData(
-        "CIBC Floating Market Rate GICs (2\n years) (USD)",
-        "Due January 11, 2021",
-        new List.of(
-          [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
-          ],
-        ),
-      ),
-    );
+      );
+    }
 
     _offeringsList.shuffle();
     return _offeringsList;
@@ -319,180 +220,6 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
 }
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
-
-class CategoryWidget extends StatefulWidget {
-  final Function onCategorySelected;
-
-  const CategoryWidget({Key key, this.onCategorySelected}) : super(key: key);
-
-  @override
-  _CategoryWidgetState createState() => _CategoryWidgetState();
-}
-
-class _CategoryWidgetState extends State<CategoryWidget> {
-  @override
-  Widget build(BuildContext context) {
-    CurrentOfferingsInheritedWidget currentOfferingsInheritedWidget =
-    CurrentOfferingsInheritedWidget.of(context);
-
-    return new GridView.count(
-      physics: NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 30, bottom: 10, left: 8, right: 8),
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      crossAxisSpacing: 4,
-      children: <Widget>[
-        new Card(
-          color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.MLCIs
-              ? accentColor
-              : Colors.white,
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 6,
-          child: InkWell(
-            onTap: () {
-              widget.onCategorySelected(SelectedCategory.MLCIs);
-            },
-            child: new Container(
-              padding: const EdgeInsets.all(6),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    'MLCICs',
-                    style: new TextStyle(
-                        fontSize: 22.0,
-                        letterSpacing: 1.6,
-                        fontWeight: FontWeight.w700,
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.MLCIs
-                            ? white
-                            : accentTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  new Text(
-                    'Market Linked GICs',
-                    style: new TextStyle(
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.MLCIs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        new Card(
-          color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PPNs
-              ? accentColor
-              : Colors.white,
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 6,
-          child: InkWell(
-            onTap: () {
-              widget.onCategorySelected(SelectedCategory.PPNs);
-            },
-            child: new Container(
-              padding: const EdgeInsets.all(6),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    'PPNs',
-                    style: new TextStyle(
-                        fontSize: 22.0,
-                        letterSpacing: 1.6,
-                        fontWeight: FontWeight.w700,
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? white
-                            : accentTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  new Text(
-                    'Principle Protected Notes',
-                    style: new TextStyle(
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        new Card(
-          color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PARs
-              ? accentColor
-              : Colors.white,
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 6,
-          child: InkWell(
-            onTap: () {
-              widget.onCategorySelected(SelectedCategory.PARs);
-            },
-            child: new Container(
-              padding: const EdgeInsets.all(6),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    'PARs',
-                    style: new TextStyle(
-                        letterSpacing: 1.6,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w700,
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PARs
-                            ? white
-                            : accentTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  new Text(
-                    'Principle At Risk Notes',
-                    style: new TextStyle(
-                        color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PARs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class OfferingList extends StatefulWidget {
   final Function(List<OfferingsData>) onCompareItemsSelected;
@@ -565,33 +292,64 @@ class _OfferingListState extends State<OfferingList>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               ExpandablePanel(
                   hasIcon: false,
                   iconPlacement: ExpandablePanelIconPlacement.left,
                   tapHeaderToExpand: true,
-                  collapsed: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "...",
-                      style: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
-                  ),
                   header: Container(
                     width: double.infinity,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(inheritedWidget.offeringDataList[index].title),
                                 Text(inheritedWidget.offeringDataList[index].time),
+                                SizedBox(height: 15,),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    ),
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    ),
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    )
+                                  ],
+                                )
                               ],
                             )),
                         InkWell(
@@ -606,27 +364,31 @@ class _OfferingListState extends State<OfferingList>
                             widget.onCompareItemsSelected(_comaringItemList);
                             // setState(() {});
                           },
-                          child: Container(
-                            constraints: BoxConstraints(),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _comaringItemList.contains(
-                                    inheritedWidget.offeringDataList[index])
-                                    ? accentColor
-                                    : Colors.transparent,
-                                border: Border.all(color: accentColor)),
-                            padding: const EdgeInsets.all(6),
-                            child: _comaringItemList.contains(
-                                inheritedWidget.offeringDataList[index])
-                                ? SvgPicture.asset(
-                              'assets/images/tick.svg',
-                              color: white,
-                              width: 16,
-                              height: 16,
-                            )
-                                : SizedBox(
-                              width: 16,
-                              height: 16,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              constraints: BoxConstraints(),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _comaringItemList.contains(
+                                      inheritedWidget
+                                          .offeringDataList[index])
+                                      ? accentColor
+                                      : Colors.transparent,
+                                  border: Border.all(color: accentColor)),
+                              padding: const EdgeInsets.all(6),
+                              child: _comaringItemList.contains(
+                                  inheritedWidget.offeringDataList[index])
+                                  ? SvgPicture.asset(
+                                'assets/images/tick.svg',
+                                color: white,
+                                width: 16,
+                                height: 16,
+                              )
+                                  : SizedBox(
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
                         )
@@ -646,6 +408,9 @@ class _OfferingListState extends State<OfferingList>
                       ),
                     ),
                   )),
+              SizedBox(
+                height: 5,
+              )
             ],
           ),
         );

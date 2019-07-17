@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                         ),
 
                         Container(padding:const EdgeInsets.symmetric(horizontal: 30),
-                        child: Text('Find out more about how you can increase your return potential',textAlign: TextAlign.center,),),
+                        child: Text('Find out more about how you can increase your\n return potential',textAlign: TextAlign.center,),),
 
                         SizedBox(height: 20,),
                         new ImageSliderWidget(onCategorySelectedFromHomePage:widget.onCategorySelectedFromHomePage),
