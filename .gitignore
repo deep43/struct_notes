@@ -1,0 +1,17 @@
+.idea
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+
+# generated files
+bin/
+gen/
+build/

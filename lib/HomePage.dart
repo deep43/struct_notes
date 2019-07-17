@@ -16,7 +16,7 @@ import 'package:vibration/vibration.dart';
 class HomePage extends StatefulWidget {
   static AppliedFilterData appliedFilterData = AppliedFilterData();
 
-  Function(int selectedCategory)onCategorySelectedFromHomePage;
+  Function(int selectedCategory,int selectedPage)onCategorySelectedFromHomePage;
   HomePage({this.onCategorySelectedFromHomePage});
   @override
   _HomePageState createState() => _HomePageState();
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                     Vibration.vibrate(duration: 50);
                                   });
 
-                                  widget.onCategorySelectedFromHomePage(1);
+                                  widget.onCategorySelectedFromHomePage(1,2);
 
 //                                  await Navigator.of(context).push(
 //                                      MaterialPageRoute(
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                   Vibration.hasVibrator().then((hasVibrator) {
                                     Vibration.vibrate(duration: 50);
                                   });
-                                  widget.onCategorySelectedFromHomePage(2);
+                                  widget.onCategorySelectedFromHomePage(2,2);
                                 },
                                 child: new Container(
                                   padding: const EdgeInsets.all(6),
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                                   Vibration.hasVibrator().then((hasVibrator) {
                                     Vibration.vibrate(duration: 50);
                                   });
-                                  widget.onCategorySelectedFromHomePage(3);
+                                  widget.onCategorySelectedFromHomePage(3,2);
                                 },
                                 child: new Container(
                                   padding: const EdgeInsets.all(6),
@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text('Find out more about how you can increase your\n return potential',textAlign: TextAlign.center,),),
 
                         SizedBox(height: 20,),
-                        new ImageSliderWidget(),
+                        new ImageSliderWidget(onCategorySelectedFromHomePage:widget.onCategorySelectedFromHomePage),
                         // below headng
                       ],
                     ),
@@ -252,7 +252,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ImageSliderWidget extends StatefulWidget {
-  const ImageSliderWidget({
+  final Function(int selectedCategory,int selectedPage) onCategorySelectedFromHomePage;
+  const ImageSliderWidget( {
+    this.onCategorySelectedFromHomePage,
     Key key,
   }) : super(key: key);
 
@@ -337,78 +339,87 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                               ),
                             ),
                             Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withAlpha(90),
-                                      offset: const Offset(0, 2.5),
-                                      blurRadius: 4.0,
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [Colors.black12, Colors.black26]),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: Container(
-                                              height: 22,
-                                              width: 22,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.amberAccent,
-                                                  shape: BoxShape.circle),
-                                              child: Align(
+                              child: InkWell(
+                                onTap: (){
+                                  if(_current!=3){
+                                    widget.onCategorySelectedFromHomePage(1,3);
+                                  }else{
+                                    widget.onCategorySelectedFromHomePage(1,4);
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(color: white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withAlpha(90),
+                                        offset: const Offset(0, 2.5),
+                                        blurRadius: 4.0,
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [Colors.black12, Colors.black26]),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Container(
+                                                height: 22,
+                                                width: 22,
                                                 alignment: Alignment.center,
-                                                child: Text(
-                                                  (_current + 1).toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.amberAccent,
+                                                    shape: BoxShape.circle),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    (_current + 1).toString(),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            sliderList[_current].title,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: white,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        sliderList[_current].content,
-                                        style: TextStyle(
-                                            fontSize: 28,
-                                            color: white,
-                                            fontWeight: FontWeight.w500),
-                                      )
-                                    ],
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              sliderList[_current].title,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: white,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          sliderList[_current].content,
+                                          style: TextStyle(
+                                              fontSize: 28,
+                                              color: white,
+                                              fontWeight: FontWeight.w500),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

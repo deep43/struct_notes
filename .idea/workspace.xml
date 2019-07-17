@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0349964b-e2d8-4a8c-9be1-b94de3773575" name="Default Changelist" comment="" />
+    <list default="true" id="0349964b-e2d8-4a8c-9be1-b94de3773575" name="Default Changelist" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/libraries/Dart_Packages.xml&#10;#&#9;.packages&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.bin&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.lock&#10;#&#9;android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/classAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/jarAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/javaCompile.lock&#10;#&#9;android/.gradle/4.10.2/javaCompile/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.lock&#10;#&#9;android/.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;pubspec.lock">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/find.xml" beforeDir="false" afterPath="$PROJECT_DIR$/find.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CurrentOfferings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CurrentOfferings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/EducationCenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/EducationCenter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PriviouslyIssued.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PriviouslyIssued.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Publication.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Publication.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/struct_notes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/struct_notes.iml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -17,12 +44,30 @@
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/.pub/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/build/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/.pub/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/build/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/example/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/example/.pub/" />
     <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/sqflite/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/vibration/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/youtube_player/example/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,63 +78,53 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/CurrentOfferings.dart">
+        <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="144" column="22" selection-start-line="94" selection-start-column="19" selection-end-line="144" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-                <element signature="e#1803#2612#0" />
-                <element signature="e#3286#5210#0" />
-                <element signature="e#4234#4332#0" />
-                <element signature="e#4367#5173#0" />
-                <element signature="e#4535#5144#0" />
-                <element signature="e#16618#22047#0" />
-              </folding>
+            <state relative-caret-position="495">
+              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/PriviouslyIssued.dart">
+        <entry file="file://$PROJECT_DIR$/pubspec.lock">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="182" column="59" lean-forward="true" selection-start-line="182" selection-start-column="59" selection-end-line="182" selection-end-column="59" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-                <element signature="e#3803#4643#0" />
-              </folding>
+            <state relative-caret-position="457">
+              <caret line="328" column="26" lean-forward="true" selection-start-line="328" selection-start-column="26" selection-end-line="328" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/EducationCenter.dart">
+        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="75" column="30" selection-start-line="75" selection-start-column="30" selection-end-line="75" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-                <element signature="e#3651#6046#0" />
-                <element signature="e#24655#26686#0" />
-              </folding>
+            <state relative-caret-position="396">
+              <caret line="34" column="16" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Publication.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="153" selection-start-line="153" selection-end-line="153" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#4364#5204#0" />
-                <element signature="e#10491#10687#0" />
-                <element signature="e#10746#14740#0" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -101,111 +136,68 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>cibs</find>
-      <find>CIB</find>
-      <find>_DrawerScaffoldState</find>
-      <find>footerView</find>
-      <find>headerView</find>
-      <find>menu</find>
-      <find>Register</find>
-      <find>Vibration</find>
-      <find>CategoryWidget</find>
-      <find>return</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/util/EducationCenter.dart" />
-        <option value="$PROJECT_DIR$/lib/model/EducationListDataModel.dart" />
-        <option value="$PROJECT_DIR$/lib/Dashboard.dart" />
-        <option value="$PROJECT_DIR$/lib/FilterPage.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/lib/HomePage.dart" />
-        <option value="$PROJECT_DIR$/lib/CurrentOfferings.dart" />
-        <option value="$PROJECT_DIR$/lib/EducationCenter.dart" />
-        <option value="$PROJECT_DIR$/lib/Publication.dart" />
-        <option value="$PROJECT_DIR$/lib/PriviouslyIssued.dart" />
+        <option value="$PROJECT_DIR$/pubspec.lock" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
+              <item name="struct_notes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="struct_notes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="struct_notes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="struct_notes" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="struct_notes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="struct_notes" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="libraries" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="apk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CIBC_NOTES_REPO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CIBC_NOTES_REPO" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="struct_notes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="struct_notes" type="462c0819:PsiDirectoryNode" />
+              <item name="_mac" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="CatdeaLogs" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
-    <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\CIBC_NOTES_REPO\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\CIBC_NOTES_REPO\assets\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.idea" />
+      <recent name="E:\CIBC_NOTES_REPO\lib" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -239,21 +231,12 @@
     </task>
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19213313" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.15665236" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -277,6 +260,10 @@
       <window_info anchor="right" id="Palette&#9;" order="4" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/libraries/Dart_Packages.xml&#10;#&#9;.packages&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.bin&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.lock&#10;#&#9;android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/classAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/jarAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/javaCompile.lock&#10;#&#9;android/.gradle/4.10.2/javaCompile/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.lock&#10;#&#9;android/.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;pubspec.lock" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/libraries/Dart_Packages.xml&#10;#&#9;.packages&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.bin&#10;#&#9;android/.gradle/4.10.2/fileHashes/fileHashes.lock&#10;#&#9;android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/classAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/jarAnalysis.bin&#10;#&#9;android/.gradle/4.10.2/javaCompile/javaCompile.lock&#10;#&#9;android/.gradle/4.10.2/javaCompile/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.bin&#10;#&#9;android/.gradle/4.10.2/taskHistory/taskHistory.lock&#10;#&#9;android/.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;pubspec.lock" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.flutter-plugins">
       <provider selected="true" editor-type-id="text-editor">
@@ -297,13 +284,7 @@
     <entry file="file://$PROJECT_DIR$/assets/images/side_menu.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/material/input_decorator.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36193">
-          <caret line="2140" column="13" selection-start-line="2140" selection-start-column="13" selection-end-line="2140" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/material/input_decorator.dart" />
     <entry file="file://$PROJECT_DIR$/lib/drawer_scaffold/drawerbehavior.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -323,13 +304,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/scheduler/binding.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="863" column="4" selection-start-line="863" selection-start-column="4" selection-end-line="863" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/scheduler/binding.dart" />
     <entry file="file://$PROJECT_DIR$/lib/drawer_scaffold/menu_screen.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -337,37 +312,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/widgets/framework.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="1085" column="7" selection-start-line="1085" selection-start-column="7" selection-end-line="1085" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/bin/cache/pkg/sky_engine/lib/ui/text.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1246">
-          <caret line="106" column="16" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/animation/animation_controller.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="237" column="29" selection-start-line="237" selection-start-column="29" selection-end-line="237" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/widgets/framework.dart" />
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/bin/cache/pkg/sky_engine/lib/ui/text.dart" />
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/packages/flutter/lib/src/animation/animation_controller.dart" />
     <entry file="file://$PROJECT_DIR$/lib/util/Theme.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -419,13 +366,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/bin/cache/pkg/sky_engine/lib/ui/painting.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="185" column="31" selection-start-line="185" selection-start-column="31" selection-end-line="185" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/flutter/flutter_windows_v1.5.4-hotfix.2-stable/flutter/bin/cache/pkg/sky_engine/lib/ui/painting.dart" />
     <entry file="file://$PROJECT_DIR$/assets/images/lace.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -436,13 +377,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
           <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -508,81 +442,43 @@
         </state>
       </provider>
     </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>struct_notes</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Flutter Plugins</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="34" column="16" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="328" column="26" lean-forward="true" selection-start-line="328" selection-start-column="26" selection-end-line="328" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
