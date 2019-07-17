@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                               child: InkWell(
                                 onTap: () async {
                                   Vibration.hasVibrator().then((hasVibrator) {
-                                    Vibration.vibrate(duration: 30);
+                                    Vibration.vibrate(duration: 50);
                                   });
 
                                   widget.onCategorySelectedFromHomePage(1);
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                               child: InkWell(
                                 onTap: () {
                                   Vibration.hasVibrator().then((hasVibrator) {
-                                    Vibration.vibrate(duration: 30);
+                                    Vibration.vibrate(duration: 50);
                                   });
                                   widget.onCategorySelectedFromHomePage(2);
                                 },
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                               child: InkWell(
                                 onTap: () {
                                   Vibration.hasVibrator().then((hasVibrator) {
-                                    Vibration.vibrate(duration: 30);
+                                    Vibration.vibrate(duration: 50);
                                   });
                                   widget.onCategorySelectedFromHomePage(3);
                                 },

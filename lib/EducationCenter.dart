@@ -76,7 +76,7 @@ class _EducationCenterState extends State<EducationCenter>
                     Container(
                       //elevation:5,
                       //color: white,
-                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                     // margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
                       decoration: new BoxDecoration(
                         //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
                         shape: BoxShape.rectangle,
@@ -670,7 +670,7 @@ class _OfferingListState extends State<OfferingList>
                                           color: accentColor,),),
                                     )
                                   ],
-                                )
+                                ), SizedBox(height: 10,),
                               ],
                             )),
                         /*InkWell(

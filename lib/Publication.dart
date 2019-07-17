@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:expandable/expandable.dart';
 import 'package:structured_notes/util/Theme.dart';
+import 'model/PublicationData.dart';
 
 class Publication extends StatefulWidget {
   @override
@@ -11,8 +11,7 @@ class _PublicationState extends State<Publication>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<Offset> offset;
-  List<String> _products = [];
-  List<String> _details = [];
+  List<PublicationData> _mPublicationList = new List();
 
   @override
   void initState() {
@@ -23,38 +22,7 @@ class _PublicationState extends State<Publication>
 
     offset = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
         .animate(controller);
-
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-    _products.add("The WisdomTree Siegel Strategic\n Value Index");
-
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
-    _details.add(
-        "Acces a distinct blend of performing \n equities reguardless of market conditions.");
+    _mPublicationList = getPopulatedStaticData(); // this method will populate publication 's dummy data at run time
   }
 
   @override
@@ -71,12 +39,7 @@ class _PublicationState extends State<Publication>
                 ),
                 child: Column(
                   children: <Widget>[
-
-
                     Container(
-                      //elevation:5,
-                      //color: white,
-                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
                       decoration: new BoxDecoration(
                         //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
                         shape: BoxShape.rectangle,
@@ -89,8 +52,6 @@ class _PublicationState extends State<Publication>
                           ),
                         ],
                       ),
-
-                      //shadowColor: Colors.black45,
                       child: Container(
                         color: white,
                         child: Column(
@@ -99,9 +60,8 @@ class _PublicationState extends State<Publication>
                               elevation: 0,
                               backgroundColor: Colors.transparent,
                             ),
-
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: new Card(
                                 color: accentColor,
                                 shape: RoundedRectangleBorder(
@@ -113,34 +73,26 @@ class _PublicationState extends State<Publication>
                                   },
                                   child: new Container(
                                     padding: const EdgeInsets.only(
-                                        top: 45, bottom: 65, left: 30, right: 30),
+                                        top: 45,
+                                        bottom: 65,
+                                        left: 24,
+                                        right: 24),
                                     child: new Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         new Text(
                                           'A wealth of information at your fingertips',
                                           style: new TextStyle(
+                                            fontFamily: 'Whitney-Light-Pro.otf',
                                             fontSize: 24.0,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 0.4,
+                                            fontWeight: FontWeight.w300,
                                             color: white,
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
-                                        /* SizedBox(
-                                  height: 5,
-                                ),
-                                new Text(
-                                  'Market Linked GICs',
-                                  style: new TextStyle(
-                                      color: currentOfferingsInheritedWidget
-                                                  .selectedCategory ==
-                                              SelectedCategory.MLCIs
-                                          ? secondaryWhiteTextColor
-                                          : secondaryTextColor),
-                                  textAlign: TextAlign.center,
-                                ),*/
                                       ],
                                     ),
                                   ),
@@ -151,41 +103,7 @@ class _PublicationState extends State<Publication>
                         ),
                       ),
                     ),
-
-                    /*new CategoryWidget(
-                      onCategorySelected: _onCategorySelected,
-                    ),*/
-                    /* Material(
-                      elevation: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.white,))),
-                                    //style: BorderStyle.solid))),
-                        child:  CategoryWidget() */
-
-                    Expanded(child: Products(_products, _details))
-
-                    /*Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Card(
-                                  color: accentTextColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  elevation: 5,
-                                )),
-                          ],
-                        ),*/ /*
-                      ),
-                    ),*/
-
-                    /*Expanded(
-                      */ /*child: OfferingList(
-                       // onCompareItemsSelected: _onComapareItemsSelected,
-                      ),*/ /*
-                    ),*/
+                    Expanded(child: Products(_mPublicationList)) // this widget will populate the list of items
                   ],
                 ),
               ),
@@ -197,102 +115,83 @@ class _PublicationState extends State<Publication>
     ;
   }
 
-/* _onComapareItemsSelected(List<OfferingsData> items) {
-    if (items.length > 1) {
-      controller.forward();
-    } else if (items.length != 0) {
-      controller.reverse();
+  List<PublicationData> getPopulatedStaticData() {
+    List<PublicationData> mData = new List();
+    for (int i = 0; i < 15; i++) {
+      mData.add(PublicationData(
+          "assets/images/pub_img.png",
+          "Where income, Growth and capital\n preservation arer on your items.",
+          "CIBC Structured Notes",
+          "Customized investment solution tailored to meet\n your unique requirements.\n investment startegy and goals."));
     }
-    setState(() {
-      this._compareItems = items;
-    });
+
+    return mData;
   }
-*/
 
 }
 
 class Products extends StatelessWidget {
-  final List<String> products;
-  final List<String> details;
+  final List<PublicationData> myPublicationData;
 
-  Products(this.products, this.details);
+  Products(this.myPublicationData);
 
   Widget _buildProductItem(BuildContext context, int index) {
-    return new Container(margin: EdgeInsets.only(bottom: 7),
-        decoration: BoxDecoration( shape: BoxShape.rectangle, boxShadow: [BoxShadow( color: Colors.grey.withOpacity(0.07), blurRadius: 5.0, ),] ),
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 0.8,
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ClipRRect(
-                  borderRadius: new BorderRadius.circular(8.0),
-                  child: Image.asset('assets/images/pub_img.png',
-                      width: 160, height: 125, fit: BoxFit.cover)),
-              SizedBox(
-                width: 20.0,
-              ),
-              Column(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(products[index],
-                        style: TextStyle(
-                            color: accentTextColor,
-                            fontSize: 9.0,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center),
-                  ),
-                  Text(details[index],
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.6), fontSize: 7.0),
-                      textAlign: TextAlign.center)
-                ],
-              ),
-            ],
-          ),
+    return new Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.07),
+          blurRadius: 5.0,
         ),
-        /*onTap: () {}*/
-    );
-
-    /*return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      elevation: 0.8,
-      child: Row( //mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ClipRRect(
-              borderRadius: new BorderRadius.circular(8.0),
-              child: Image.asset('assets/images/pub_img.png',
-                  width: 160, height: 125, fit: BoxFit.cover)),
-          SizedBox(
-            width: 20.0,
-          ),
-          Column(
-            //mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(products[index],
+      ]),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        elevation: 0.8,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            ClipRRect(
+                borderRadius: new BorderRadius.circular(8.0),
+                child: Image.asset(myPublicationData[index].imageAsset,
+                    width: 150, height: 125, fit: BoxFit.cover)),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 8.0, top: 15, right: 15.0),
+                  child: Text(myPublicationData[index].headline,
+                      style: TextStyle(
+                          fontFamily: 'Whitney-Black-Pro.otf',
+                          color: accentTextColor,
+                          fontSize: 10.4,
+                          fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center),
+                ),
+                Text(myPublicationData[index].title,
                     style: TextStyle(
-                        color: accentTextColor,
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.bold),
+                        fontFamily: 'Whitney-Light-Pro.otf',
+                        color: Colors.black.withOpacity(0.6),
+                        fontSize: 9.0),
                     textAlign: TextAlign.center),
-              ),
-              Text(details[index],
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.6), fontSize: 7.0),
-                  textAlign: TextAlign.center)
-            ],
-          ),
-        ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15.0, right: 15, top: 8.0, bottom: 8),
+                  child: Text(myPublicationData[index].description,
+                      style: TextStyle(
+                          fontFamily: 'Whitney-Light-Pro.otf',
+                          color: Colors.black.withOpacity(0.6),
+                          fontSize: 7.0),
+                      textAlign: TextAlign.center),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
-    );*/
+    );
   }
 
   @override
@@ -300,134 +199,8 @@ class Products extends StatelessWidget {
     return ListView.builder(
       padding: const EdgeInsets.only(top: 5, bottom: 5, left: 8, right: 8),
       shrinkWrap: true,
-      itemBuilder: _buildProductItem,
-      itemCount: 10,
-    );
-  }
-}
-
-class CategoryWidget extends StatefulWidget {
-  final Function onCategorySelected;
-
-  const CategoryWidget({Key key, this.onCategorySelected}) : super(key: key);
-
-  @override
-  _CategoryWidgetState createState() => _CategoryWidgetState();
-}
-
-class _CategoryWidgetState extends State<CategoryWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return new GridView.count(
-      //physics: NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 8, right: 8),
-      shrinkWrap: true,
-      crossAxisCount: 1,
-      crossAxisSpacing: 4,
-      children: <Widget>[
-        new Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 3,
-          child: InkWell(
-            onTap: () {
-              //widget.onCategorySelected(SelectedCategory.MLCIs);
-            },
-            child: new Container(
-              //padding: const EdgeInsets.all(0),
-              child: new Column(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Image(
-                    image: AssetImage('assets/images/pub_img.png'),
-                    width: 170.0,
-                    height: 162.0,
-                    fit: BoxFit.fill,
-                  ),
-                  /*SizedBox(
-                    height: 8,
-                  )*/
-                ],
-              ),
-            ),
-          ),
-        ),
-        /*new Card(
-          //shape:
-          //RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 3,
-          child: InkWell(
-            onTap: () {
-              //widget.onCategorySelected(SelectedCategory.MLCIs);
-            },
-            child: new Container(
-              //padding: const EdgeInsets.all(0),
-              child: new Column(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Image(image: AssetImage('assets/images/pub_img.png'),width: 170.0,
-                    height: 162.0,
-                    fit: BoxFit.fill,),
-                  */ /*SizedBox(
-                    height: 8,
-                  )*/ /*
-                ],
-              ),
-            ),
-          ),
-        ),*/
-        /*new Card(
-          */ /*color: currentOfferingsInheritedWidget.selectedCategory ==
-              SelectedCategory.PPNs
-              ? accentColor
-              : Colors.white,*/ /*
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          elevation: 6,
-          child: InkWell(
-            onTap: () {
-             // widget.onCategorySelected(SelectedCategory.PPNs);
-            },
-            child: new Container(
-              padding: const EdgeInsets.all(6),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    'PPNs',
-                    style: new TextStyle(
-                        fontSize: 22.0,
-                        letterSpacing: 1.6,
-                        fontWeight: FontWeight.w700,
-                        //color:
-                        */ /*currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? white
-                            : accentTextColor*/ /*),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  new Text(
-                    'Principle Protected Notes',
-                    style: new TextStyle(
-                       */ /* color:
-                        currentOfferingsInheritedWidget.selectedCategory ==
-                            SelectedCategory.PPNs
-                            ? secondaryWhiteTextColor
-                            : secondaryTextColor*/ /*),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),*/
-      ],
+      itemBuilder: _buildProductItem, // this item builder build layout of each item
+      itemCount: myPublicationData.length,
     );
   }
 }

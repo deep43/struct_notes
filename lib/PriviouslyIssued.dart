@@ -10,8 +10,8 @@ class PriviouslyIssued extends StatefulWidget {
   _PriviouslyIssuedState createState() => _PriviouslyIssuedState();
 }
 
-class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerProviderStateMixin {
-
+class _PriviouslyIssuedState extends State<PriviouslyIssued>
+    with SingleTickerProviderStateMixin {
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
   SelectedCategory _selectedCategory;
@@ -40,20 +40,20 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
           alignment: Alignment.bottomCenter,
           child: _compareItems.length > 0
               ? FloatingActionButton.extended(
-              backgroundColor: accentColor,
-              onPressed: () {
-                if (_compareItems.length > 1) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx) =>
-                          ComparePage(compareItems: _compareItems),
-                      fullscreenDialog: true));
-                }
-              },
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              label: Text('Compare'))
+                  backgroundColor: accentColor,
+                  onPressed: () {
+                    if (_compareItems.length > 1) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) =>
+                              ComparePage(compareItems: _compareItems),
+                          fullscreenDialog: true));
+                    }
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  label: Text('Compare'))
               : Container(),
         ),
       ),
@@ -71,11 +71,8 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                 ),
                 child: Column(
                   children: <Widget>[
-
                     Container(
-                      //elevation:5,
-                      //color: white,
-                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+
                       decoration: new BoxDecoration(
                         //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
                         shape: BoxShape.rectangle,
@@ -89,7 +86,6 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                         ],
                       ),
 
-                      //shadowColor: Colors.black45,
                       child: Container(
                         color: white,
                         child: Column(
@@ -98,21 +94,22 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                               elevation: 0,
                               backgroundColor: Colors.transparent,
                             ),
-
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,vertical: 10 ),
+                                  horizontal: 20, vertical: 10),
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
                                     child: Text(
                                       'Product Name',
-                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                   Text(
                                     'Compare',
-                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
@@ -121,7 +118,6 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>  with SingleTickerP
                         ),
                       ),
                     ),
-
                     Expanded(
                       child: OfferingList(
                         onCompareItemsSelected: _onComapareItemsSelected,
@@ -255,7 +251,7 @@ class _OfferingListState extends State<OfferingList>
   @override
   Widget build(BuildContext context) {
     CurrentOfferingsInheritedWidget inheritedWidget =
-    CurrentOfferingsInheritedWidget.of(context);
+        CurrentOfferingsInheritedWidget.of(context);
     _buildAnimationList(inheritedWidget.offeringDataList);
     if (inheritedWidget.offeringDataList != _offeringsItemList) {
       subCategoryItemEntranceAnimationController.reset();
@@ -282,12 +278,12 @@ class _OfferingListState extends State<OfferingList>
         return AnimatedBuilder(
           animation: subCategoryItemEntranceAnimationController,
           builder: (context, child) => new Transform.translate(
-            offset: Offset(
-              subCategoryItemAnimations[index].value,
-              0.0,
-            ),
-            child: child,
-          ),
+                offset: Offset(
+                  subCategoryItemAnimations[index].value,
+                  0.0,
+                ),
+                child: child,
+              ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -305,53 +301,59 @@ class _OfferingListState extends State<OfferingList>
                       children: <Widget>[
                         Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(inheritedWidget.offeringDataList[index].title),
+                            Text(inheritedWidget.offeringDataList[index].time),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
                               children: <Widget>[
-                                Text(inheritedWidget.offeringDataList[index].title),
-                                Text(inheritedWidget.offeringDataList[index].time),
-                                SizedBox(height: 15,),
-                                Row(
-                                  children: <Widget>[
-                                    Container(
-                                      height: 5,
-                                      width: 5,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        accentColor,
-
-                                        border: Border.all(
-                                          color: accentColor,),),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: accentColor,
+                                    border: Border.all(
+                                      color: accentColor,
                                     ),
-                                    SizedBox(width: 3,),
-                                    Container(
-                                      height: 5,
-                                      width: 5,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        accentColor,
-
-                                        border: Border.all(
-                                          color: accentColor,),),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: accentColor,
+                                    border: Border.all(
+                                      color: accentColor,
                                     ),
-                                    SizedBox(width: 3,),
-                                    Container(
-                                      height: 5,
-                                      width: 5,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        accentColor,
-
-                                        border: Border.all(
-                                          color: accentColor,),),
-                                    )
-                                  ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: accentColor,
+                                    border: Border.all(
+                                      color: accentColor,
+                                    ),
+                                  ),
                                 )
                               ],
-                            )),
+                            )
+                          ],
+                        )),
                         InkWell(
                           onTap: () {
                             if (_comaringItemList
@@ -371,24 +373,24 @@ class _OfferingListState extends State<OfferingList>
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: _comaringItemList.contains(
-                                      inheritedWidget
-                                          .offeringDataList[index])
+                                          inheritedWidget
+                                              .offeringDataList[index])
                                       ? accentColor
                                       : Colors.transparent,
                                   border: Border.all(color: accentColor)),
                               padding: const EdgeInsets.all(6),
                               child: _comaringItemList.contains(
-                                  inheritedWidget.offeringDataList[index])
+                                      inheritedWidget.offeringDataList[index])
                                   ? SvgPicture.asset(
-                                'assets/images/tick.svg',
-                                color: white,
-                                width: 16,
-                                height: 16,
-                              )
+                                      'assets/images/tick.svg',
+                                      color: white,
+                                      width: 16,
+                                      height: 16,
+                                    )
                                   : SizedBox(
-                                width: 16,
-                                height: 16,
-                              ),
+                                      width: 16,
+                                      height: 16,
+                                    ),
                             ),
                           ),
                         )
@@ -458,10 +460,10 @@ class CurrentOfferingsInheritedWidget extends InheritedWidget {
 
   const CurrentOfferingsInheritedWidget(
       {Key key,
-        @required this.selectedCategory,
-        @required this.offeringDataList,
-        @required this.comapringDataList,
-        @required Widget child})
+      @required this.selectedCategory,
+      @required this.offeringDataList,
+      @required this.comapringDataList,
+      @required Widget child})
       : super(key: key, child: child);
 
   @override
@@ -471,7 +473,6 @@ class CurrentOfferingsInheritedWidget extends InheritedWidget {
 
   static CurrentOfferingsInheritedWidget of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(CurrentOfferingsInheritedWidget)
-    as CurrentOfferingsInheritedWidget;
+        as CurrentOfferingsInheritedWidget;
   }
 }
-

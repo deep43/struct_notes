@@ -95,7 +95,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                     Container(
                       //elevation:5,
                       //color: white,
-                      margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
+                      //margin: EdgeInsets.only( left: 0.0, right: 0.0 ),
                       decoration: new BoxDecoration(
                         //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
                         shape: BoxShape.rectangle,
@@ -104,7 +104,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.4),
                             offset: Offset(1.0, 3.0),
-                            blurRadius: 10.0,
+                            blurRadius: 8.0,
                           ),
                         ],
                       ),
@@ -274,7 +274,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () async {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 30);
+                Vibration.vibrate(duration: 50);
               });
               widget.onCategorySelected(SelectedCategory.MLCIs);
             },
@@ -326,7 +326,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 30);
+                Vibration.vibrate(duration: 50);
               });
               widget.onCategorySelected(SelectedCategory.PPNs);
             },
@@ -378,7 +378,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 30);
+                Vibration.vibrate(duration: 50);
               });
               widget.onCategorySelected(SelectedCategory.PARs);
             },
