@@ -33,11 +33,18 @@ dependencies:
   vibration: 1.1.0
   auto_size_text: ^2.0.2
   youtube_player: ^3.4.1
+
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.2+1
 
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/ic_launche.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
