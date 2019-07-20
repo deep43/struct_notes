@@ -61,7 +61,7 @@ class _PublicationState extends State<Publication>
                               backgroundColor: Colors.transparent,
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(7.5),
                               child: new Card(
                                 color: accentColor,
                                 shape: RoundedRectangleBorder(
@@ -137,70 +137,89 @@ class Products extends StatelessWidget {
 
   Widget _buildProductItem(BuildContext context, int index) {
     return new Container(
-      margin: EdgeInsets.only(bottom: 7),
-      decoration: BoxDecoration(shape: BoxShape.rectangle, boxShadow: [
-        BoxShadow(
+      
+      margin: EdgeInsets.only(bottom: 11.0),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, border: Border.all(color: Colors.grey.withOpacity(0.4)),/*boxShadow: [
+        *//*BoxShadow(
           color: Colors.grey.withOpacity(0.07),
           blurRadius: 5.0,
-        ),
-      ]),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        elevation: 0.8,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),*//*
+      ]*/
+      
+      borderRadius: BorderRadius.circular(8.0)),
+      child: /*Card(
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        //elevation: 0.8,
+        child:*/ Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ClipRRect(
-                borderRadius: new BorderRadius.circular(8.0),
+                borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(7.0), topLeft: Radius.circular(7.0) ),
                 child: Image.asset(myPublicationData[index].imageAsset,
-                    width: 150, height: 125, fit: BoxFit.cover)),
+                    width: 155, height: 125, fit: BoxFit.cover)
+            ),
             Column(
-              mainAxisSize: MainAxisSize.min,
+              textBaseline: TextBaseline.ideographic,
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 8.0, top: 15, right: 15.0),
-                  child: Text(myPublicationData[index].headline,
-                      style: TextStyle(
-                          fontFamily: 'Whitney-Black-Pro.otf',
-                          color: accentTextColor,
-                          fontSize: 10.4,
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.center),
+                  padding: const EdgeInsets.only(left:5.0, right: 5.0),
+                  child: textWidget(index), // list text's appear widget
+
                 ),
-                Text(myPublicationData[index].title,
-                    style: TextStyle(
-                        fontFamily: 'Whitney-Light-Pro.otf',
-                        color: Colors.black.withOpacity(0.6),
-                        fontSize: 9.0),
-                    textAlign: TextAlign.center),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15.0, right: 15, top: 8.0, bottom: 8),
-                  child: Text(myPublicationData[index].description,
-                      style: TextStyle(
-                          fontFamily: 'Whitney-Light-Pro.otf',
-                          color: Colors.black.withOpacity(0.6),
-                          fontSize: 7.0),
-                      textAlign: TextAlign.center),
-                )
               ],
-            ),
+            )
+
           ],
-        ),
-      ),
+        )
+
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 8, right: 8),
+
+      padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
       shrinkWrap: true,
       itemBuilder: _buildProductItem, // this item builder build layout of each item
       itemCount: myPublicationData.length,
     );
   }
+
+
+  Widget textWidget(index)=>Column(
+    textBaseline: TextBaseline.ideographic,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+
+
+      Text(myPublicationData[index].headline,
+          style: TextStyle(
+              fontFamily: 'Whitney-Black-Pro.otf',
+              color: accentTextColor,
+              fontSize: 11.4,
+              fontWeight: FontWeight.w400),
+          textAlign: TextAlign.center),
+      SizedBox(height: 10.0,),
+      Text(myPublicationData[index].title,
+          style: TextStyle(
+              fontFamily: 'Whitney-Light-Pro.otf',
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 9.0),
+          textAlign: TextAlign.center),
+      SizedBox(height: 2.0,),
+      Text(myPublicationData[index].description,
+          style: TextStyle(
+              fontFamily: 'Whitney-Light-Pro.otf',
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 7.0),
+          textAlign: TextAlign.center),
+
+
+    ],
+  );
 }

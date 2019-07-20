@@ -274,7 +274,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () async {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 50);
+                Vibration.vibrate(duration: 70);
               });
               widget.onCategorySelected(SelectedCategory.MLCIs);
             },
@@ -326,7 +326,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 50);
+                Vibration.vibrate(duration: 70);
               });
               widget.onCategorySelected(SelectedCategory.PPNs);
             },
@@ -378,7 +378,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               Vibration.hasVibrator().then((hasVibrator) {
-                Vibration.vibrate(duration: 50);
+                Vibration.vibrate(duration: 70);
               });
               widget.onCategorySelected(SelectedCategory.PARs);
             },

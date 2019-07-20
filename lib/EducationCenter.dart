@@ -119,9 +119,10 @@ class _EducationCenterState extends State<EducationCenter>
                                         new Text(
                                           'Customized investment solutions tailored to meet your unique goals',
                                           style: new TextStyle(
-                                            fontSize: 22.0,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.w700,
+                                            fontSize: 23.0,
+                                            letterSpacing: 0.4,
+                                            fontFamily: 'Whitney-Light-Pro.otf',
+                                            fontWeight: FontWeight.w300,
                                             color: white,
                                           ),textAlign: TextAlign.center,
                                         ),
@@ -587,7 +588,7 @@ class _OfferingListState extends State<OfferingList>
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       shrinkWrap: true,
       separatorBuilder: (ctx, index) {
         return Padding(

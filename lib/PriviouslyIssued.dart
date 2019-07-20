@@ -262,7 +262,7 @@ class _OfferingListState extends State<OfferingList>
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
       shrinkWrap: true,
       separatorBuilder: (ctx, index) {
         return Padding(
