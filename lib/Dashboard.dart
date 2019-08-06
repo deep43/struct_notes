@@ -49,6 +49,10 @@ class DashboardPageState extends State<DashboardPage> {
         id: '5',
         title: 'Publications',
       ),
+      new MenuItem(
+        id: '6',
+        title: 'Q&A',
+      ),
     ],
   );
 
@@ -62,7 +66,8 @@ class DashboardPageState extends State<DashboardPage> {
     "Current Offerings",
     "Previously Issued",
     "Education Center",
-    "Publications"
+    "Publications",
+    "Q&A"
   ];
   var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;
@@ -143,7 +148,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ? CurrentOfferings(selectedCategoryPosition: _selectedCategoryPosition)
                       : itemId == "3"
                           ? PriviouslyIssued()
-                          : itemId == "4" ? EducationCenter() : QA();
+                          : itemId == "4" ? EducationCenter() : itemId == "5" ? Publication() : QA();
               selectedMenuItemId = itemId;
             });
           },
@@ -439,6 +444,9 @@ class DashboardPageState extends State<DashboardPage> {
     }else if(selectedPage==4){
       _contentView = Publication();
       selectedMenuItemId="5";
+    }else if(selectedPage==5){
+      _contentView = QA();
+      selectedMenuItemId="6";
     }
     setState(() {
       isNavigationActivated = true;

@@ -135,13 +135,18 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
                                       itemBuilder: (BuildContext context,
                                           int index) {
                                         return Center(
-                                          child: new Text("QUESTION"+(index+1).toString(), style: TextStyle(color: Colors.white,fontSize: 20.0
+                                          child: new Text("QUESTION "+(index+1).toString(), style: TextStyle(fontFamily:
+                                          'Whitney-Light-Pro.otf',
+                                            fontSize: 24.0,
+                                            letterSpacing: 0.4,
+                                            fontWeight: FontWeight.w300,
+                                            color: white,
                                           ),),
                                         );
                                       },
 
                                       itemCount: 8,
-                                      pagination: new SwiperPagination(),
+                                      pagination: new SwiperPagination(builder: DotSwiperPaginationBuilder(color: Colors.grey, activeColor: Colors.white,)),
                                      // control: new SwiperControl(iconNext: ),
                                     ),
                                   ),
