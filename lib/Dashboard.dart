@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 
 import 'PriviouslyIssued.dart';
 import 'Publication.dart';
+import 'QA.dart';
 import 'drawer_scaffold/drawer_scaffold.dart';
 import 'drawer_scaffold/menu_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -142,7 +143,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ? CurrentOfferings(selectedCategoryPosition: _selectedCategoryPosition)
                       : itemId == "3"
                           ? PriviouslyIssued()
-                          : itemId == "4" ? EducationCenter() : Publication();
+                          : itemId == "4" ? EducationCenter() : QA();
               selectedMenuItemId = itemId;
             });
           },
