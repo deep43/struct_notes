@@ -145,13 +145,13 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
     });
   }
 
-  _onCategorySelected(SelectedCategory selectedCategory) {
+ /* _onCategorySelected(SelectedCategory selectedCategory) {
     setState(() {
       _compareItems.clear();
       _selectedCategory = selectedCategory;
       offeringItems = getDummyOfferingsData();
     });
-  }
+  }*/
 
   List<OfferingsData> getDummyOfferingsData() {
     List<OfferingsData> _offeringsList = new List();
