@@ -1,0 +1,196 @@
+{
+  "compareCount": "3",
+  "results": {
+    "header": {
+      "heading": [
+        "",
+        "",
+        "CIBC Canadian Financials Market Return GICs (3 years) due August 8, 2022",
+        "CIBC Canadian Financials Market Return GICs (5 years) due August 7, 2024",
+        "CIBC Canadian Market Return GICs (3 Year) due August 8, 2022"
+      ]
+    },
+    "row": [
+      {
+        "col": [
+          "",
+          "",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "col": [
+          "",
+          "",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "col": [
+          "Issue Date",
+          "0",
+          "Aug 7, 2019",
+          "Aug 7, 2019",
+          "Aug 7, 2019"
+        ]
+      },
+      {
+        "col": [
+          "Maturity Date",
+          "0",
+          "Aug 8, 2022",
+          "Aug 7, 2024",
+          "Aug 8, 2022"
+        ]
+      },
+      {
+        "col": [
+          "FundSERV Code",
+          "0",
+          "CBL3103",
+          "CBL1749",
+          "CBL3102"
+        ]
+      },
+      {
+        "col": [
+          "Currency",
+          "0",
+          "CAD",
+          "CAD",
+          "CAD"
+        ]
+      },
+      {
+        "col": [
+          "Product Type",
+          "0",
+          "MLGIC",
+          "MLGIC",
+          "MLGIC"
+        ]
+      },
+      {
+        "col": [
+          "Asset Class",
+          "0",
+          "Equity",
+          "Equity",
+          "Equity"
+        ]
+      },
+      {
+        "col": [
+          "Geography",
+          "0",
+          "Canada",
+          "Canada",
+          "Canada"
+        ]
+      },
+      {
+        "col": [
+          "Payoff Feature:",
+          "0",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "col": [
+          "Participation",
+          "1",
+          "55.00%",
+          "85.00%",
+          "40.00%"
+        ]
+      },
+      {
+        "col": [
+          "Cap",
+          "0",
+          "n/a",
+          "n/a",
+          "n/a"
+        ]
+      },
+      {
+        "col": [
+          "Fixed/Boosted Return",
+          "0",
+          "n/a",
+          "n/a",
+          "n/a"
+        ]
+      },
+      {
+        "col": [
+          "Autocall Level",
+          "0",
+          "n/a",
+          "n/a",
+          "n/a"
+        ]
+      },
+      {
+        "col": [
+          "Coupon",
+          "0",
+          "0.50%",
+          "0.50%",
+          "0.50%"
+        ]
+      },
+      {
+        "col": [
+          "Barrier",
+          "0",
+          "n/a",
+          "n/a",
+          "n/a"
+        ]
+      },
+      {
+        "col": [
+          "Buffer",
+          "0",
+          "n/a",
+          "n/a",
+          "n/a"
+        ]
+      },
+      {
+        "col": [
+          "",
+          "",
+          "1690",
+          "1691",
+          "1688"
+        ]
+      },
+      {
+        "col": [
+          "",
+          "",
+          "Offer",
+          "Offer",
+          "Offer"
+        ]
+      },
+      {
+        "col": [
+          "",
+          "",
+          "Current Offering",
+          "Current Offering",
+          "Current Offering"
+        ]
+      }
+    ]
+  }
+}

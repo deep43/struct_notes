@@ -1,13 +1,13 @@
-class OfferingsData{
+class SNData{
 
   String title,time;
 
-  List<OfferingItem> offeringItems;
-  OfferingsData(this.title,this.time, this.offeringItems);
+  List<SNItem> snItems;
+  SNData(this.title,this.time, this.snItems);
 
 }
 
-class OfferingItem{
+class SNItem{
   String title,value;
-  OfferingItem(this.title, this.value);
+  SNItem(this.title, this.value);
 }

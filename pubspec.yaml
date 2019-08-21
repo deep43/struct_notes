@@ -38,7 +38,15 @@ dependencies:
   flutter_spinkit: ^3.1.0
   flutter_swiper : ^1.1.6
   flutter_sticky_header: ^0.3.4
+  grouped_buttons: ^1.0.4
+  flutter_launcher_icons: ^0.7.2
 
+  #  sn_flutter_api_package:
+  #    git:
+  #     name: sn_flutter_api_package
+  #     url: https://dsbdev.cibcwm.com:8888/mobile-poc/sn_flutter_api_package
+  global_configuration: ^1.2.0
+  image: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -47,9 +55,14 @@ dev_dependencies:
 
 
 flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/images/ic_launche.png"
+  #android: "launcher_icon"
+  # ios: true
+  #image_path: "assets/images/ic_launche.png"
+  image_path_android: assets/images/ic_launche.png
+  image_path_ios: assets/images/ic_launche.png
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"  android: "launcher_icon"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -65,7 +78,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-  #  - images/a_dot_ham.jpeg
+    - assets/cfg/
+    - assets/mockdata/
+    #  - images/a_dot_ham.jpeg
+
 
   fonts:
     - family: WhitneyMediumPro
