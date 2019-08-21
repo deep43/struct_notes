@@ -1,9 +1,17 @@
+import 'dart:convert';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'ComaprePage.dart';
+import 'data_providers/DataProvider.dart';
+import 'data_providers/DataProviderInterface.dart';
 import 'model/OfferingsData.dart';
+import 'model/issues_notes_data.dart';
+import 'model/isuued_note_item.dart';
+
+final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class PriviouslyIssued extends StatefulWidget {
   @override
@@ -14,6 +22,9 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
     with SingleTickerProviderStateMixin {
   List<OfferingsData> _compareItems = new List();
   List<OfferingsData> offeringItems = new List();
+  List<OfferingsData> offeringItemsII = new List();
+  NotesData notesData;
+  List<IssuedNote> issuedNoteList;
   SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
@@ -21,6 +32,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
   @override
   void initState() {
     super.initState();
+    var status = getData();
     offeringItems = getDummyOfferingsData();
 
     controller = AnimationController(
@@ -33,6 +45,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SlideTransition(
         position: offset,
@@ -145,17 +158,39 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
     });
   }
 
- /* _onCategorySelected(SelectedCategory selectedCategory) {
+  _onCategorySelected(SelectedCategory selectedCategory) {
     setState(() {
       _compareItems.clear();
       _selectedCategory = selectedCategory;
       offeringItems = getDummyOfferingsData();
     });
-  }*/
+  }
 
+  Future<bool> getData() async {
+    try{
+      await _dataProvider.getIssuedNotes().then((data)  async{
+        var jsonNotesData = json.decode(data.toString());
+        print('getIssuedNotes debuggg111111 ' + jsonNotesData.toString());
+
+        notesData = new NotesData.fromJson(jsonNotesData);
+        print('getIssuedNotes debuggg222222 ' + jsonNotesData.toString());
+        var issuedNotesData = notesData.data;
+        issuedNoteList = issuedNotesData.noteColumns;
+        for(var i = 0; i < issuedNoteList.length; i++){
+          IssuedNote note = issuedNoteList[i];
+          print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
+        }
+        print('getIssuedNotes debuggg222222 ' + jsonNotesData.toString());
+      });
+    }
+    catch(e) {
+      print('debuggg111111333333 calling getData() - error: ' + e.toString());
+    }
+    return true;
+  }
   List<OfferingsData> getDummyOfferingsData() {
-    List<OfferingsData> _offeringsList = new List();
 
+    List<OfferingsData> _offeringsList = new List();
     for (int i = 0; i < 3; i++) {
       _offeringsList.add(
         OfferingsData(
@@ -209,7 +244,6 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
         ),
       );
     }
-
     _offeringsList.shuffle();
     return _offeringsList;
   }
@@ -262,7 +296,7 @@ class _OfferingListState extends State<OfferingList>
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       shrinkWrap: true,
       separatorBuilder: (ctx, index) {
         return Padding(
