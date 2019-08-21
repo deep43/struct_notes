@@ -14,6 +14,10 @@
           <option name="url" value="http://github.com" />
           <option name="userName" value="Notes121" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://bitbucket.org" />
+          <option name="userName" value="max_mobility" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/Flutter_Projects" />
