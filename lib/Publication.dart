@@ -187,9 +187,7 @@ class _PublicationState extends State<Publication>
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ClipRRect(
-                borderRadius: new BorderRadius.only(
-                    bottomLeft: Radius.circular(7.0),
-                    topLeft: Radius.circular(7.0)),
+                borderRadius: new BorderRadius.all(Radius.circular(7.0)),
                 child: Image.asset(_mPublicationList[index].imageAsset,
                     width: 120, height: 100, fit: BoxFit.cover)),
             Expanded(

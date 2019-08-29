@@ -140,6 +140,8 @@ class _DrawerScaffoldState extends State<DrawerScaffold>
           child: AbsorbPointer(
             absorbing: menuController.isOpen() && widget.showAppBar,
             child: new Scaffold(
+              resizeToAvoidBottomInset : false,
+              resizeToAvoidBottomPadding: false,
               backgroundColor: Colors.transparent,
               appBar: createAppBar(),
               body: body,

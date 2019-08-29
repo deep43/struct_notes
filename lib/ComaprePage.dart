@@ -3,7 +3,7 @@ import 'package:structured_notes/model/OfferingsData.dart';
 import 'package:structured_notes/util/Theme.dart';
 
 class ComparePage extends StatelessWidget {
-  List<OfferingsData> compareItems;
+  List<SNData> compareItems;
 
   ComparePage({this.compareItems});
 
@@ -28,7 +28,7 @@ class ComparePage extends StatelessWidget {
         ));
   }
 
-  List<TableRow> _getTableRows(List<OfferingsData> compareItems) {
+  List<TableRow> _getTableRows(List<SNData> compareItems) {
     List<TableRow> rows = List();
     if (compareItems.length > 0) {
       rows.add(
@@ -40,18 +40,18 @@ class ComparePage extends StatelessWidget {
       int maxRows = 0;
 
       compareItems.forEach((item) {
-        if (item.offeringItems.length > maxRows) {
-          maxRows = item.offeringItems.length;
+        if (item.snItems.length > maxRows) {
+          maxRows = item.snItems.length;
         }
       });
 
       for (int i = 0; i < maxRows; i++) {
-        List<OfferingItem> _offeringItemList = List();
+        List<SNItem> _offeringItemList = List();
         compareItems.forEach((compareItems) {
-          if (compareItems.offeringItems.length > i) {
-            _offeringItemList.add(compareItems.offeringItems[i]);
+          if (compareItems.snItems.length > i) {
+            _offeringItemList.add(compareItems.snItems[i]);
           } else {
-            _offeringItemList.add(OfferingItem("-----", "-----"));
+            _offeringItemList.add(SNItem("-----", "-----"));
           }
         });
         rows.add(TableRow(children: _getChildrenRow(_offeringItemList)));
@@ -61,7 +61,7 @@ class ComparePage extends StatelessWidget {
     return rows;
   }
 
-  List<TableCell> _getHeaderRow(List<OfferingsData> items) {
+  List<TableCell> _getHeaderRow(List<SNData> items) {
     List<TableCell> cells = List();
 
     items.forEach((item) {
@@ -81,7 +81,7 @@ class ComparePage extends StatelessWidget {
     return cells;
   }
 
-  List<TableCell> _getChildrenRow(List<OfferingItem> items) {
+  List<TableCell> _getChildrenRow(List<SNItem> items) {
     List<TableCell> cells = List();
 
     items.forEach((item) {

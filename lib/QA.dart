@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:structured_notes/data_providers/DataProvider.dart';
+import 'package:structured_notes/data_providers/DataProviderInterface.dart';
+import 'package:structured_notes/model/issues_notes_data.dart';
+import 'package:structured_notes/model/isuued_note_item.dart';
+import 'package:structured_notes/util/SNListWidget.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'ComaprePage.dart';
 import 'model/OfferingsData.dart';
@@ -23,11 +30,13 @@ class QA extends StatefulWidget {
   @override
   _EducationCenterState createState() => _EducationCenterState();
 }*/
+final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class _QAState extends State<QA> with SingleTickerProviderStateMixin {
-  List<OfferingsData> _compareItems = new List();
-  List<OfferingsData> offeringItems = new List();
-
+  List<SNData> _compareItems = new List();
+  List<SNData> qaList = new List();
+  NotesData notesData;
+  List<IssuedNote> issuedNoteList;
   AnimationController controller;
   Animation<Offset> offset;
 
@@ -36,8 +45,8 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    offeringItems = getDummyOfferingsData();
-
+   // qaList = getDummyOfferingsData();
+    var status = getData();
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
 
@@ -74,7 +83,7 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
       ),
       body: CurrentOfferingsInheritedWidget(
         selectedCategory: _selectedCategory,
-        offeringDataList: offeringItems,
+        offeringDataList: qaList,
         child: Stack(
           children: <Widget>[
             Scaffold(
@@ -185,9 +194,10 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
                     ),*/
 
                     Expanded(
-                      child: OfferingList(
-                        onCompareItemsSelected: _onComapareItemsSelected,
-                      ),
+                      child: MediaQuery.removePadding(removeTop: true,context: context, child: SNListWidget(
+                          isItemSelectable: true,
+                          onItemSelect: _onComapareItemsSelected,
+                          listData: qaList),)
                     ),
                   ],
                 ),
@@ -200,7 +210,7 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
     ;
   }
 
-  _onComapareItemsSelected(List<OfferingsData> items) {
+  _onComapareItemsSelected(List<SNData> items) {
     if (items.length > 1) {
       controller.forward();
     } else if (items.length != 0) {
@@ -215,161 +225,265 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
     setState(() {
       _compareItems.clear();
       _selectedCategory = selectedCategory;
-      offeringItems = getDummyOfferingsData();
+      qaList = populateListData(issuedNoteList);
     });
   }
 
-  List<OfferingsData> getDummyOfferingsData() {
-    List<OfferingsData> _offeringsList = new List();
+  Future<bool> getData() async {
+    try{
+      await _dataProvider.getIssuedNotes().then((data)  async{
+        var jsonNotesData = json.decode(data.toString());
+
+        notesData = new NotesData.fromJson(jsonNotesData);
+        var issuedNotesData = notesData.data;
+        issuedNoteList = issuedNotesData.noteColumns;
+        for(var i = 0; i < issuedNoteList.length; i++){
+          IssuedNote note = issuedNoteList[i];
+        }
+        setState(() {
+          qaList = populateListData(issuedNoteList);
+        });
+      });
+    }
+    catch(e) {
+      print('debuggg111111333333 calling getData() - error: ' + e.toString());
+    }
+    return true;
+  }
+  List<SNData> populateListData(List<IssuedNote> issuedNoteList) {
+    List<SNData> _snDataList = new List();
+    for(var i = 0; i < issuedNoteList.length; i++){
+      IssuedNote note = issuedNoteList[i];
+//      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
+      _snDataList.add(
+        SNData(
+          note.noteName,
+          note.issueDate,
+          new List.of(
+            [
+              SNItem("FundSERV", note.fundServ),
+              SNItem("Avail Until", note.availableUntil),
+              SNItem("Term", note.term),
+              SNItem("Issue Date", note.issueDate),
+              SNItem("Maturity Date", note.maturityDate),
+              SNItem("Min Investment", note.minInvest),
+              SNItem("How to Buy", note.howToBuy),
+            ],
+          ),
+        ),
+      );
+    }
+
+
+    /*for (int i = 0; i < 3; i++) {
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (2 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+    }*/
+    //_snDataList.shuffle();
+
+    return _snDataList;
+  }
+
+  /*List<SNData> getDummyOfferingsData() {
+    List<SNData> _offeringsList = new List();
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Market Linked GICs\n",
         "Guaranteed fixed term investments that combine the\n security of traditional GICs with the potential to earn a \nhigher market linked return in one simple solution.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principal Protected Notes\n",
         "Innovative investment vehicles that combine the traites\n of equities (upside potential) with conventional bonds\n (security of principal and potential income).",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
     );
     _offeringsList.add(
-      OfferingsData(
+      SNData(
         "Principle at Risk Notes\n ",
         "Dynamic financial instruments that provide a predefined level of principal exposure, with an opportunity for enhanced income and growth.",
         new List.of(
           [
-            OfferingItem("FundSERV", "CBL2039"),
-            OfferingItem("Avail Until", "Mar 3, 2019"),
-            OfferingItem("Term", "3"),
-            OfferingItem("Issue Date", "Apr 7, 2019"),
-            OfferingItem("Maturity Date", "Mar 7, 2019"),
-            OfferingItem("Min Investment", "\$5000 USD"),
-            OfferingItem("How to Buy", "FundSERV CBL2039"),
+            SNItem("FundSERV", "CBL2039"),
+            SNItem("Avail Until", "Mar 3, 2019"),
+            SNItem("Term", "3"),
+            SNItem("Issue Date", "Apr 7, 2019"),
+            SNItem("Maturity Date", "Mar 7, 2019"),
+            SNItem("Min Investment", "\$5000 USD"),
+            SNItem("How to Buy", "FundSERV CBL2039"),
           ],
         ),
       ),
@@ -377,7 +491,7 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
 
     _offeringsList.shuffle();
     return _offeringsList;
-  }
+  }*/
 }
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
@@ -415,6 +529,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               widget.onCategorySelected(SelectedCategory.MLCIs);
+
             },
             child: new Container(
               padding: const EdgeInsets.all(6),
@@ -556,8 +671,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   }
 }
 
+/*
 class OfferingList extends StatefulWidget {
-  final Function(List<OfferingsData>) onCompareItemsSelected;
+  final Function(List<SNData>) onCompareItemsSelected;
 
   // final List<OfferingsData> offeringsList;
 
@@ -569,8 +685,8 @@ class OfferingList extends StatefulWidget {
 
 class _OfferingListState extends State<OfferingList>
     with SingleTickerProviderStateMixin {
-  List<OfferingsData> _offeringsItemList = new List();
-  List<OfferingsData> _comaringItemList = new List();
+  List<SNData> _offeringsItemList = new List();
+  List<SNData> _comaringItemList = new List();
   AnimationController subCategoryItemEntranceAnimationController;
   List<Animation> subCategoryItemAnimations;
 
@@ -749,7 +865,7 @@ class _OfferingListState extends State<OfferingList>
                         spacing: 10,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: _getOfferingItemList(inheritedWidget
-                            .offeringDataList[index].offeringItems),
+                            .offeringDataList[index].snItems),
                       ),
                     ),
                   )),
@@ -761,7 +877,7 @@ class _OfferingListState extends State<OfferingList>
     );
   }
 
-  void _buildAnimationList(List<OfferingsData> offeringDataList) {
+  void _buildAnimationList(List<SNData> offeringDataList) {
     subCategoryItemAnimations = offeringDataList.map((subCat) {
       int index = offeringDataList.indexOf(subCat);
       double start = index * 0.1;
@@ -774,7 +890,7 @@ class _OfferingListState extends State<OfferingList>
     }).toList();
   }
 
-  List<Widget> _getOfferingItemList(List<OfferingItem> offeringItems) {
+  List<Widget> _getOfferingItemList(List<SNItem> offeringItems) {
     List<Column> items = new List();
     offeringItems.forEach((item) {
       items.add(Column(
@@ -792,10 +908,11 @@ class _OfferingListState extends State<OfferingList>
     return items;
   }
 }
+*/
 
 class CurrentOfferingsInheritedWidget extends InheritedWidget {
   final SelectedCategory selectedCategory;
-  final List<OfferingsData> offeringDataList;
+  final List<SNData> offeringDataList;
 
   const CurrentOfferingsInheritedWidget(
       {Key key,

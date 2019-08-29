@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'PriviouslyIssued.dart';
 import 'Publication.dart';
 import 'QA.dart';
+import 'VIdeoPage.dart';
 import 'drawer_scaffold/drawer_scaffold.dart';
 import 'drawer_scaffold/menu_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';

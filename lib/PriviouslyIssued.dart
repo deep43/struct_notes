@@ -1,9 +1,19 @@
+import 'dart:convert';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:structured_notes/model/OfferingsData.dart';
+import 'package:structured_notes/util/SNListWidget.dart';
+import 'model/OfferingsData.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'ComaprePage.dart';
-import 'model/OfferingsData.dart';
+import 'data_providers/DataProvider.dart';
+import 'data_providers/DataProviderInterface.dart';
+import 'model/issues_notes_data.dart';
+import 'model/isuued_note_item.dart';
+
+final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class PriviouslyIssued extends StatefulWidget {
   @override
@@ -12,17 +22,21 @@ class PriviouslyIssued extends StatefulWidget {
 
 class _PriviouslyIssuedState extends State<PriviouslyIssued>
     with SingleTickerProviderStateMixin {
-  List<OfferingsData> _compareItems = new List();
-  List<OfferingsData> offeringItems = new List();
+  List<SNData> _compareItems = new List();
+  List<SNData> previouslyIssuedList = new List();
+  List<SNData> offeringItemsII = new List();
+  NotesData notesData;
+  List<IssuedNote> issuedNoteList;
   SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
 
+
   @override
   void initState() {
     super.initState();
-    offeringItems = getDummyOfferingsData();
-
+    var status = getData();
+   // offeringItems = populateListData(issuedNoteList);
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
 
@@ -33,6 +47,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SlideTransition(
         position: offset,
@@ -40,26 +55,26 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
           alignment: Alignment.bottomCenter,
           child: _compareItems.length > 0
               ? FloatingActionButton.extended(
-                  backgroundColor: accentColor,
-                  onPressed: () {
-                    if (_compareItems.length > 1) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) =>
-                              ComparePage(compareItems: _compareItems),
-                          fullscreenDialog: true));
-                    }
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  label: Text('Compare'))
+              backgroundColor: accentColor,
+              onPressed: () {
+                if (_compareItems.length > 1) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) =>
+                          ComparePage(compareItems: _compareItems),
+                      fullscreenDialog: true));
+                }
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              label: Text('Compare'))
               : Container(),
         ),
       ),
       body: CurrentOfferingsInheritedWidget(
         selectedCategory: _selectedCategory,
-        offeringDataList: offeringItems,
+        offeringDataList: previouslyIssuedList,
         comapringDataList: _compareItems,
         child: Stack(
           children: <Widget>[
@@ -109,7 +124,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
                                   Text(
                                     'Compare',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w500),
+                                    TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
@@ -119,9 +134,10 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
                       ),
                     ),
                     Expanded(
-                      child: OfferingList(
-                        onCompareItemsSelected: _onComapareItemsSelected,
-                      ),
+                        child: MediaQuery.removePadding(removeTop: true,context: context, child: SNListWidget(
+                            isItemSelectable: true,
+                            onItemSelect: _onComapareItemsSelected,
+                            listData: previouslyIssuedList),)
                     ),
                   ],
                 ),
@@ -134,7 +150,7 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
     ;
   }
 
-  _onComapareItemsSelected(List<OfferingsData> items) {
+  _onComapareItemsSelected(List<SNData> items) {
     if (items.length > 1) {
       controller.forward();
     } else if (items.length != 0) {
@@ -145,82 +161,125 @@ class _PriviouslyIssuedState extends State<PriviouslyIssued>
     });
   }
 
- /* _onCategorySelected(SelectedCategory selectedCategory) {
+  _onCategorySelected(SelectedCategory selectedCategory) {
     setState(() {
       _compareItems.clear();
       _selectedCategory = selectedCategory;
-      offeringItems = getDummyOfferingsData();
+      previouslyIssuedList = populateListData(issuedNoteList);
     });
-  }*/
+  }
 
-  List<OfferingsData> getDummyOfferingsData() {
-    List<OfferingsData> _offeringsList = new List();
+  Future<bool> getData() async {
+    try{
+      await _dataProvider.getIssuedNotes().then((data)  async{
+        var jsonNotesData = json.decode(data.toString());
 
-    for (int i = 0; i < 3; i++) {
-      _offeringsList.add(
-        OfferingsData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
+        notesData = new NotesData.fromJson(jsonNotesData);
+        var issuedNotesData = notesData.data;
+        issuedNoteList = issuedNotesData.noteColumns;
+        for(var i = 0; i < issuedNoteList.length; i++){
+          IssuedNote note = issuedNoteList[i];
+        }
+        setState(() {
+          previouslyIssuedList = populateListData(issuedNoteList);
+        });
+      });
+    }
+    catch(e) {
+      print('debuggg111111333333 calling getData() - error: ' + e.toString());
+    }
+    return true;
+  }
+  List<SNData> populateListData(List<IssuedNote> issuedNoteList) {
+    List<SNData> _snDataList = new List();
+    for(var i = 0; i < issuedNoteList.length; i++){
+      IssuedNote note = issuedNoteList[i];
+//      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
+      _snDataList.add(
+        SNData(
+          note.noteName,
+          note.issueDate,
           new List.of(
             [
-              OfferingItem("FundSERV", "CBL2039"),
-              OfferingItem("Avail Until", "Mar 3, 2019"),
-              OfferingItem("Term", "3"),
-              OfferingItem("Issue Date", "Apr 7, 2019"),
-              OfferingItem("Maturity Date", "Mar 7, 2019"),
-              OfferingItem("Min Investment", "\$5000 USD"),
-              OfferingItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _offeringsList.add(
-        OfferingsData(
-          "CIBC Floating Market Rate GICs (2 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              OfferingItem("FundSERV", "CBL2039"),
-              OfferingItem("Avail Until", "Mar 3, 2019"),
-              OfferingItem("Term", "3"),
-              OfferingItem("Issue Date", "Apr 7, 2019"),
-              OfferingItem("Maturity Date", "Mar 7, 2019"),
-              OfferingItem("Min Investment", "\$5000 USD"),
-              OfferingItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _offeringsList.add(
-        OfferingsData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              OfferingItem("FundSERV", "CBL2039"),
-              OfferingItem("Avail Until", "Mar 3, 2019"),
-              OfferingItem("Term", "3"),
-              OfferingItem("Issue Date", "Apr 7, 2019"),
-              OfferingItem("Maturity Date", "Mar 7, 2019"),
-              OfferingItem("Min Investment", "\$5000 USD"),
-              OfferingItem("How to Buy", "FundSERV CBL2039"),
+              SNItem("FundSERV", note.fundServ),
+              SNItem("Avail Until", note.availableUntil),
+              SNItem("Term", note.term),
+              SNItem("Issue Date", note.issueDate),
+              SNItem("Maturity Date", note.maturityDate),
+              SNItem("Min Investment", note.minInvest),
+              SNItem("How to Buy", note.howToBuy),
             ],
           ),
         ),
       );
     }
+    
+    
+    /*for (int i = 0; i < 3; i++) {
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (2 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+      _snDataList.add(
+        SNData(
+          "CIBC Floating Market Rate GICs (3 years) (USD)",
+          "Due January 11, 2011",
+          new List.of(
+            [
+              SNItem("FundSERV", "CBL2039"),
+              SNItem("Avail Until", "Mar 3, 2019"),
+              SNItem("Term", "3"),
+              SNItem("Issue Date", "Apr 7, 2019"),
+              SNItem("Maturity Date", "Mar 7, 2019"),
+              SNItem("Min Investment", "\$5000 USD"),
+              SNItem("How to Buy", "FundSERV CBL2039"),
+            ],
+          ),
+        ),
+      );
+    }*/
+    //_snDataList.shuffle();
 
-    _offeringsList.shuffle();
-    return _offeringsList;
+    return _snDataList;
   }
 }
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
 
-class OfferingList extends StatefulWidget {
-  final Function(List<OfferingsData>) onCompareItemsSelected;
+/*class OfferingList extends StatefulWidget {
+  final Function(List<SNData>) onCompareItemsSelected;
 
-  // final List<OfferingsData> offeringsList;
+  // final List<SNData> offeringsList;
 
   OfferingList({this.onCompareItemsSelected});
 
@@ -230,8 +289,8 @@ class OfferingList extends StatefulWidget {
 
 class _OfferingListState extends State<OfferingList>
     with SingleTickerProviderStateMixin {
-  List<OfferingsData> _offeringsItemList = new List();
-  List<OfferingsData> _comaringItemList = new List();
+  List<SNData> _offeringsItemList = new List();
+  List<SNData> _comaringItemList = new List();
   AnimationController subCategoryItemEntranceAnimationController;
   List<Animation> subCategoryItemAnimations;
 
@@ -251,7 +310,7 @@ class _OfferingListState extends State<OfferingList>
   @override
   Widget build(BuildContext context) {
     CurrentOfferingsInheritedWidget inheritedWidget =
-        CurrentOfferingsInheritedWidget.of(context);
+    CurrentOfferingsInheritedWidget.of(context);
     _buildAnimationList(inheritedWidget.offeringDataList);
     if (inheritedWidget.offeringDataList != _offeringsItemList) {
       subCategoryItemEntranceAnimationController.reset();
@@ -262,7 +321,7 @@ class _OfferingListState extends State<OfferingList>
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       shrinkWrap: true,
       separatorBuilder: (ctx, index) {
         return Padding(
@@ -278,12 +337,12 @@ class _OfferingListState extends State<OfferingList>
         return AnimatedBuilder(
           animation: subCategoryItemEntranceAnimationController,
           builder: (context, child) => new Transform.translate(
-                offset: Offset(
-                  subCategoryItemAnimations[index].value,
-                  0.0,
-                ),
-                child: child,
-              ),
+            offset: Offset(
+              subCategoryItemAnimations[index].value,
+              0.0,
+            ),
+            child: child,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -301,59 +360,59 @@ class _OfferingListState extends State<OfferingList>
                       children: <Widget>[
                         Expanded(
                             child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(inheritedWidget.offeringDataList[index].title),
-                            Text(inheritedWidget.offeringDataList[index].time),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
-                                    ),
-                                  ),
-                                ),
+                                Text(inheritedWidget.offeringDataList[index].title),
+                                Text(inheritedWidget.offeringDataList[index].time),
                                 SizedBox(
-                                  width: 3,
+                                  height: 15,
                                 ),
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: accentColor,
+                                        border: Border.all(
+                                          color: accentColor,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
+                                    SizedBox(
+                                      width: 3,
                                     ),
-                                  ),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: accentColor,
+                                        border: Border.all(
+                                          color: accentColor,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: accentColor,
+                                        border: Border.all(
+                                          color: accentColor,
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
-                        )),
+                            )),
                         InkWell(
                           onTap: () {
                             if (_comaringItemList
@@ -373,24 +432,24 @@ class _OfferingListState extends State<OfferingList>
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: _comaringItemList.contains(
-                                          inheritedWidget
-                                              .offeringDataList[index])
+                                      inheritedWidget
+                                          .offeringDataList[index])
                                       ? accentColor
                                       : Colors.transparent,
                                   border: Border.all(color: accentColor)),
                               padding: const EdgeInsets.all(6),
                               child: _comaringItemList.contains(
-                                      inheritedWidget.offeringDataList[index])
+                                  inheritedWidget.offeringDataList[index])
                                   ? SvgPicture.asset(
-                                      'assets/images/tick.svg',
-                                      color: white,
-                                      width: 16,
-                                      height: 16,
-                                    )
+                                'assets/images/tick.svg',
+                                color: white,
+                                width: 16,
+                                height: 16,
+                              )
                                   : SizedBox(
-                                      width: 16,
-                                      height: 16,
-                                    ),
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
                         )
@@ -406,7 +465,7 @@ class _OfferingListState extends State<OfferingList>
                         spacing: 10,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: _getOfferingItemList(inheritedWidget
-                            .offeringDataList[index].offeringItems),
+                            .offeringDataList[index].SNItem),
                       ),
                     ),
                   )),
@@ -421,7 +480,7 @@ class _OfferingListState extends State<OfferingList>
     );
   }
 
-  void _buildAnimationList(List<OfferingsData> offeringDataList) {
+  void _buildAnimationList(List<SNData> offeringDataList) {
     subCategoryItemAnimations = offeringDataList.map((subCat) {
       int index = offeringDataList.indexOf(subCat);
       double start = index * 0.1;
@@ -434,7 +493,7 @@ class _OfferingListState extends State<OfferingList>
     }).toList();
   }
 
-  List<Widget> _getOfferingItemList(List<OfferingItem> offeringItems) {
+  List<Widget> _getOfferingItemList(List<SNData> offeringItems) {
     List<Column> items = new List();
     offeringItems.forEach((item) {
       items.add(Column(
@@ -451,19 +510,19 @@ class _OfferingListState extends State<OfferingList>
     });
     return items;
   }
-}
+}*/
 
 class CurrentOfferingsInheritedWidget extends InheritedWidget {
   final SelectedCategory selectedCategory;
-  final List<OfferingsData> offeringDataList;
-  final List<OfferingsData> comapringDataList;
+  final List<SNData> offeringDataList;
+  final List<SNData> comapringDataList;
 
   const CurrentOfferingsInheritedWidget(
       {Key key,
-      @required this.selectedCategory,
-      @required this.offeringDataList,
-      @required this.comapringDataList,
-      @required Widget child})
+        @required this.selectedCategory,
+        @required this.offeringDataList,
+        @required this.comapringDataList,
+        @required Widget child})
       : super(key: key, child: child);
 
   @override
@@ -473,6 +532,6 @@ class CurrentOfferingsInheritedWidget extends InheritedWidget {
 
   static CurrentOfferingsInheritedWidget of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(CurrentOfferingsInheritedWidget)
-        as CurrentOfferingsInheritedWidget;
+    as CurrentOfferingsInheritedWidget;
   }
 }
