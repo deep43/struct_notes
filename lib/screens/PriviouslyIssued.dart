@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/model/OfferingsData.dart';
 import 'package:structured_notes/util/SNListWidget.dart';
-import 'model/OfferingsData.dart';
+import '../model/OfferingsData.dart';
 import 'package:structured_notes/util/Theme.dart';
-import 'ComaprePage.dart';
-import 'data_providers/DataProvider.dart';
-import 'data_providers/DataProviderInterface.dart';
-import 'model/issues_notes_data.dart';
-import 'model/isuued_note_item.dart';
+import 'CompareScreen.dart';
+import '../data_providers/DataProvider.dart';
+import '../data_providers/DataProviderInterface.dart';
+import '../model/issues_notes_data.dart';
+import '../model/isuued_note_item.dart';
 
 final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 

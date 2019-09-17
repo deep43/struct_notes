@@ -2,26 +2,29 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:structured_notes/EducationCenter.dart';
+import 'package:structured_notes/screens/EducationCenter.dart';
 import 'package:structured_notes/model/AppliedFilterData.dart';
+import 'package:structured_notes/screens/Login/LoginScreen.dart';
+import 'package:structured_notes/screens/Search/SearchScreen.dart';
 import 'package:structured_notes/util/Theme.dart';
-import 'CurrentOfferings.dart';
+import 'ContactUs/ContactUsScreen.dart';
+import 'CurrentOfferings/CurrentOfferings.dart';
 import 'FilterPage.dart';
 import 'HomePage.dart';
 import 'package:flutter/services.dart';
 
 import 'PriviouslyIssued.dart';
 import 'Publication.dart';
-import 'QA.dart';
+import 'QA/QA.dart';
 import 'VIdeoPage.dart';
-import 'drawer_scaffold/drawer_scaffold.dart';
-import 'drawer_scaffold/menu_screen.dart';
+import '../drawer_scaffold/drawer_scaffold.dart';
+import '../drawer_scaffold/menu_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:structured_notes/CurrentOfferings.dart';
+import 'package:structured_notes/screens/CurrentOfferings/CurrentOfferings.dart';
 
 
 bool isNavigationActivated = false;
-
+//bool isSearchComplete=false;
 class DashboardPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DashboardPageState();
@@ -54,6 +57,11 @@ class DashboardPageState extends State<DashboardPage> {
         id: '6',
         title: 'Q&A',
       ),
+
+      new MenuItem(
+        id: '7',
+        title: 'Contact Us',
+      ),
     ],
   );
 
@@ -68,7 +76,8 @@ class DashboardPageState extends State<DashboardPage> {
     "Previously Issued",
     "Education Center",
     "Publications",
-    "Q&A"
+    "Q&A",
+    "Contact Us"
   ];
   var selectedMenuItemId = '1';
   DrawerScaffoldController _controller;
@@ -78,6 +87,8 @@ class DashboardPageState extends State<DashboardPage> {
   int _selectedCategoryPosition = 1;
   FocusNode f1 = FocusNode();
   bool _isAutofocusEnabled = false;
+
+  bool get isSearchComplete => null;
   @override
   void initState() {
     super.initState();
@@ -149,7 +160,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ? CurrentOfferings(selectedCategoryPosition: _selectedCategoryPosition)
                       : itemId == "3"
                           ? PriviouslyIssued()
-                          : itemId == "4" ? EducationCenter() : itemId == "5" ? Publication() : QA();
+                          : itemId == "4" ? EducationCenter() : itemId == "5" ? Publication() :itemId == "6" ? QA(): ContactUsScreen();
               selectedMenuItemId = itemId;
             });
           },
@@ -331,10 +342,22 @@ class DashboardPageState extends State<DashboardPage> {
         decoration: InputDecoration(
             suffixIcon: Container(margin: const EdgeInsets.all(6),
               decoration: BoxDecoration(color: accentColor,shape: BoxShape.circle),
-              child: Icon(
+              child: InkWell(child: Icon(
                 Icons.search,
                 color: white,
-              ),
+
+              ), onTap: (){
+                _searchEditController.text.trim().toString().isNotEmpty?
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            SearchScreen(searchKeywords: _searchEditController.text.toString(),isSearchComplete: false,),
+                        fullscreenDialog: true)): print("No keyword found");
+
+                //if(_searchEditController.text.toString().isEmpty)
+
+
+              }),
             ),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -356,23 +379,36 @@ class DashboardPageState extends State<DashboardPage> {
 
   Widget footerView() {
     return Padding(
-      padding: const EdgeInsets.only(right: 150, bottom: 100),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlatButton(
-            shape:
+      padding: const EdgeInsets.only(right: 140, bottom: 170),
+      child: Column(children: <Widget>[
+          GestureDetector(
+          onTap: () {
+           // Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsScreen()));
+    },
+      child: Text(" ",textAlign: TextAlign.end, ), // contact us link
+    )
+
+
+       /* Padding(
+          padding: const EdgeInsets.only(right: 150, bottom: 70),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            color: accentColor,
-            onPressed: () {},
-            child: Text(
-              'Log In',
-              style: TextStyle(color: Colors.white),
-            ),
+                color: accentColor,
+                onPressed: () {},
+                child: Text(
+                  'Log In',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),*/
+      ],),
     );
   }
 

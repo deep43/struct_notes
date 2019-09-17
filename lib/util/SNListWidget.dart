@@ -48,11 +48,11 @@ class _SNListWidgetState extends State<SNListWidget>
   @override
   Widget build(BuildContext context) {
 
-    return ListView.separated(
+    return widget.listData.length!=0?ListView.separated(
         padding: EdgeInsets.only(top: 5.0),
         separatorBuilder: _mSeparatorBuilder,
         itemBuilder: _mItemBuilder,
-        itemCount: widget.listData.length);
+        itemCount: widget.listData.length):Center(child: Text("No data found",style: TextStyle(fontSize: 20.0, color: Colors.black87)));
   }
 
   Widget _mSeparatorBuilder(context, int) {

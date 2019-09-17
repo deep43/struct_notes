@@ -1,1 +1,110 @@
-[ { "firstName": "Marc", "lastName": "Brassard", "role": "Executive Director", "phoneNumber": "514-847-6661", "email": "Marc.Brassard@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Ashley", "lastName": "Copeland", "role": "Analyst", "phoneNumber": "416-956-6787", "email": "Ashley.Copeland@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Marco", "lastName": "Dominique", "role": "Director", "phoneNumber": "514-847-6687", "email": "Marco.Dominique@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Barry", "lastName": "Kowal", "role": "Executive Director", "phoneNumber": "416-594-8377", "email": "Barry.Kowal@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Guillaume", "lastName": "Lagourgue", "role": "Executive Director", "phoneNumber": "416-956-6031", "email": "Guillaume.Lagourgue@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Daniel", "lastName": "Nahmias", "role": "Director", "phoneNumber": "416-956-3967", "email": "Daniel.Nahmias@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "James", "lastName": "Neals", "role": "Director", "phoneNumber": "514-847-6431", "email": "James.Neals@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Rachna", "lastName": "Patel", "role": "Director", "phoneNumber": "416-594-8046", "email": "Rachna.Patel@cibc.ca", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Elliot", "lastName": "Scherer", "role": "Managing Director", "phoneNumber": "416-956-3630", "email": "Elliot.Scherer@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Alexandra", "lastName": "Szatan", "role": "Associate", "phoneNumber": "416-956-6124", "email": "Alexandra.Szatan@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Acushla", "lastName": "Vestby", "role": "Executive Director", "phoneNumber": "416-594-7265", "email": "Acushla.Vestby@cibc.com", "dateEffective": "Mar 21, 2019", "showFlag": true }, { "firstName": "Matthew", "lastName": "Wallace", "role": "Executive Director", "phoneNumber": "416-594 7663", "email": "Matthew.Wallace@cibc.ca", "dateEffective": "Mar 21, 2019", "showFlag": true } ]
+[
+  {
+    "firstName": "Marc",
+    "lastName": "Brassard",
+    "role": "Executive Director",
+    "phoneNumber": "514-847-6661",
+    "email": "Marc.Brassard@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Ashley",
+    "lastName": "Copeland",
+    "role": "Analyst",
+    "phoneNumber": "416-956-6787",
+    "email": "Ashley.Copeland@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Marco",
+    "lastName": "Dominique",
+    "role": "Director",
+    "phoneNumber": "514-847-6687",
+    "email": "Marco.Dominique@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Barry",
+    "lastName": "Kowal",
+    "role": "Executive Director",
+    "phoneNumber": "416-594-8377",
+    "email": "Barry.Kowal@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Guillaume",
+    "lastName": "Lagourgue",
+    "role": "Executive Director",
+    "phoneNumber": "416-956-6031",
+    "email": "Guillaume.Lagourgue@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Daniel",
+    "lastName": "Nahmias",
+    "role": "Director",
+    "phoneNumber": "416-956-3967",
+    "email": "Daniel.Nahmias@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "James",
+    "lastName": "Neals",
+    "role": "Director",
+    "phoneNumber": "514-847-6431",
+    "email": "James.Neals@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Rachna",
+    "lastName": "Patel",
+    "role": "Director",
+    "phoneNumber": "416-594-8046",
+    "email": "Rachna.Patel@cibc.ca",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Elliot",
+    "lastName": "Scherer",
+    "role": "Managing Director",
+    "phoneNumber": "416-956-3630",
+    "email": "Elliot.Scherer@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Alexandra",
+    "lastName": "Szatan",
+    "role": "Associate",
+    "phoneNumber": "416-956-6124",
+    "email": "Alexandra.Szatan@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Acushla",
+    "lastName": "Vestby",
+    "role": "Executive Director",
+    "phoneNumber": "416-594-7265",
+    "email": "Acushla.Vestby@cibc.com",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  },
+  {
+    "firstName": "Matthew",
+    "lastName": "Wallace",
+    "role": "Executive Director",
+    "phoneNumber": "416-594 7663",
+    "email": "Matthew.Wallace@cibc.ca",
+    "dateEffective": "Mar 21, 2019",
+    "showFlag": true
+  }
+]

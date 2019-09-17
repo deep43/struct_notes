@@ -1,10 +1,19 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:structured_notes/data_providers/DataProvider.dart';
+import 'package:structured_notes/data_providers/DataProviderInterface.dart';
+import 'package:structured_notes/model/SNFilterData.dart';
 import 'package:structured_notes/util/Theme.dart';
 
 import 'HomePage.dart';
-import 'model/FilterMenuData.dart';
-import 'model/AppliedFilterData.dart';
+import '../model/FilterMenuData.dart';
+import '../model/AppliedFilterData.dart';
+
+
+final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class FilterPage extends StatefulWidget {
   final Function(AppliedFilterData appliedFilterData) onFilterApplied;
@@ -16,10 +25,22 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getCurrentOfferingAllData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primarySwatch:filterAccentColor,fontFamily: "WhitneyLightPro", ),
+      data: ThemeData(
+        primarySwatch: filterAccentColor,
+        fontFamily: "WhitneyLightPro",
+      ),
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -97,6 +118,26 @@ class _FilterPageState extends State<FilterPage> {
         ),
       ),
     );
+  }
+
+  void getCurrentOfferingAllData() async {
+    try {
+      await _dataProvider.getContactJson().then(processData);
+    } catch (e) {
+      print('debuggg111111333333 calling SNCompareItems() - error: ' +
+          e.toString());
+    }
+  }
+
+
+  Future processData(String value) {
+
+
+    var snFilterData= SNFilterData.fromJson(json.decode(value));
+
+    //List<NoteColumn> snFilterlist= NoteColumn.fromJson(json.decode(snFilterData));
+
+    
   }
 }
 

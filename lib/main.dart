@@ -3,10 +3,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:structured_notes/screens/Login/LoginScreen.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'package:structured_notes/util/WaveAnimationWidget.dart';
 
-import 'Dashboard.dart';
+import 'screens/Dashboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _initTimer() {
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => DashboardPage()));
+          MaterialPageRoute(builder: (ctx) => LoginScreen()));
     });
   }
 }

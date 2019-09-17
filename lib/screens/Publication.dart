@@ -1,7 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
+import 'package:structured_notes/data_providers/DataProvider.dart';
 import 'package:structured_notes/util/Theme.dart';
-import 'model/PublicationData.dart';
+import '../data_providers/DataProviderInterface.dart';
+import '../model/PublicationData.dart';
+import '../model/SNPublicationData.dart';
+
+final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class Publication extends StatefulWidget {
   @override
@@ -12,14 +22,16 @@ class _PublicationState extends State<Publication>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<Offset> offset;
-  List<PublicationData> _mPublicationList = getPopulatedStaticData();
+
+  //List<PublicationData> _mPublicationList = getPopulatedStaticData();
+  List<SNPublicationData> _mPublicationList = new List<SNPublicationData>();
 
   int get count => _mPublicationList.length;
 
   @override
   void initState() {
     super.initState();
-
+    getPublicationData();
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
 
@@ -30,9 +42,9 @@ class _PublicationState extends State<Publication>
 
   void load() {
     print("load");
-    setState(() {
+    /*setState(() {
       _mPublicationList.addAll(getPopulatedStaticData());
-    });
+    });*/
   }
 
   Future<bool> _loadMore() async {
@@ -132,23 +144,13 @@ class _PublicationState extends State<Publication>
                         ),
                       ),
                       Expanded(
-                        child: RefreshIndicator(
-                          child: LoadMore(
-                            isFinish: count >= 60,
-                            onLoadMore: _loadMore,
-                            child: ListView.builder(
-                              padding: const EdgeInsets.only(
-                                  top: 10, bottom: 5, left: 10, right: 10),
-                              shrinkWrap: true,
-                              itemBuilder: _buildProductItem,
-                              // this item builder build layout of each item
-                              itemCount: _mPublicationList.length,
-                            ),
-                            whenEmptyLoad: false,
-                            delegate: DefaultLoadMoreDelegate(),
-                            textBuilder: DefaultLoadMoreTextBuilder.english,
-                          ),
-                          onRefresh: _refresh,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 5, left: 10, right: 10),
+                          shrinkWrap: true,
+                          itemBuilder: _buildProductItem,
+                          // this item builder build layout of each item
+                          itemCount: _mPublicationList.length,
                         ),
                       ) // this widget will populate the list of items
                     ],
@@ -183,13 +185,13 @@ class _PublicationState extends State<Publication>
         child:*/
             Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(7.0)),
-                child: Image.asset(_mPublicationList[index].imageAsset,
-                    width: 120, height: 100, fit: BoxFit.cover)),
+                child: Image.asset( 'assets/images/cbimage.jpg',
+                    width: 102, height: 103, fit: BoxFit.fill)),
             Expanded(
                 child: Container(
                     padding: const EdgeInsets.all(10.0),
@@ -204,7 +206,7 @@ class _PublicationState extends State<Publication>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(_mPublicationList[index].headline,
+          Text("Where income, growth and capital preservation are on your terms ",
               style: TextStyle(
                   fontFamily: 'Whitney-Black-Pro.otf',
                   color: accentTextColor,
@@ -218,22 +220,66 @@ class _PublicationState extends State<Publication>
               style: TextStyle(
                   fontFamily: 'Whitney-Light-Pro.otf',
                   color: Colors.black.withOpacity(0.6),
-                  fontSize: 9.0),
+                  fontSize: 11.0),
               textAlign: TextAlign.center),
           SizedBox(
             height: 2.0,
           ),
-          Text(_mPublicationList[index].description,
+          Text(_mPublicationList[index].effectiveDate,
               style: TextStyle(
                   fontFamily: 'Whitney-Light-Pro.otf',
                   color: Colors.black.withOpacity(0.6),
-                  fontSize: 7.0),
+                  fontSize: 9.0),
               textAlign: TextAlign.center),
         ],
       );
+
+  void getPublicationData() async {
+    try {
+//      await _dataProvider.compareNotes(noteId1, noteId2, noteId3).then(onValue);
+      await _dataProvider.getPublicationJson().then(processComparedata);
+    } catch (e) {
+      print('debuggg111111333333 calling SNCompareItems() - error: ' +
+          e.toString());
+    }
+  }
+
+  Future processComparedata(String value) {
+    //var publiactionJsonData = json.decode(value.toString());
+
+    /*  List<SNPublicationData> _snpublicationdata= new List<SNPublicationData>();
+    for(int i=0; i<publiactionJsonData.length;i++){
+
+
+      //_snpublicationdata.add(publicationData);
+    }*/
+
+    List<SNPublicationData> _snpublicationdata = new List<SNPublicationData>();
+
+    _snpublicationdata = List<SNPublicationData>.from(
+        json.decode(value).map((x) => SNPublicationData.fromJson(x)));
+    print("title: " + _snpublicationdata[1].title + "\n");
+
+    setState(() {
+      _mPublicationList.clear();
+      _mPublicationList = _snpublicationdata;
+    });
+  }
+
+  /*Uint8List setImageData(index) {
+    List<int> imageBytes = File(_mPublicationList[index].thumbnailImg).openRead();
+    String imageB64 = base64Encode(imageBytes);
+    Uint8List decoded = base64Decode(imageB64);
+
+    Uint8List _base64;
+    _base64 = base64Decode(_mPublicationList[index].thumbnailImg.replaceRange(0, 26, ""));
+
+   return decoded;
+    //base64Decode(base64Encode(_mPublicationList[index].thumbnailImg.replaceRange(0, 26, "")
+  }*/
 }
 
-List<PublicationData> getPopulatedStaticData() {
+/*List<PublicationData> getPopulatedStaticData() {
   // List<PublicationData> mData = new List();
   var mData = new List<PublicationData>();
   for (int i = 0; i < 10; i++) {
@@ -245,9 +291,9 @@ List<PublicationData> getPopulatedStaticData() {
   }
 
   return mData;
-}
+}*/
 
-class Products extends StatelessWidget {
+/*class Products extends StatelessWidget {
   final List<PublicationData> myPublicationData;
 
   Products(this.myPublicationData);
@@ -258,19 +304,19 @@ class Products extends StatelessWidget {
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             border: Border.all(color: Colors.grey.withOpacity(0.4)),
-            /*boxShadow: [
-        */ /*BoxShadow(
+            */ /*boxShadow: [
+        */ /* */ /*BoxShadow(
           color: Colors.grey.withOpacity(0.07),
           blurRadius: 5.0,
-        ),*/ /*
-      ]*/
+        ),*/ /* */ /*
+      ]*/ /*
 
             borderRadius: BorderRadius.circular(8.0)),
         child:
-            /*Card(
+            */ /*Card(
         //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         //elevation: 0.8,
-        child:*/
+        child:*/ /*
             Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -339,4 +385,4 @@ class Products extends StatelessWidget {
       itemCount: myPublicationData.length,
     );
   }
-}
+}*/

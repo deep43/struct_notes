@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:expandable/expandable.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:structured_notes/data_providers/DataProvider.dart';
 import 'package:structured_notes/data_providers/DataProviderInterface.dart';
+import 'package:structured_notes/model/CompareNotesData.dart' as prefix0;
 import 'package:structured_notes/model/current_item.dart';
 import 'package:structured_notes/model/current_offering_data.dart';
 import 'package:structured_notes/model/issues_notes_data.dart';
@@ -12,11 +14,13 @@ import 'package:structured_notes/model/isuued_note_item.dart';
 import 'package:structured_notes/util/SNListWidget.dart';
 import 'package:structured_notes/util/Theme.dart';
 
-import 'ComaprePage.dart';
-import 'model/OfferingsData.dart';
+import '../CompareScreen.dart';
+import '../../model/CompareNotesData.dart';
+import '../../model/OfferingsData.dart';
 import 'package:vibration/vibration.dart';
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
+
 final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
 class CurrentOfferings extends StatefulWidget {
@@ -36,12 +40,14 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
   _CurrentOfferingsState({this.selectedCategoryPosition});
 
   List<SNData> _compareItems = new List();
+  List<SNData> compareItems = new List();
   List<SNData> currentOfferingList = new List();
   CuttentOfferingItemData notesData;
   List<OfferingData> currentOfferingDataList;
   SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
+  int noOfItems=0;
 
   @override
   void initState() {
@@ -54,7 +60,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
       _selectedCategory = SelectedCategory.PARs;
     }
     //currentOfferingList = getDummyOfferingsData();
-     getData(_selectedCategory);
+    getData(_selectedCategory);
 
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
@@ -76,10 +82,12 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                   backgroundColor: accentColor,
                   onPressed: () {
                     if (_compareItems.length > 1) {
-                      Navigator.of(context).push(MaterialPageRoute(
+                      noOfItems = _compareItems.length;
+                      SNCompareItems();
+                      /*Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) =>
                               ComparePage(compareItems: _compareItems),
-                          fullscreenDialog: true));
+                          fullscreenDialog: true));*/
                     }
                   },
                   icon: Icon(
@@ -158,11 +166,14 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
                       ),
                     ),
                     Expanded(
-                      child: MediaQuery.removePadding(removeTop: true,context: context, child: SNListWidget(
+                        child: MediaQuery.removePadding(
+                      removeTop: true,
+                      context: context,
+                      child: SNListWidget(
                           isItemSelectable: true,
                           onItemSelect: _onComapareItemsSelected,
-                          listData: currentOfferingList),)
-                    ),
+                          listData: currentOfferingList),
+                    )),
                   ],
                 ),
               ),
@@ -195,16 +206,16 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
   _onCategorySelected(SelectedCategory selectedCategory) {
     setState(() {
       _compareItems.clear();
+      compareItems.clear();
       _selectedCategory = selectedCategory;
-     // currentOfferingList = getDummyOfferingsData();
+      // currentOfferingList = getDummyOfferingsData();
       getData(_selectedCategory);
     });
   }
+
   Future<bool> getData(SelectedCategory selectedCategory) async {
-    try{
-
-      switch (_selectedCategory){
-
+    try {
+      switch (_selectedCategory) {
         case SelectedCategory.MLCIs:
           await _dataProvider.getMLGICOffers().then(processData);
           break;
@@ -215,22 +226,19 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
           await _dataProvider.getPAROffers().then(processData);
           break;
       }
-
-
-    }
-    catch(e) {
+    } catch (e) {
       print('debuggg111111333333 calling getData() - error: ' + e.toString());
     }
     return true;
   }
 
-  Future processData (data)  async{
+  Future processData(data) async {
     var jsonNotesData = json.decode(data.toString());
 
     notesData = new CuttentOfferingItemData.fromJson(jsonNotesData);
     var currentOfferingDataList = notesData.noteColumns;
     // issuedNoteList = issuedNotesData.noteColumns;
-    for(var i = 0; i < currentOfferingDataList.length; i++){
+    for (var i = 0; i < currentOfferingDataList.length; i++) {
       OfferingData note = currentOfferingDataList[i];
     }
     setState(() {
@@ -240,7 +248,7 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
 
   List<SNData> populateListData(List<OfferingData> currentofferingList) {
     List<SNData> _snDataList = new List();
-    for(var i = 0; i < currentofferingList.length; i++){
+    for (var i = 0; i < currentofferingList.length; i++) {
       OfferingData note = currentofferingList[i];
 //      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
       _snDataList.add(
@@ -261,7 +269,6 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
         ),
       );
     }
-
 
     /*for (int i = 0; i < 3; i++) {
       _snDataList.add(
@@ -321,8 +328,17 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
     return _snDataList;
   }
 
+  Future<bool> SNCompareItems() async {
+    try {
+//      await _dataProvider.compareNotes(noteId1, noteId2, noteId3).then(onValue);
+      await _dataProvider.compareNotes(10, 10, 20).then(processComparedata);
+    } catch (e) {
+      print('debuggg111111333333 calling SNCompareItems() - error: ' +
+          e.toString());
+    }
+  }
 
-  /*List<SNData> getDummyOfferingsData() {
+/*List<SNData> getDummyOfferingsData() {
     List<SNData> _offeringsList = new List();
     int num = 3;
     if (this._selectedCategory == SelectedCategory.PPNs) {
@@ -392,6 +408,68 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
     _offeringsList.shuffle();
     return _offeringsList;
   }*/
+
+  Future processComparedata(value) {
+    var jsonNotesData = json.decode(value.toString());
+
+    CompareNotesData compareNotesData =
+        CompareNotesData.fromJson(jsonNotesData);
+    Header header = compareNotesData.results.header;
+
+    List<String> headings = header.heading;
+
+    List<CompareRow> row = compareNotesData.results.row;
+    // CompareRow compareRow = row[3];
+    //compareItems = new List();
+    compareItems.clear();
+    compareItems = getSncomareHeader(headings, row);
+    if (noOfItems == 2) {
+      compareItems.removeLast();
+    }
+
+    setState(() {
+      //_compareItems.clear();
+
+      _compareItems = compareItems;
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (ctx) => ComparePage(compareItems: _compareItems),
+          fullscreenDialog: true));
+    });
+  }
+
+  List<SNData> getSncomareHeader(List<String> headings, List<CompareRow> row) {
+    List<SNData> _compareItems = new List();
+    SNItem snItem;
+    List<SNItem> snList;
+    SNData snData;
+    var count = 0;
+    for (int i = 0; i < headings.length; i++) {
+      if (headings[i].isEmpty) {
+        count = 0;
+        continue;
+      }
+      snList = List<SNItem>();
+      for (int j = 0; j < row.length; j++) {
+        List<String> col = row[j].col;
+        for (int k = 0; k < col.length; k++) {
+          if (col[k].toString().isEmpty) {
+            break;
+          } else {
+            snItem = new SNItem(col[k], col[k + 2 + count]);
+            snList.add(snItem);
+            break;
+            //_compareItems.add(new SNData(headings[], time, SNItem("FundSERV", note.fundServ),))
+          }
+        }
+      }
+      snData = new SNData(headings[i], "time", snList);
+      _compareItems.add(snData);
+      count++;
+    }
+
+    return _compareItems;
+  }
 }
 
 class CategoryWidget extends StatefulWidget {

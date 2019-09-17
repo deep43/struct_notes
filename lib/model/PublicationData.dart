@@ -1,7 +1,15 @@
 class PublicationData{
-  String imageAsset,headline,description, title;
+  //String imageAsset,headline,description, title;
 
-  PublicationData(this.imageAsset, this.headline, this.title, this.description);
+  int contentId;
+  String title;
+  String thumbnailImg;
+  String effectiveDate;
+  bool showFlag;
+
+  PublicationData(this.contentId, this.title, this.thumbnailImg, this.effectiveDate, this.showFlag);
+
+  //PublicationData(this.imageAsset, this.headline, this.title, this.description);
 
 }
 

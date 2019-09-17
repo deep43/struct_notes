@@ -9,8 +9,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:structured_notes/util/WaveAnimationWidget.dart';
 
 import 'VIdeoPage.dart';
-import 'model/AppliedFilterData.dart';
-import 'model/ImageSliderData.dart';
+import '../model/AppliedFilterData.dart';
+import '../model/ImageSliderData.dart';
 import 'package:vibration/vibration.dart';
 
 class HomePage extends StatefulWidget {

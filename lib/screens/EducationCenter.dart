@@ -1,42 +1,26 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:structured_notes/data_providers/DataProvider.dart';
-import 'package:structured_notes/data_providers/DataProviderInterface.dart';
-import 'package:structured_notes/model/issues_notes_data.dart';
-import 'package:structured_notes/model/isuued_note_item.dart';
 import 'package:structured_notes/util/SNListWidget.dart';
 import 'package:structured_notes/util/Theme.dart';
-import 'ComaprePage.dart';
-import 'model/OfferingsData.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:youtube_player/youtube_player.dart';
+import 'CompareScreen.dart';
+import '../model/OfferingsData.dart';
+import '../model/VideoData.dart';
 
-class QA extends StatefulWidget {
-  @override
-  _QAState createState() => _QAState();
-}
-
-/*class _QAState extends State<QA> with SingleTickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}*/
-
-/*class EducationCenter extends StatefulWidget {
+class EducationCenter extends StatefulWidget {
   @override
   _EducationCenterState createState() => _EducationCenterState();
-}*/
-final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
+}
 
-class _QAState extends State<QA> with SingleTickerProviderStateMixin {
+String os = Platform.operatingSystem;
+class _EducationCenterState extends State<EducationCenter>
+    with SingleTickerProviderStateMixin {
   List<SNData> _compareItems = new List();
-  List<SNData> qaList = new List();
-  NotesData notesData;
-  List<IssuedNote> issuedNoteList;
+  List<SNData> offeringItems = new List();
+  List<VideoData> _dataList = new List();
   AnimationController controller;
   Animation<Offset> offset;
 
@@ -45,133 +29,136 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-   // qaList = getDummyOfferingsData();
-    var status = getData();
+
+
+    offeringItems = getDummyOfferingsData();
+
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
 
     offset = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
         .animate(controller);
+
+    _dataList = getDummyVideoList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: SlideTransition(
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      /*floatingActionButton: SlideTransition(
         position: offset,
         child: Align(
           alignment: Alignment.bottomCenter,
           child: _compareItems.length > 0
               ? FloatingActionButton.extended(
-                  backgroundColor: accentColor,
-                  onPressed: () {
-                    if (_compareItems.length > 1) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) =>
-                              ComparePage(compareItems: _compareItems),
-                          fullscreenDialog: true));
-                    }
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  label: Text('Compare'))
+              backgroundColor: accentColor,
+              onPressed: () {
+                if (_compareItems.length > 1) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) =>
+                          ComparePage(compareItems: _compareItems),
+                      fullscreenDialog: true));
+                }
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              label: Text('Compare'))
               : Container(),
         ),
-      ),
+      ),*/
       body: CurrentOfferingsInheritedWidget(
         selectedCategory: _selectedCategory,
-        offeringDataList: qaList,
+        offeringDataList: offeringItems,
         child: Stack(
           children: <Widget>[
             Scaffold(
-              backgroundColor: Colors.white,
-              body: Container(
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      //elevation:5,
-                      //color: white,
-                      // margin: EdgeInsets.only( left: 8.0, right: 8.0, bottom: 8.0, ),
-                      decoration: new BoxDecoration(
-                        //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
-                        shape: BoxShape.rectangle,
-                        color: Colors.transparent,
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            offset: Offset(1.0, 3.0),
-                            blurRadius: 10.0,
+              backgroundColor: Colors.transparent,
+              body: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: new BoxDecoration(
+                      //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                      shape: BoxShape.rectangle,
+                      color: Colors.transparent,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          offset: Offset(1.0, 3.0),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                    ),
+
+                    //shadowColor: Colors.black45,
+                    child: Container(
+                      color: white,
+                      child: Column(
+                        children: <Widget>[
+                          AppBar(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
                           ),
-                        ],
-                      ),
-
-                      //shadowColor: Colors.black45,
-                      child: Container(
-                        color: white,
-                        child: Column(
-                          children: <Widget>[
-                            AppBar(
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: new Card(
-                                color: accentColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                elevation: 6,
-                                child: InkWell(
-                                  onTap: () {
-                                    //widget.onCategorySelected(SelectedCategory.MLCIs);
-                                  },
-                                  child: new Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    /*padding: const EdgeInsets.only(
-                                        top: 45,
-                                        bottom: 45,
-                                        left: 40,
-                                        right: 40),*/
-                                    child: Swiper(
-                                      itemBuilder: (BuildContext context,
-                                          int index) {
-                                        return Center(
-                                          child: new Text("QUESTION "+(index+1).toString(), style: TextStyle(fontFamily:
-                                          'Whitney-Light-Pro.otf',
-                                            fontSize: 24.0,
-                                            letterSpacing: 0.4,
-                                            fontWeight: FontWeight.w300,
-                                            color: white,
-                                          ),),
-                                        );
-                                      },
-
-                                      itemCount: 8,
-                                      pagination: new SwiperPagination(builder: DotSwiperPaginationBuilder(color: Colors.grey, activeColor: Colors.white,)),
-                                     // control: new SwiperControl(iconNext: ),
-                                    ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: new Card(
+                              color: accentColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              elevation: 6,
+                              child: InkWell(
+                                onTap: () {
+                                  //widget.onCategorySelected(SelectedCategory.MLCIs);
+                                },
+                                child: new Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 45, bottom: 45, left: 40, right: 40),
+                                  child: new Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        'Customized investment solutions tailored to meet your unique goals',
+                                        style: new TextStyle(
+                                          fontSize: 23.0,
+                                          letterSpacing: 0.4,
+                                          fontFamily: 'Whitney-Light-Pro.otf',
+                                          fontWeight: FontWeight.w300,
+                                          color: white,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      /* SizedBox(
+                                  height: 5,
+                                ),
+                                new Text(
+                                  'Market Linked GICs',
+                                  style: new TextStyle(
+                                      color: currentOfferingsInheritedWidget
+                                                  .selectedCategory ==
+                                              SelectedCategory.MLCIs
+                                          ? secondaryWhiteTextColor
+                                          : secondaryTextColor),
+                                  textAlign: TextAlign.center,
+                                ),*/
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
+                  ),
 
-                    /*new CategoryWidget(
+                  /*new CategoryWidget(
                       onCategorySelected: _onCategorySelected,
                     ),*/
 
-                    /* Material(
+                  /* Material(
                       elevation: 0,
                       child: Container(
                         decoration: BoxDecoration(
@@ -193,14 +180,13 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
                       ),
                     ),*/
 
-                    Expanded(
-                      child: MediaQuery.removePadding(removeTop: true,context: context, child: SNListWidget(
-                          isItemSelectable: true,
-                          onItemSelect: _onComapareItemsSelected,
-                          listData: qaList),)
-                    ),
-                  ],
-                ),
+                  Expanded(
+                    child: MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: EducationCenterList(context, _dataList)),
+                  )
+                ],
               ),
             ),
           ],
@@ -225,115 +211,11 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
     setState(() {
       _compareItems.clear();
       _selectedCategory = selectedCategory;
-      qaList = populateListData(issuedNoteList);
+      offeringItems = getDummyOfferingsData();
     });
   }
 
-  Future<bool> getData() async {
-    try{
-      await _dataProvider.getIssuedNotes().then((data)  async{
-        var jsonNotesData = json.decode(data.toString());
-
-        notesData = new NotesData.fromJson(jsonNotesData);
-        var issuedNotesData = notesData.data;
-        issuedNoteList = issuedNotesData.noteColumns;
-        for(var i = 0; i < issuedNoteList.length; i++){
-          IssuedNote note = issuedNoteList[i];
-        }
-        setState(() {
-          qaList = populateListData(issuedNoteList);
-        });
-      });
-    }
-    catch(e) {
-      print('debuggg111111333333 calling getData() - error: ' + e.toString());
-    }
-    return true;
-  }
-  List<SNData> populateListData(List<IssuedNote> issuedNoteList) {
-    List<SNData> _snDataList = new List();
-    for(var i = 0; i < issuedNoteList.length; i++){
-      IssuedNote note = issuedNoteList[i];
-//      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
-      _snDataList.add(
-        SNData(
-          note.noteName,
-          note.issueDate,
-          new List.of(
-            [
-              SNItem("FundSERV", note.fundServ),
-              SNItem("Avail Until", note.availableUntil),
-              SNItem("Term", note.term),
-              SNItem("Issue Date", note.issueDate),
-              SNItem("Maturity Date", note.maturityDate),
-              SNItem("Min Investment", note.minInvest),
-              SNItem("How to Buy", note.howToBuy),
-            ],
-          ),
-        ),
-      );
-    }
-
-
-    /*for (int i = 0; i < 3; i++) {
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (2 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-    }*/
-    //_snDataList.shuffle();
-
-    return _snDataList;
-  }
-
-  /*List<SNData> getDummyOfferingsData() {
+  List<SNData> getDummyOfferingsData() {
     List<SNData> _offeringsList = new List();
     _offeringsList.add(
       SNData(
@@ -491,7 +373,140 @@ class _QAState extends State<QA> with SingleTickerProviderStateMixin {
 
     _offeringsList.shuffle();
     return _offeringsList;
-  }*/
+  }
+}
+
+EducationCenterList(BuildContext context, List<VideoData> _dataList) =>
+    ListView.separated(
+      padding: EdgeInsets.only(top: 5.0),
+      itemBuilder: (ctx, index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.transparent)),
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                    //border: new Border.all(width: 1.0, color: Colors.grey.withOpacity(0.7)),
+                    shape: BoxShape.rectangle,
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.4),
+                        offset: Offset(1.0, 3.0),
+                        blurRadius: 10.0,
+                      ),
+                    ]),
+                child: YoutubePlayer(
+                  context: context,
+                  width: MediaQuery.of(context).size.width - 8,
+                  source: _dataList[index].videoId,
+                  quality: YoutubeQuality.HD,
+                  controlsActiveBackgroundOverlay: true,
+                  showThumbnail: false,
+                  hideShareButton: true,
+                  playerMode: YoutubePlayerMode.DEFAULT,
+                  reactToOrientationChange: false,
+                  showVideoProgressbar: false,
+                  autoPlay: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: <Widget>[
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        child: Text(
+                          _dataList[index].title,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.5),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily:'Whitney-Black-Pro'
+                          ),
+                          // textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 14,
+                    ),
+                    Text(
+                      _dataList[index].description,style: TextStyle(
+                        color: os=="android"?Colors.black.withOpacity(0.8):Colors.black.withOpacity(0.8),
+                      fontSize: 16,
+                      letterSpacing: 0.8,
+                      fontWeight:os=="android"? FontWeight.w300 :FontWeight.w200,
+                        fontFamily:os=="android"?'Whitney-Black-Pro':'Whitney-Light-Pro'
+                    ),
+                      //textAlign: TextAlign.center,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 4.0),
+                          child: Text(
+                            "Read Transcript",style: TextStyle(
+                            color:accentColor,
+                            fontSize: 16,
+                              letterSpacing: 0.8,
+                            fontWeight: FontWeight.w500,
+                              fontFamily:'Whitney-Black-Pro'
+                          ),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ),
+
+
+
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: _mSeparatorBuilder,
+      itemCount: _dataList.length,
+    );
+
+Widget _mSeparatorBuilder(context, int) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+    child: Divider(
+      height: 2.0,
+      color: Colors.black.withOpacity(0.5),
+    ),
+  );
+}
+
+List<VideoData> getDummyVideoList() {
+  return List.of(
+    [
+      VideoData(
+          videoId: "aqz-KE-bpKQ",
+          title: "INCOME with Quaterly Payments",
+          description: "This MLGIC may be suitable for inverstors"
+              " who value principle protection, required quaterly cash flow, and are seeking the potentialfor enhanced yield relative to their"
+              " fixed-rate GICs"),
+      VideoData(
+          videoId: "nPt8bK2gbaU",
+          title: "INCOME with Quaterly Payments",
+          description: "This MLGIC may be suitable for inverstors"
+              " who value principle protection, required quaterly cash flow, and are seeking the potentialfor enhanced yield relative to their"
+              " fixed-rate GICs"),
+    ],
+  );
 }
 
 enum SelectedCategory { MLCIs, PPNs, PARs }
@@ -529,7 +544,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           child: InkWell(
             onTap: () {
               widget.onCategorySelected(SelectedCategory.MLCIs);
-
             },
             child: new Container(
               padding: const EdgeInsets.all(6),
@@ -754,66 +768,55 @@ class _OfferingListState extends State<OfferingList>
                       children: <Widget>[
                         Expanded(
                             child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              inheritedWidget.offeringDataList[index].title,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(inheritedWidget.offeringDataList[index].time),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
+                                Text(inheritedWidget.offeringDataList[index].title, style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(inheritedWidget.offeringDataList[index].time),
+                                SizedBox(height: 15,),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor,
-                                    border: Border.all(
-                                      color: accentColor,
-                                    ),
-                                  ),
-                                )
+                                    SizedBox(width: 3,),
+                                    Container(
+                                      height: 5,
+                                      width: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                        accentColor,
+
+                                        border: Border.all(
+                                          color: accentColor,),),
+                                    )
+                                  ],
+                                ), SizedBox(height: 10,),
                               ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        )),
-                        InkWell(
+                            )),
+                        */
+/*InkWell(
                           onTap: () {
                             if (_comaringItemList
                                 .contains(_offeringsItemList[index])) {
@@ -832,27 +835,28 @@ class _OfferingListState extends State<OfferingList>
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: _comaringItemList.contains(
-                                          inheritedWidget
-                                              .offeringDataList[index])
+                                      inheritedWidget
+                                          .offeringDataList[index])
                                       ? accentColor
                                       : Colors.transparent,
                                   border: Border.all(color: accentColor)),
                               padding: const EdgeInsets.all(6),
                               child: _comaringItemList.contains(
-                                      inheritedWidget.offeringDataList[index])
+                                  inheritedWidget.offeringDataList[index])
                                   ? SvgPicture.asset(
-                                      'assets/images/tick.svg',
-                                      color: white,
-                                      width: 16,
-                                      height: 16,
-                                    )
+                                'assets/images/tick.svg',
+                                color: white,
+                                width: 16,
+                                height: 16,
+                              )
                                   : SizedBox(
-                                      width: 16,
-                                      height: 16,
-                                    ),
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
-                        )
+                        )*/ /*
+
                       ],
                     ),
                   ),

@@ -29,4 +29,16 @@ class DataProviderInterface {
   Future<String> compareNotes(int noteId1, int noteId2, int noteId3) {
     throw new Exception("Should use concrete actual class");
   }
+
+  Future<String> getPublicationJson() {
+    throw new Exception("Should use concrete actual class");
+  }
+
+  Future<String> getContactJson() {
+    throw new Exception("Should use concrete actual class");
+  }
+
+  Future<String> getSearchResultJson() {
+    throw new Exception("Should use concrete actual class");
+  }
 }

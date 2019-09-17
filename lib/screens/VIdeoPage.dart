@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:structured_notes/util/Theme.dart';
 import 'package:youtube_player/youtube_player.dart';
-import 'model/VideoData.dart';
+import '../model/VideoData.dart';
 
 class VideoPage extends StatelessWidget {
 

@@ -17,6 +17,7 @@ class ComparePage extends StatelessWidget {
           iconTheme: IconThemeData(color: accentColor),
         ),
         body: SingleChildScrollView(
+          //scrollDirection: Axis.horizontal,
           child: Container(
             padding: const EdgeInsets.all(20),
             child: Table(
