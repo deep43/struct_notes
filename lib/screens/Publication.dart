@@ -236,23 +236,15 @@ class _PublicationState extends State<Publication>
 
   void getPublicationData() async {
     try {
-//      await _dataProvider.compareNotes(noteId1, noteId2, noteId3).then(onValue);
+
       await _dataProvider.getPublicationJson().then(processComparedata);
     } catch (e) {
-      print('debuggg111111333333 calling SNCompareItems() - error: ' +
+      print('debuggg111111333333 calling getPublicationData() - error: ' +
           e.toString());
     }
   }
 
   Future processComparedata(String value) {
-    //var publiactionJsonData = json.decode(value.toString());
-
-    /*  List<SNPublicationData> _snpublicationdata= new List<SNPublicationData>();
-    for(int i=0; i<publiactionJsonData.length;i++){
-
-
-      //_snpublicationdata.add(publicationData);
-    }*/
 
     List<SNPublicationData> _snpublicationdata = new List<SNPublicationData>();
 

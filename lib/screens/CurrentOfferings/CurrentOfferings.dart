@@ -1,16 +1,20 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:structured_notes/data_providers/DataProvider.dart';
 import 'package:structured_notes/data_providers/DataProviderInterface.dart';
+import 'package:structured_notes/model/AppliedFilterData.dart';
 import 'package:structured_notes/model/CompareNotesData.dart' as prefix0;
 import 'package:structured_notes/model/current_item.dart';
 import 'package:structured_notes/model/current_offering_data.dart';
 import 'package:structured_notes/model/issues_notes_data.dart';
 import 'package:structured_notes/model/isuued_note_item.dart';
+import 'package:structured_notes/providers/FilterDataProvider.dart';
 import 'package:structured_notes/util/SNListWidget.dart';
 import 'package:structured_notes/util/Theme.dart';
 
@@ -26,6 +30,8 @@ final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 class CurrentOfferings extends StatefulWidget {
   final int selectedCategoryPosition;
 
+  static AppliedFilterData appliedFilterData;
+
   CurrentOfferings({this.selectedCategoryPosition});
 
   @override
@@ -39,15 +45,17 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
 
   _CurrentOfferingsState({this.selectedCategoryPosition});
 
+  // static AppliedFilterData mAppliedFilterData = new AppliedFilterData();
   List<SNData> _compareItems = new List();
   List<SNData> compareItems = new List();
   List<SNData> currentOfferingList = new List();
+  List<dynamic> currentOfferingListAsMap = new List<dynamic>();
   CuttentOfferingItemData notesData;
   List<OfferingData> currentOfferingDataList;
   SelectedCategory _selectedCategory;
   AnimationController controller;
   Animation<Offset> offset;
-  int noOfItems=0;
+  int noOfItems = 0;
 
   @override
   void initState() {
@@ -60,6 +68,8 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
       _selectedCategory = SelectedCategory.PARs;
     }
     //currentOfferingList = getDummyOfferingsData();
+
+    //mAppliedFilterData=widget.getFilteredData();
     getData(_selectedCategory);
 
     controller = AnimationController(
@@ -71,6 +81,17 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
 
   @override
   Widget build(BuildContext context) {
+    /*if (FilterDataProvider.of(context) != null) {
+      var data = FilterDataProvider.of(context);
+      print(data);
+    }*/
+    if (CurrentOfferings.appliedFilterData != null) {
+      print(CurrentOfferings.appliedFilterData.appliedSubMenu.length);
+      setState(() {
+        currentOfferingList = populateListData(currentOfferingDataList);
+      });
+      //print(currentOfferingDataList.length);
+    }
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SlideTransition(
@@ -236,21 +257,54 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
     var jsonNotesData = json.decode(data.toString());
 
     notesData = new CuttentOfferingItemData.fromJson(jsonNotesData);
-    var currentOfferingDataList = notesData.noteColumns;
+    currentOfferingDataList = notesData.noteColumns;
+    currentOfferingListAsMap = jsonNotesData['noteColumns'];
+
     // issuedNoteList = issuedNotesData.noteColumns;
-    for (var i = 0; i < currentOfferingDataList.length; i++) {
+    /*for (var i = 0; i < currentOfferingDataList.length; i++) {
       OfferingData note = currentOfferingDataList[i];
-    }
+    }*/
     setState(() {
       currentOfferingList = populateListData(currentOfferingDataList);
     });
   }
 
+  List<OfferingData> filterListData(List<dynamic> currentofferingList) {
+    var filteredList = new List<OfferingData>();
+    if (CurrentOfferings.appliedFilterData == null) {
+      for (var i = 0; i < currentofferingList.length; i++) {
+        filteredList.add(OfferingData.fromJson(currentofferingList[i]));
+      }
+
+      return filteredList;
+    }
+
+    var subMenuList = CurrentOfferings.appliedFilterData.subMenu;
+    for (var j = 0; j < currentofferingList.length; j++) {
+      var flag = true;
+      for (var i = 0; i < subMenuList.length; i++) {
+        var mapItem = currentofferingList[j] as Map;
+        if (!subMenuList[i].selectedValues.contains(mapItem[subMenuList[i].key])) {
+          flag = false;
+          break;
+        }
+      }
+
+      if (flag == true) filteredList.add(OfferingData.fromJson(currentofferingList[j]));
+    }
+
+    return filteredList;
+  }
+
   List<SNData> populateListData(List<OfferingData> currentofferingList) {
+    currentofferingList = filterListData(currentOfferingListAsMap);
+
     List<SNData> _snDataList = new List();
+    List<SNData> _snDataFilteredList = new List();
     for (var i = 0; i < currentofferingList.length; i++) {
       OfferingData note = currentofferingList[i];
 //      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
+
       _snDataList.add(
         SNData(
           note.noteName,
@@ -270,61 +324,6 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
       );
     }
 
-    /*for (int i = 0; i < 3; i++) {
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (2 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _snDataList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-    }*/
-    //_snDataList.shuffle();
-
     return _snDataList;
   }
 
@@ -337,77 +336,6 @@ class _CurrentOfferingsState extends State<CurrentOfferings>
           e.toString());
     }
   }
-
-/*List<SNData> getDummyOfferingsData() {
-    List<SNData> _offeringsList = new List();
-    int num = 3;
-    if (this._selectedCategory == SelectedCategory.PPNs) {
-      num = 4;
-    }
-
-    if (this._selectedCategory == SelectedCategory.PARs) {
-      num = 5;
-    }
-    _offeringsList.clear();
-
-    for (int i = 0; i < num; i++) {
-      _offeringsList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _offeringsList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (2 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-      _offeringsList.add(
-        SNData(
-          "CIBC Floating Market Rate GICs (3 years) (USD)",
-          "Due January 11, 2011",
-          new List.of(
-            [
-              SNItem("FundSERV", "CBL2039"),
-              SNItem("Avail Until", "Mar 3, 2019"),
-              SNItem("Term", "3"),
-              SNItem("Issue Date", "Apr 7, 2019"),
-              SNItem("Maturity Date", "Mar 7, 2019"),
-              SNItem("Min Investment", "\$5000 USD"),
-              SNItem("How to Buy", "FundSERV CBL2039"),
-            ],
-          ),
-        ),
-      );
-    }
-
-    currentOfferingList = _offeringsList;
-    _offeringsList.shuffle();
-    return _offeringsList;
-  }*/
 
   Future processComparedata(value) {
     var jsonNotesData = json.decode(value.toString());

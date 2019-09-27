@@ -21,6 +21,7 @@ import 'FilterMenuData.dart';
 class AppliedFilterData{
 
   List<MenuItem> appliedSubMenu = new List();
+  List<MenuItem> subMenu = new List();
   IssueDateData issueDateData = IssueDateData();
   MaturityDate maturityDate = MaturityDate();
 

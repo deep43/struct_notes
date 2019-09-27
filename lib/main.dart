@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _initTimer() {
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => LoginScreen()));
+          MaterialPageRoute(builder: (ctx) => DashboardPage()));
     });
   }
 }

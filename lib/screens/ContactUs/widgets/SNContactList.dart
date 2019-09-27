@@ -16,7 +16,7 @@ class SNContactList extends StatelessWidget {
 }
 
 Widget contactLIst(List<Contact> contacts) => ListView.builder(
-    padding: const EdgeInsets.only(top: 10, bottom: 5, left: 40, right: 40),
+    padding: const EdgeInsets.only(top: 10, bottom: 5, left: 0, right: 0),
     shrinkWrap: true,
     itemCount: contacts.length,
     itemBuilder: (BuildContext context, int index) {

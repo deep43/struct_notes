@@ -24,12 +24,12 @@ abstract class LoginScreenWidgets extends State<LoginScreen> {
         decoration: BoxDecoration(
           boxShadow: [
             new BoxShadow(
-              color: Colors.black87.withOpacity(0.7),
-              blurRadius: 20.0,
+              color: Colors.black54.withOpacity(0.4),
+              blurRadius: 8.0,
             ),
           ],
           borderRadius: BorderRadius.all(
-              Radius.circular(12.0) //                 <--- border radius here
+              Radius.circular(0.0) //                 <--- ui card border radius
               ),
           color: Colors.white,
           border: Border.all(
@@ -87,13 +87,13 @@ abstract class LoginScreenWidgets extends State<LoginScreen> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 4.0),
-                  child: Checkbox(
+                      horizontal: 1.0, vertical: 4.0),
+                  child: Checkbox(checkColor: Colors.white,activeColor: accentColor,
                     value: _isChecked,
                     onChanged: (bool val) => setState(() => _isChecked = val),
                   ),
                 ),
-                SizedBox(width: 12.0),
+                //SizedBox(width: 2.0),
                 Text(
                   "Remember me",
                   style: TextStyle(

@@ -101,15 +101,15 @@ class _SearchScreenState extends State<SearchScreen> {
       IssuedNote note = issuedNoteList[i];
 //      print("getIssuedNotes Item debug: " + i.toString() + note.noteName.toString());
 
-      if (note.noteName.contains(mWords) ||
-          note.issueDate.contains(mWords) ||
-          note.fundServ.contains(mWords) ||
-          note.availableUntil.contains(mWords) ||
-          note.term.contains(mWords) ||
-          note.issueDate.contains(mWords) ||
-          note.maturityDate.contains(mWords) ||
-          note.minInvest.contains(mWords) ||
-          note.howToBuy.contains(mWords)) {
+      if (note.noteName.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.issueDate.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.fundServ.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.availableUntil.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.term.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.issueDate.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.maturityDate.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.minInvest.toUpperCase().contains(mWords.toUpperCase()) ||
+          note.howToBuy.toUpperCase().contains(mWords.toUpperCase())) {
         _snDataList.add(
           SNData(
             note.noteName,

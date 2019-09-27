@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:structured_notes/providers/FilterDataProvider.dart';
 import 'package:structured_notes/screens/EducationCenter.dart';
 import 'package:structured_notes/model/AppliedFilterData.dart';
 import 'package:structured_notes/screens/Login/LoginScreen.dart';
@@ -21,6 +22,8 @@ import '../drawer_scaffold/drawer_scaffold.dart';
 import '../drawer_scaffold/menu_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:structured_notes/screens/CurrentOfferings/CurrentOfferings.dart';
+
+import 'noteDetails/NoteDetailsScreen.dart';
 
 
 bool isNavigationActivated = false;
@@ -106,7 +109,10 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+
     print('applied count in build $_appliedFilterCount');
+
+    //var data = FilterDataProvider.of(context).appliedFilterData;
     return WillPopScope(
       onWillPop: onBackPressed,
       child: new DrawerScaffold(
@@ -443,8 +449,14 @@ class DashboardPageState extends State<DashboardPage> {
 
     setState(() {
       _appliedFilterCount = count;
-    });
+      FilterDataProvider(
+        child: CurrentOfferings(),
+        appliedFilterData: appliedFilterData,
 
+      );
+      CurrentOfferings.appliedFilterData=this.appliedFilterData;
+
+    });
     print(
         'applied filter ${appliedFilterData.appliedSubMenu.length} and ${this.appliedFilterData.appliedSubMenu.length}');
   }
@@ -466,7 +478,7 @@ class DashboardPageState extends State<DashboardPage> {
         appliedFilterData.issueDateData.issuedTo.isNotEmpty) {
       count += 1;
     }
-
+    /*CurrentOfferings(appliedFilterData:this.appliedFilterData,);*/
     print('count is $count and $_appliedFilterCount');
     return count;
   }
@@ -484,6 +496,8 @@ class DashboardPageState extends State<DashboardPage> {
     }else if(selectedPage==5){
       _contentView = QA();
       selectedMenuItemId="6";
+    }else if(selectedPage==6){
+      selectedMenuItemId="7";
     }
     setState(() {
       isNavigationActivated = true;

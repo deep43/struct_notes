@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:structured_notes/data_providers/DataProvider.dart';
 import 'package:structured_notes/data_providers/DataProviderInterface.dart';
 import 'package:structured_notes/model/SNFilterData.dart';
+import 'package:structured_notes/providers/FilterDataProvider.dart';
+import 'package:structured_notes/screens/CurrentOfferings/CurrentOfferings.dart';
 import 'package:structured_notes/util/Theme.dart';
-
 import 'HomePage.dart';
 import '../model/FilterMenuData.dart';
 import '../model/AppliedFilterData.dart';
-
 
 final DataProviderInterface _dataProvider = DataProvider().getDataProvider();
 
@@ -25,7 +24,6 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -105,6 +103,11 @@ class _FilterPageState extends State<FilterPage> {
                 fillColor: accentTextColor,
                 onPressed: () {
                   widget.onFilterApplied(HomePage.appliedFilterData);
+                  /*FilterDataProvider(
+                    child: CurrentOfferings(appliedFilterData: HomePage.appliedFilterData,),
+                    appliedFilterData: HomePage.appliedFilterData,
+                  );*/
+                  // widget.onFilterApplied(CurrentOfferings.appliedFilterData);
                   Navigator.of(context).pop();
                 },
                 child: Text(
@@ -122,22 +125,19 @@ class _FilterPageState extends State<FilterPage> {
 
   void getCurrentOfferingAllData() async {
     try {
-      await _dataProvider.getContactJson().then(processData);
+      await _dataProvider.getAllOffers().then(processData);
     } catch (e) {
-      print('debuggg111111333333 calling SNCompareItems() - error: ' +
+      print('debuggg111111333333 calling getAllOffers() - error: ' +
           e.toString());
     }
   }
 
-
   Future processData(String value) {
-
-
-    var snFilterData= SNFilterData.fromJson(json.decode(value));
-
-    //List<NoteColumn> snFilterlist= NoteColumn.fromJson(json.decode(snFilterData));
-
-    
+    var snFilterJsonData = json.decode(value);
+    SNFilterData snFilterData = SNFilterData.fromJson(snFilterJsonData);
+    List<NoteColumn> mNotesColumn = snFilterData.mNotesColumn;
+    mNotesColumn[0].fClass = "1";
+    print(mNotesColumn);
   }
 }
 
@@ -180,11 +180,11 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Class',
         List.of([
-          MenuItem(1, "Class Item1"),
-          MenuItem(2, "Class Item2"),
-          MenuItem(3, 'Class Item3'),
+          MenuItem("1","fClass", "F class"),
+          MenuItem("2","fClass", "A class"),
+          /*MenuItem(3, 'Class Item3'),
           MenuItem(4, 'Class Item4'),
-          MenuItem(5, 'Class Item5'),
+          MenuItem(5, 'Class Item5'),*/
         ]),
       ),
     );
@@ -193,9 +193,9 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Currency',
         List.of([
-          MenuItem(6, 'Currency Item1'),
-          MenuItem(7, 'Currency Item2'),
-          MenuItem(8, 'Currency Item3'),
+          MenuItem("3","currency", 'CAD'),
+          MenuItem("4","currency", 'USD'),
+          // MenuItem(8, 'Currency Item3'),
         ]),
       ),
     );
@@ -204,10 +204,10 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Product Type',
         List.of([
-          MenuItem(9, 'Product Type Item1'),
-          MenuItem(10, 'Product Type Item2'),
-          MenuItem(11, 'Product Type Item3'),
-          MenuItem(12, 'Product Type Item4'),
+          MenuItem("5",'ProductType', 'MLGIC'),
+          MenuItem("6",'ProductType', 'PPN'),
+          MenuItem("7",'ProductType', 'PAR'),
+          // MenuItem(12, 'Product Type Item4'),
         ]),
       ),
     );
@@ -216,27 +216,40 @@ class _FilterMenuState extends State<FilterMenu> {
       FilterMenuData(
         'Assets Class',
         List.of([
-          MenuItem(13, 'Assets Class Item1'),
-          MenuItem(14, 'Assets Class Item2'),
-          MenuItem(15, 'Assets Class Item3'),
-          MenuItem(16, 'Assets Class Item4'),
-          MenuItem(18, 'Assets Class Item5'),
+          MenuItem("8",'AssetsClass', 'Equilt'),
+          MenuItem("9",'AssetsClass', 'Commodity'),
+          MenuItem("10",'AssetsClass', 'Interest-Rate'),
+          MenuItem("11",'AssetsClass', 'Multi-asset'),
+          //MenuItem(18, 'Assets Class Item5'),
         ]),
       ),
     );
 
     list.add(
       FilterMenuData(
-        'Assets Class',
+        'Geography',
         List.of([
-          MenuItem(19, 'Assets Class Item1'),
-          MenuItem(20, 'Assets Class Item2'),
-          MenuItem(21, 'Assets Class Item3'),
-          MenuItem(22, 'Assets Class Item4'),
-          MenuItem(23, 'Assets Class Item5'),
+          MenuItem("12",'geography', 'Canada'),
+          MenuItem("13",'geography', 'US'),
+          MenuItem("14",'geography', 'International'),
+          //MenuItem(22, 'Assets Class Item4'),
+          // MenuItem(23, 'Assets Class Item5'),
         ]),
       ),
     );
+
+   /* list.add(
+      FilterMenuData(
+        'Status',
+        List.of([
+          MenuItem('status', 'Called'),
+          MenuItem('status', 'Matured'),
+          MenuItem('status', 'Archived'),
+          // MenuItem(22, 'Assets Class Item4'),
+          // MenuItem(23, 'Assets Class Item5'),
+        ]),
+      ),
+    );*/
     return list;
   }
 
@@ -303,6 +316,25 @@ class _FilterMenuState extends State<FilterMenu> {
       }
     }
     HomePage.appliedFilterData.appliedSubMenu.add(submenu);
+
+    if(HomePage.appliedFilterData.subMenu == null){
+      HomePage.appliedFilterData.subMenu = new List<MenuItem>();
+    }
+
+    MenuItem newItem = HomePage.appliedFilterData.subMenu.firstWhere((item) =>
+    item.key == submenu.key,
+        orElse: () => null
+    );
+    if(newItem == null){
+      newItem = submenu;
+      HomePage.appliedFilterData.subMenu.add(newItem);
+    }
+
+    if(newItem.selectedValues == null){
+      newItem.selectedValues = new List<String>();
+    }
+    newItem.selectedValues.add(submenu.itemTitle);
+
     return false;
   }
 }
